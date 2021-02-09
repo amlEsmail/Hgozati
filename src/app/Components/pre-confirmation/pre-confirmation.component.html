@@ -1,0 +1,38 @@
+<app-payment-erorr [paymentError]="paymentError" *ngIf="paymentErrorStaus"></app-payment-erorr>
+<app-normalerror [normalError]='normalError' *ngIf="normalErrorStatus"></app-normalerror>
+<ng-container *ngIf="Loading">
+  <ng-container *ngTemplateOutlet="loading"></ng-container>
+</ng-container>
+
+<ng-container *ngIf="Failed">
+  <ng-container *ngTemplateOutlet="failed"></ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <div class="container ">
+      <div class="row justify-content-center loadingcard">
+          <div class="col text-center">
+                  <h1 class="Title animated infinite bounce delay-3s"> Your Reservation Is Under Processing </h1>
+          </div>
+          <div class="col-12 text-center">
+              <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+          </div>
+      </div>
+
+  </div>
+  
+</ng-template>
+
+<ng-template #failed>
+  <div class="container ">
+          <div class="row justify-content-center loadingcard">
+              <div class="col text-center">
+                      <h1 class="Title "> Sorry, Something went wrong please Try again </h1>
+              </div>
+              <div class="col-12 text-center MoreDetBtn">
+                 <button type="button" class="btn btn-outline-primary  moreResult " style="max-width:25%;"   id='faieldPayment'>New search</button>
+              </div>
+          </div>
+  
+      </div>
+</ng-template>

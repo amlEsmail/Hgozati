@@ -1,0 +1,18 @@
+h1 h2 h3 h4 h5 p{
+    font-family:  'DIN_Regular';
+}
+.Title{
+    text-align: center;
+    color: #fff;
+    font-family:  'DIN_Regular';
+    padding-top: 200px;
+}
+.sigment{
+    font-size: 30px;
+    color: #ffd740;
+}
+.sigment h3 {
+    font-size: 41px;
+    font-weight: bold;
+}
+

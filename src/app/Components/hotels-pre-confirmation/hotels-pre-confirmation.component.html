@@ -1,0 +1,79 @@
+
+    <div class="HpreConfirm">
+      <header [disable]='disabled'></header>
+      <h1 class="Title">
+        {{"SearchResult.adventure"|translate}}
+      </h1>
+    </div>
+
+
+    <div class="content">
+
+
+    <ng-container *ngIf="Loading">
+        <ng-container *ngTemplateOutlet="loadingH"></ng-container>
+      </ng-container>
+      <ng-container *ngIf="!Loading">
+        <ng-container *ngTemplateOutlet="preconfirm"></ng-container>
+      </ng-container>
+      
+     <app-footer></app-footer>
+      
+    </div>
+
+
+
+    <ng-template #preconfirm>
+
+        <div class="container">
+             <app-payment-erorr [paymentError]="paymentError" *ngIf="paymentErrorStaus"></app-payment-erorr>
+             <app-normalerror [normalError]='normalError' *ngIf="normalErrorStatus"></app-normalerror>
+             <div class="row justify-content-center">
+               <div class="col-12 align-self-center">
+                  <h2 class="title animationLoading"> {{"hotelConfirmation.paymentLoad" |translate}}  </h2>
+               </div>
+
+               <div class="col-12 ">
+                  <!-- <ng-container *ngIf="Failed">
+                      <ng-container *ngTemplateOutlet="failed"></ng-container>
+                    </ng-container> -->
+                  <ng-container *ngIf="Loading">
+                      <ng-container *ngTemplateOutlet="loadingH"></ng-container>
+                    </ng-container>
+              </div>
+
+             </div>
+        </div>
+      
+    </ng-template>
+
+
+
+
+<!-- <ng-template #failed>
+  <div class="container ">
+          <div class="row justify-content-center loadingcard">
+              <div class="col text-center">
+                      <h1 class="Title "> {{"hotelConfirmation.errMsg"|translate}} </h1>
+              </div>
+              <div class="col-12 text-center MoreDetBtn">
+                 <button type="button" class="btn btn-outline-primary  moreResult " style="max-width:25%;"   id='faieldPayment'>New search</button>
+              </div>
+          </div>
+  
+      </div>
+</ng-template> -->
+
+
+
+
+<!-- loading  -->
+<ng-template #loadingH>
+  <div class="text-center loadingImg">
+  
+      <img src="../../../assets/img/loading3.gif" alt="loading">
+  </div>
+  
+</ng-template>
+
+<!-- loading  -->

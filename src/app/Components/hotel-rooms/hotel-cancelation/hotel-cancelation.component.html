@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title roomfeatTitle text-center">{{"hotelRooms.cancelRules" | translate}} </h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body" *ngIf='(cancel|async); else loadingkst'>
+  <ng-container *ngFor="let role of cancel|async">
+    <p class="roomfeat"><span class="m-2">{{'KWD'|exchange:"code"}}</span><span >{{role.Price|exchange:"value"}}</span><span>From</span> {{role.FromDate}} <span
+        *ngIf="role.ToDate"> Until</span>{{role.ToDate}} </p>
+  </ng-container>
+</div>
+
+
+
+<ng-template #loadingkst>
+    <div class="text-center loadingImg">
+
+        <img src="../../../assets/img/loading3.gif" alt="loading">
+    </div>
+    
+  
+  </ng-template> 

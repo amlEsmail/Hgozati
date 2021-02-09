@@ -1,0 +1,89 @@
+
+
+<ng-container *ngIf="showFailed">
+  <ng-container *ngTemplateOutlet="failed"></ng-container>
+</ng-container>
+<ng-container *ngIf="showConfirm">
+  <ng-container *ngTemplateOutlet="Confirm"></ng-container>
+</ng-container>
+<ng-container *ngIf="showsucess">
+  <ng-container *ngTemplateOutlet="Sucess"></ng-container>
+</ng-container>
+<ng-container *ngIf="showError">
+  <ng-container *ngTemplateOutlet="normalError"></ng-container>
+</ng-container>
+
+<ng-template #Confirm>
+  <div class="container confirm ">
+      <div class="row justify-content-center  sucessMsg">
+        <div class="col-12 Hlogo">
+          <img src="../../../assets/img/hogzatiLogoen.svg" />
+        </div>
+          <div class="col-12  text-center">
+                  <h4 class=" sucessTitle  ">  Your Payment done ,please call Customer Service to complete payment process
+                    </h4>
+                 
+          
+      </div>
+
+  </div>
+  </div>
+  
+</ng-template>
+<ng-template #normalError>
+  <div class="container confirm ">
+      <div class="row justify-content-center  sucessMsg">
+        <div class="col-12 Hlogo">
+          <img src="../../../assets/img/hogzatiLogoen.svg" />
+        </div>
+          <div class="col-12  text-center">
+                  <h4 class=" sucessTitle  ">  somthing went wrong please search again
+                    </h4>
+                 
+          
+      </div>
+
+  </div>
+  </div>
+  
+</ng-template>
+
+
+<ng-template #Sucess>
+  <div class="container confirm ">
+      <div class="row justify-content-center  sucessMsg">
+        <div class="col-12 Hlogo">
+          <img src="../../../assets/img/hogzatiLogoen.svg" />
+        </div>
+          <div class="col-12  text-center">
+                  <h4 class=" sucessTitle  ">  your payment was successful
+                    </h4>
+                 
+          
+      </div>
+
+  </div>
+  </div>
+  
+</ng-template>
+
+
+
+
+<ng-template #failed>
+    <div class="container confirm ">
+        <div class="row justify-content-center FailedMsg">
+          <div class="col-12 Hlogo">
+            <img src="../../../assets/img/hogzatiLogoen.svg" />
+          </div>
+            <div class="col-12  text-center">
+                    <h4 class=" sucessTitle  "> sorry , your Payment failed  </h4>
+            </div>
+            
+        </div>
+  
+    </div>
+    
+  </ng-template>
+
+

@@ -1,0 +1,108 @@
+<div class="bestoffer-container">
+  <div class="container">
+
+    <div class="coursercont" style="max-width: 100%">
+
+      <div class="row BestTitle">
+        <div class="col-12 BestOfferTitle">
+          <h2 class=" BestOfferTitle">{{"BestOffer.BestOffeerHeadder"|translate}}</h2>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row offerSlider justify-content-center">
+
+      <ng-container *ngIf="newOffers">
+        <ng-container   *ngFor="let offer of newOffers.offers ;let i =index">
+          <div class=" single_item col-lg-3 col-md-3  col-sm-6 col-12  ">
+          <div class="img-container">
+            <div class="price">
+              <span>
+                <!-- 123 Le -->
+                {{offer.currency}} {{offer.totalSellPrice}} 
+              </span>
+            </div>
+            <img class="img-responsive" [src]="offer.offerImage.url">
+            <div class="img-overlay">
+              <div class="overlay-content">
+                <button type="button" class="btn  booking-button animated zoomIn" (click)="toOffers(i)">{{"BestOffer.Book"|translate}}</button>
+                <p class="overlay-title">
+                 
+                  {{"BestOffer.offerTitle"|translate}}
+                 </p>
+                <p class="overlay-desc"> {{"BestOffer.offerDescription"|translate}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      </ng-container>
+      
+      
+<!-- 
+      <div class=" single_item col-lg-3 col-md-3 col-sm-6 col-12  ">
+        <div class="img-container">
+          <div class="price">
+            <span>123 Le</span>
+          </div>
+          <img class="img-responsive" src="/assets/img/slide2.jpg">
+          <div class="img-overlay">
+            <div class="overlay-content">
+              <button type="button" class="btn  booking-button animated zoomIn">Book Now</button>
+              <p class="overlay-title">{{"BestOffer.offerTitle"|translate}} </p>
+              <p class="overlay-desc">some offer desc </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class=" single_item col-lg-3 col-md-3 col-sm-6 col-12  ">
+        <div class="img-container">
+          <div class="price">
+            <span>123 Le</span>
+          </div>
+          <img class="img-responsive" src="/assets/img/slide3.jpg">
+          <div class="img-overlay">
+            <div class="overlay-content">
+              <button type="button" class="btn  booking-button animated zoomIn">Book Now</button>
+              <p class="overlay-title">{{"BestOffer.offerTitle"|translate}} </p>
+              <p class="overlay-desc">some offer desc </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class=" single_item col-lg-3 col-md-3 col-sm-6 col-12  ">
+        <div class="img-container">
+          <div class="price">
+            <span>123 Le</span>
+          </div>
+          <img class="img-responsive" src="/assets/img/slide4.jpg">
+          <div class="img-overlay">
+            <div class="overlay-content">
+              <button type="button" class="btn  booking-button animated zoomIn">Book Now</button>
+              <p class="overlay-title">{{"BestOffer.offerTitle"|translate}} </p>
+              <p class="overlay-desc">some offer desc </p>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+
+
+
+
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,51 @@
+<div class="row justify-content-center align-items-center">
+  <div class="card  col-12 col-12 col-md-4 " style="margin-top: 15vh ;padding: 20px;">
+    <div class="col-12 text-center" >
+      <img src="../../../../assets/img/hogzatiLogoen.svg" class="logo" alt="logo">
+    </div>
+    <div class="col-12 text-center">
+       <h4>sign up to Hogozati </h4>
+    </div>
+    <div style="min-height: fit-content card-body">
+      <form [formGroup]="signupform" class="row justify-content-center" (ngSubmit)="onSubmit()">
+        <div class="col-12 col-md-7">
+          <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-user feildicon" matPrefix></i>
+            <input matInput placeholder="Name" required formControlName='User_Name' type="email">
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-7">
+          <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-envelope feildicon" matPrefix></i>
+            <input matInput placeholder="email Address" required formControlName='Email' type="email"
+              pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-md-7">
+          <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-phone feildicon" matPrefix></i>
+            <input matInput placeholder="Phone" required formControlName='PhoneNumber' type="">
+          </mat-form-field>
+        </div>
+     
+        <div class="col-12 col-md-7">
+          <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-lock feildicon" matPrefix></i>
+            <input matInput placeholder="Password" required formControlName='Password' type="password">
+          </mat-form-field>
+
+        </div>
+        <div class="col-12 col-md-7">
+            <mat-form-field color="accent" appearance="outline">
+              <i class="fas fa-lock feildicon" matPrefix></i>
+              <input matInput placeholder="Retype PassWord" required formControlName='ConfirmPassword' type="password">
+            </mat-form-field>
+          </div>
+        <div class=" col-12 col-md-7 text-center">
+          <button class="SingInButton" mat-raised-button click='onSubmit'>Sign UP</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

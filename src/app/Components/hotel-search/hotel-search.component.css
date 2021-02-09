@@ -1,0 +1,157 @@
+/* input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button
+{ 
+ -webkit-appearance: none; 
+ } */
+
+ .hotel-search
+ {
+    box-shadow: 4px 7px 28px rgba(0,0,0,0.09);
+    padding: 40px;
+    /* margin-top: -15px; */
+    background: rgb(255, 255, 255);
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+
+ 
+/* showminus */
+.roomrow
+{
+   background: rgba(236, 228, 206, 0.4588235294117647);
+   margin: 0;
+   padding: 5px 0;
+}
+.roomT ,.roomBtn
+{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.roomT h4
+{
+   font-size: 22px;
+   margin: 0;
+}
+.add-btn
+{
+   outline: 0;
+   width: 40px;
+   height: 40px;
+   text-align: center;
+   line-height: 40px;
+   display: inline-block;
+   margin: 3px;
+}
+
+
+:host::ng-deep.add-btn.mat-fab span.mat-button-wrapper {
+  padding: 0;
+}
+.add-btn img{
+   width: 20px;
+   height: 20px;
+  
+}
+
+.add-btn .mat-fab .mat-button-wrapper
+{
+   padding: 0;
+}
+
+.add-btn
+{
+
+}
+.hidePlus
+{
+  visibility:hidden;
+}
+.showPlus
+{
+  visibility:visible;
+}
+.hideMinus
+{
+  visibility:hidden;
+}
+.showMinus
+{
+  visibility:visible;
+}
+
+.guest
+{
+   padding: 0 10px;
+   border-bottom: 1px solid #ececec;
+   margin: 20px 0;
+}
+h4.roomNo 
+{
+font-size: 12px;
+}
+.donebuttone
+{background-color: #ffc107 !important;
+   border-color: #ffc107 !important;
+   border-radius: 0;
+}
+
+.menueBTN{
+   min-height: 46px;
+   position: relative;
+   top: -3px;
+   width: 100%;
+   /* margin-bottom: 6px; */
+   font-size: 16px;
+}
+.d-inline-block.dropdown
+{
+   width: 100%;
+}
+
+.dropdown-toggle::after
+{
+   margin-left: 0;
+}
+
+.mat-form-field {
+   margin-bottom: 6px;
+}
+.searchbutton{
+   display: inline-block;
+   width: 100%;
+   min-height: 43px;
+   position: relative;
+   top: -3px;
+   max-height: 48px;
+ /* max-width: 150px; */
+}
+
+.guest-dropDown
+{
+   width: 360px; padding: 5px 8px;
+   right: 0;
+}
+@media(max-width:480px)
+{
+   .guest-dropDown{
+      width:100% !important;
+   }
+}
+
+@media(max-width:1200px ) and (min-width:990px)
+{
+   .menueBTN,.searchbutton{
+      font-size: 12px
+   }
+
+}
+
+@media(max-width:768px){
+   .menueBTN{
+      margin-bottom:6px;
+   }
+}

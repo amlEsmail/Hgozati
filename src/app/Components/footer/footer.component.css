@@ -1,0 +1,128 @@
+footer
+{
+    text-align: center;
+background: #2c2e3d;
+padding: 10px;
+color: #fff;
+font-size: 18px;
+font-weight: 800;
+/* margin-top: 30px; */
+}
+
+.copy-rights p
+{
+margin-bottom: 0;
+
+}
+section {
+    padding: 60px 0 20px;
+}
+
+section .section-title {
+    text-align: center;
+    color: #2c2e3d;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+#footer {
+    background: #2c2e3d !important;
+    text-align: left;
+}
+#footer h5{
+	padding-left: 10px;
+    border-left: 3px solid #eeeeee;
+    padding-bottom: 6px;
+    margin-bottom: 20px;
+    color:#ffffff;
+}
+#footer a {
+    color: #ffffff;
+    text-decoration: none !important;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+#footer ul.social li{
+	padding: 3px 0;
+}
+#footer ul.social li a i {
+    margin-right: 5px;
+	font-size:25px;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.social li:hover a i {
+	font-size:30px;
+	margin-top:-10px;
+}
+#footer ul.social li a,
+#footer ul.quick-links li a{
+	color:#ffffff;
+}
+#footer ul.social li a:hover{
+	color:#eeeeee;
+}
+#footer ul.quick-links li{
+	padding: 3px 0;
+	-webkit-transition: .5s all ease;
+	-moz-transition: .5s all ease;
+	transition: .5s all ease;
+}
+#footer ul.quick-links li:hover{
+	padding: 3px 0;
+	margin-left:5px;
+	font-weight:700;
+}
+#footer ul.quick-links li a i{
+	margin-right: 5px;
+}
+#footer ul.quick-links li:hover a i {
+    font-weight: 700;
+}
+.btn-store {
+    color: #777777;
+    min-width: 254px;
+    padding: 12px 20px !important;
+    /* border-color: #dddddd !important; */
+    cursor: pointer;
+    border: 3px solid #dddddd !important
+  }
+  
+  .btn-store:focus, 
+  .btn-store:hover {
+    color: #ffffff !important;
+    background-color: #ffc107;
+    border:3px solid #ffc107 !important;
+    cursor: pointer !important;
+   
+  }
+.fab.pull-left {
+    margin-right: .3em;
+}
+
+.pull-left {
+    float: left;
+}
+  
+  .btn-store .btn-label, 
+  .btn-store .btn-caption {
+    display: block;
+    text-align: left;
+    line-height: 1;
+  }
+  
+  .btn-store .btn-caption {
+    font-size: 24px;
+  }
+
+@media (max-width:767px){
+	#footer h5 {
+    padding-left: 0;
+    border-left: transparent;
+    padding-bottom: 0px;
+    margin-bottom: 10px;
+}
+}
+ #footer a:hover{
+    cursor: pointer !important;
+}

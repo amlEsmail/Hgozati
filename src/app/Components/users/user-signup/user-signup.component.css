@@ -1,0 +1,65 @@
+.SingInButton {
+    background: #ffc107;
+    width: 50%;
+    border-radius: 20px;
+    color: white;
+    font-size: large;
+    margin: 10px;
+    
+}
+
+/* form feild  */
+:host ::ng-deep .mat-form-field { 
+    max-width: 100%;
+    width: 100% !important;
+}
+.user-box {
+ width: 50%;
+ height: 10vh;
+ background-color: blueviolet;
+}
+.user-icon {
+    font-size: 100px;
+    color: #ffc107;
+    padding: 20px;
+    margin: 10px;
+    background: gray;
+    border: 1px solid #979393a8;
+    border-radius: 4px;
+}
+.feildicon {
+    padding: 3px;
+    margin: 0px 10px 3px 0px;
+    color: #ffc107;
+    font-size: 20px;
+}
+a{
+    color: gray;
+}
+:host ::ng-deep .mat-raised-button .mat-accent {
+    background-color: #ffc107;
+}
+.logo {
+    vertical-align: middle;
+    border-style: none;
+    width: 174px;
+    padding: 10px;
+    margin: 10px;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #ececec;
+    background-clip: border-box;
+    border: 1px solid rgb(236, 236, 236);
+    border-radius: .25rem;
+}
+.card-body {
+    border: 1px solid #c9c6c6;
+    padding: 20px;
+    border-radius: 3px;
+    background: white;
+}

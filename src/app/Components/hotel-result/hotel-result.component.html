@@ -1,0 +1,656 @@
+<!-- hotel search-result card -->
+
+
+
+
+<div class="resultPage">
+  <header></header>
+  <h1 class="Title">
+    {{"SearchResult.adventure"|translate}}
+  </h1>
+</div>
+<!-- strat hotel page -->
+<div class="hotel-page">
+  
+  <!-- start  container -->
+  <div class="container">
+      <app-hotelresearch style="width:100%;" (research)="research($event)"></app-hotelresearch>
+
+      <!-- loading   -->
+<ng-container  *ngIf="loading">
+  
+    <div  class="loadingBar">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <!-- loading until hotel found -->
+    <ng-container >
+        <ng-container *ngTemplateOutlet="loadingt"></ng-container>
+    </ng-container>
+    <!-- loading until hotel found -->
+
+</ng-container>
+      <!-- loading   -->
+      <!-- Result Found -->
+ <ng-container *ngIf="ResultFound">
+
+ 
+      <div class=" Card_FilterMar" >
+
+     <!-- filtercard + hotelcard -->
+      <div class="row">
+          <div class="col-12">
+              <!-- filterbtn -->
+              <div class="row filterBtn">
+             
+                <div class="col-6">
+                    <h3>{{"SearchResult.Filter"|translate}}</h3>
+                  </div>
+                  <div class="col-6">
+                      <button type="button" class="navbar-toggler collapsed" (click)="isShowen=!isShowen" data-toggle="collapse"
+                        data-target="#filterCardT" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                   
+                    </div>
+                    <div class="clearfix"></div>
+             
+      
+              </div>
+              <!-- filterbtn -->
+      
+            </div>
+            <div class="col-12 p-0">
+              <div class="row">
+                   <!-- sorting button -->
+                      <div class="col-12 offset-lg-3 col-lg-9  " >
+                          <div class="row justify-content-between filter-sort">
+                              <div class="col-12 col-sm-4  align-self-center ">
+                                
+                                  <span class="sort-header-qty">
+                                    <span>{{hotels.length}}</span>  {{"hotelResult.hotelsFound"|translate}}
+                                    </span>
+                                  
+                              </div>
+                            <!-- price-filter + stars filter -->
+                            <div class="col-12 col-md-8 pr-0 sortingSelect ">
+                              <div class="row">
+                                  <div class="col-12 col-md-6">
+            
+                                      <mat-form-field color="accent" appearance="outline"  style="width: 100%">
+                                                
+                                          <mat-select #sort [(ngModel)]="sortvalue" (change)='sortByPrice(sortvalue)' 
+                                          placeholder='{{"hotelResult.selectPption" |translate}}'>                 
+                                            <mat-option value="2" selected (click)="sortByPrice(2)">{{"hotelResult.PriceLtoH"|translate}}</mat-option>
+                                            <mat-option value="3" (click)="sortByPrice(3)"> {{"hotelResult.PriceHtoL"|translate}}</mat-option>
+                                          </mat-select>
+                                        </mat-form-field>
+                                  </div>
+                                  <div class="col-12 col-md-6">
+                                    
+                                  <mat-form-field color="accent" appearance="outline"  style="width: 100%">
+                                                
+                                      <mat-select #sort2 [(ngModel)]="sortvalue2" (change)='sortByStars(sortvalue)' 
+                                      placeholder='{{"hotelResult.selectSption" |translate}}'>
+                          
+                                        <mat-option value="2" selected (click)="sortByStars(2)">{{"hotelResult.StarsLtoH"|translate}}</mat-option>
+                                        <mat-option value="3" (click)="sortByStars(3)"> {{"hotelResult.StarsHtoL"|translate}}</mat-option>
+                                      </mat-select>
+                                    </mat-form-field>
+  
+                                    </div>
+  
+  
+                              </div>
+                    
+  
+  
+  
+                                  <!-- test -->
+                                  
+                
+  
+                            </div>
+                            <!-- price-filter + stars filter -->
+
+                          </div>
+            
+                        </div>
+                    
+                  <!-- sorting button -->
+                <!-- filter card -->
+                <div class="col-12 col-lg-3  filterCard "  [formGroup]="filtrationForm" >
+                    <div class="collapse navbar-collapse " id="filterCardT" [ngClass]="{'in': isShowen}">
+                      
+                              <!-- hotel Name -->
+                              <div class="hotelName filter-item">
+                                  <h4>{{"hotelResult.hotelName"|translate}}</h4>
+                                  <mat-form-field appearance="outline"   color="accent" >
+                                      <input matInput  color="accent"  placeholder='{{"hotelResult.hotelNameplace"|translate}}' formControlName="Hotelname">
+                                  </mat-form-field>
+          
+                              </div>
+                                <!-- hotel Name -->
+                                <!-- filter accordion -->
+                                <ngb-accordion #acc="ngbAccordion" class="catagor" (panelChange)="changeIcon($event)"
+                                [activeIds]="activeIds">
+                                <ngb-panel class="catagor" id="panel-1">
+                                  <ng-template ngbPanelTitle>
+                                      {{"hotelResult.roomPrice"|translate}}
+                                    <span>
+                                      <i class="fa "
+                                        [ngClass]="{'fa-chevron-up':!panelOpenState[0] ,'fa-chevron-down':panelOpenState[0] }"></i>
+                                    </span>
+                                  </ng-template>
+                                  <ng-template ngbPanelContent>
+                                    <ng-container formGroupName="price">
+                                      <!-- *ngIf="!loading && !panelOpenState[0]" -->
+                                      <!-- <div class="custom-slider" >
+                                       
+                                        <ng5-slider  [options]="options" formControlName="priceSlider" value="0" highValue="3000">
+                                        </ng5-slider>
+                                      </div> -->
+                                      <ul class="price-filter">
+                                          <li class="list-filter-item" >
+                                            <mat-checkbox color="accent" formControlName="under33"><b>{{"hotelResult.under" |translate}}</b>  <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{rangemin|exchange:'value'}}</mat-checkbox>
+                               
+                                            <!-- <span class="hotel-number"> (56)</span> -->
+                                          </li>
+                                          <li class="list-filter-item">
+                                              <mat-checkbox color="accent" formControlName="from33To49"> <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{rangemin|exchange:'value'}}  <b>{{"hotelResult.to" |translate}}</b>  <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{minplus|exchange:'value'}} </mat-checkbox>
+                                 
+                                              <!-- <span class="hotel-number"> (30)</span> -->
+                                            </li>
+                                            <li class="list-filter-item">
+                                                <mat-checkbox color="accent" formControlName="from49To110"> <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{minplus|exchange:'value'}} <b>{{"hotelResult.to" |translate}}</b> <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{maxminus|exchange:'value'}} </mat-checkbox>
+                                            
+                                                <!-- <span class="hotel-number"> (10)</span> -->
+                                              </li>
+                                              <li class="list-filter-item">
+                                                  <mat-checkbox color="accent" formControlName="from110to168">
+                                                      <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{maxminus|exchange:'value'}} 
+                                                       <b>{{"hotelResult.to" |translate}}</b>  <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{rangemax|exchange:'value'}}
+                                                  </mat-checkbox>
+                                           
+                                                  <!-- <span class="hotel-number"> (16)</span> -->
+                                                </li>
+                                                <li class="list-filter-item">
+                                                    <mat-checkbox color="accent" formControlName="over168"><b>{{"hotelResult.over" |translate}}</b> <small>{{mycurruncy.baseCurruncy|exchange:'code'}}</small> {{rangemax|exchange:'value'}} </mat-checkbox>
+                                                     <!-- <span class="hotel-number"> (4)</span> -->
+                                                  </li>
+                                        </ul>
+                                    </ng-container>
+                                  </ng-template>
+                                </ngb-panel>
+                                <ngb-panel class="catagor" id="panel-2">
+                                  <ng-template ngbPanelTitle>
+                                      {{"hotelResult.starClass"|translate}}
+                                    <span>
+                                      <i class="fa "
+                                        [ngClass]="{'fa-chevron-up':!panelOpenState[1] ,'fa-chevron-down':panelOpenState[1] }"></i>
+                                    </span>
+                                  </ng-template>
+                                  <ng-template ngbPanelContent>
+                                    <ul formGroupName="rate" class="stars-filter">
+                                        <li class="list-filter-item">
+                                            <mat-checkbox #stars color="accent" formControlName="stars5"  (click)="clickstars(filtrationForm.get('rate').value['stars5'],5)"></mat-checkbox>
+                                            <span>5 {{"hotelResult.stars"|translate}}</span>
+                                            <span><i class="fa fa-star yellow"></i></span>
+                                            <span><i class="fa fa-star yellow"></i></span>
+                                            <span><i class="fa fa-star yellow"></i></span>
+                                            <span><i class="fa fa-star yellow"></i></span>
+                                            <span><i class="fa fa-star yellow"></i></span>
+                                            <!-- <span class="hotel-number"> (56)</span> -->
+                                          </li>
+                                          <li class="list-filter-item">
+                                              <mat-checkbox color="accent" formControlName="stars4"  (click)="clickstars(filtrationForm.get('rate').value['stars4'],4)"></mat-checkbox>
+                                              <span>4 {{"hotelResult.stars"|translate}}</span>
+                                              <span><i class="fa fa-star yellow"></i></span>
+                                              <span><i class="fa fa-star yellow"></i></span>
+                                              <span><i class="fa fa-star yellow"></i></span>
+                                              <span><i class="fa fa-star yellow"></i></span>
+                                       
+                                              <!-- <span class="hotel-number"> (30)</span> -->
+                                            </li>
+                                            <li class="list-filter-item">
+                                                <mat-checkbox color="accent" formControlName="stars3"  (click)="clickstars(filtrationForm.get('rate').value['stars3'],3)"></mat-checkbox>
+                                                <span>3 {{"hotelResult.stars"|translate}}</span>
+                                                <span><i class="fa fa-star yellow"></i></span>
+                                                <span><i class="fa fa-star yellow"></i></span>
+                                                <span><i class="fa fa-star yellow"></i></span>
+                                
+                                          
+                                                <!-- <span class="hotel-number"> (10)</span> -->
+                                              </li>
+                                              <li class="list-filter-item">
+                                                  <mat-checkbox color="accent" formControlName="stars2" (click)="clickstars(filtrationForm.get('rate').value['stars2'],2)"></mat-checkbox>
+                                                  <span>2 {{"hotelResult.star"|translate}}</span>
+                                                  <span><i class="fa fa-star yellow"></i></span>
+                                                  <span><i class="fa fa-star yellow"></i></span>
+                                          
+                                       
+                                                  <!-- <span class="hotel-number"> (16)</span> -->
+                                                </li>
+                                                <li class="list-filter-item">
+                                                 
+                                                    <mat-checkbox color="accent" formControlName="star"(click)="clickstars(filtrationForm.get('rate').value['star'],1)"></mat-checkbox>
+                                                    <span>1{{"hotelResult.star"|translate}}</span>
+                                                    <span><i class="fa fa-star yellow"></i></span>
+                                           
+                                                    <!-- <span class="hotel-number"> (4)</span> -->
+                                                  </li>
+                  
+                                    </ul>
+                  
+                                  </ng-template>
+                                </ngb-panel>
+                                <ngb-panel class="catagor" id="panel-3">
+                                  <ng-template ngbPanelTitle>
+                                      {{"hotelResult.Neighborhoods"|translate}}  <span>
+                                      <i class="fa "
+                                        [ngClass]="{'fa-chevron-up':!panelOpenState[2] ,'fa-chevron-down':panelOpenState[2] }"></i>
+                                    </span>
+                                  </ng-template>
+                                  <ng-template ngbPanelContent>
+                               
+                                      <ul class="cities-filter" formArrayName="neighbor">
+                                          <ng-container *ngFor="let item of filtrationForm.get('neighbor').controls;let i= index">
+                                              <li class="list-filter-item">
+                                                  <mat-checkbox color="accent" [formControlName]="i"> {{neighborhoods[i]}} </mat-checkbox>
+                                     
+                                                  <!-- <span class="hotel-number"> (56)</span> -->
+                                                </li>
+                                          </ng-container>
+                                           
+                                        </ul>
+                  
+                                  </ng-template>
+                                </ngb-panel>
+                         
+                              </ngb-accordion>
+                     
+                              <!-- filter accordion -->
+
+                
+                      </div> 
+                </div>
+                  <!-- filter card -->
+                  <!-- hotel card -->
+                  <div class="col-12 col-lg-9 pr-0" >
+          
+                    <!-- start looping hotel -->
+                      <div class="hotelsContainer row">
+                      
+                              <!-- loopinghere  -->
+                              <virtual-scroller #scroll [items]="filterdhotels" [parentScroll]="scroll.window" [ngStyle]="{'height.px': scrollH}"
+                              [enableUnequalChildrenSizes]="true"  [bufferAmount]="5" style="width: 100%">
+                              <ng-container  *ngFor="let hotel of scroll.viewPortItems; let i =index">
+                                  <div class="hotel-item" >
+                                      <div class="row">
+                                        <div class="col-12 col-md-4 p-0">
+                                          <!-- hotel-gallery  -->
+                                          <div class="hotelGallery">                       
+                                            <div class="single">
+                                                <div class="galley-img">
+                                                    <img class="img-fluid"[defaultImage]="defaultImage" [lazyLoad]="hotel.hotelThumb" />
+                                                </div>
+                                            </div>
+                                
+                                          </div> 
+     
+                                          <!-- hotel-gallery  -->
+                                        </div>
+                                         <!-- main-details -->
+                                        <div class="col-12 col-md-8 border-title-right">
+                                      
+                                       <div class="row">
+                                            <div class="col-12 ">
+                                            <div class="Hotel-title">
+                                              <!-- hotel name -->
+                                               <h2> 
+                                                 <span class="hotelName">
+                                                    {{hotel.hotelName}}
+                                                 </span>
+                                               <span class="rating">
+                                                      <!--looping-stars -->
+                                                    <ng-container *ngFor="let star of getRating(hotel.hotelStars)">
+                                                       <i class="fa fa-star"></i>
+                                                    </ng-container>
+                                                        <!--looping-stars -->
+                                     
+                                                </span>
+                                                <p class="hotel-loc"> 
+                                                  <!-- city && country  -->
+                                                 <!-- 1115 Corniche El Nile, Cairo 12334  -->
+                                                  <i class="fas fa-map-marker-alt"></i>  <span>{{hotel.Address}} </span> </p>
+                                               </h2>
+
+                                       
+            
+                                            </div>
+            
+                                            </div>
+                                            <!-- hotelDesc -->
+                                            <div class="col-12 col-md-10">
+                                                <p class="hotelDes">
+                                                    <!-- shortcutHotelDescription -->
+                                                    {{hotel.hotelDescription}}
+                                                  </p>
+                                     
+                                          
+                                            </div>
+                                      
+                                            
+                                            <!-- hotelDesc-->
+                                            <!-- hotel AMENTIES  + price btn -->
+                                            <div class="col-12">
+                                              <div class="row">
+                                                  <!-- hotel AMENTIES  -->
+                                                <div class="col-12 col-md-7 p-0 align-self-center justify-content-center">
+                                                 <!-- btn to show hotel details  -->
+                                        
+                                                  <a   class="detailsLink" data-toggle="modal" (click)="togglemodel(hotel)"> {{"hotelResult.moreDetails"|translate}} </a>
+                                                <!-- btn to show hotel details  -->
+                                                    <!-- <h5 class="features-title"> -->
+                                                        <!-- <a  class="slink" (click)="trueT[i]= !trueT[i]"
+                                                        [attr.aria-expanded]="!trueT[i]" aria-controls="collapseItem">
+                                                            <span>{{"hotelResult.moreDetails"|translate}} </span>
+                                                            <i class="fa  " [ngClass]="{'fa-plus': trueT[i], 'fa-minus':!trueT[i]}"></i>
+                                                        </a> -->
+                                                        <!-- {{"hotelResult.hotelAmenities"|translate}} -->
+                                                    <!-- </h5> -->
+                                                    <!-- <ul class="hotel-features"> -->
+                                                      <!-- loop amenities  --> 
+                                                        <!-- <ng-container *ngFor="let feature of hotel.Amenities;let f = index ">
+                                                            <li><i class="far fa-check-circle text-success"></i> {{ feature.Amenity }}</li>
+                                                        </ng-container> -->
+                                                      <!-- loop amenities  --> 
+                                                      <!-- </ul> -->
+                                                </div>
+                                                 <!-- hotel AMENTIES  -->
+                                                <div class="col-12 col-md-5 align-self-center justify-content-center">
+                                                  <!-- no of nights and rooms -->
+                                                  <p class="no-guest-nights"> 
+                                                    <span > {{allNights}} </span> {{"hotelResult.nights"|translate}},
+                                                    <span>{{roomNumber}}</span>{{"hotelResult.rooms"|translate}} 
+                                                  </p>
+                                               <!-- no of nights and rooms -->
+                                               <!-- book-btn + price  -->
+                                               <div class="Price"  (click)="showRoom(hotel)">
+                                                  <p>  {{hotel.sellCurrency|exchange:'code'}} 
+                                                      {{hotel.TotalSellPrice|exchange:'value' }}</p>
+                                                    <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+                                               </div>
+                                                  
+                                                </div>
+                                              </div>
+                                        
+
+
+                                            </div>
+                     
+                                          </div>
+                      
+                             
+                                        </div>
+                                           <!-- main-details -->
+            
+                 
+                                      </div>
+            
+                                    </div>
+                             
+                             </ng-container>
+                              </virtual-scroller>
+                     
+                         
+
+                      </div>
+                
+                   </div>
+       
+                 <div class="clearfix"></div>
+      
+              </div>  
+             </div>
+        </div>
+     
+        <!-- filtercard + hotelcard -->
+      </div>
+  
+  
+
+      </ng-container>
+
+      <!-- Result Found -->
+
+ <!-- hotel full details Modal -->
+ <div class="modal fade" id="hotelDetails" tabindex="-1" role="dialog" aria-hidden="true"   >   
+
+    <app-hotel-details [hotelDetails]="hotelDetails" [searchId]="searchId"  ></app-hotel-details>
+
+
+
+  </div> 
+    <!-- hotel full details Modal -->
+  
+
+
+
+  </div>
+
+  <!-- end container -->
+
+</div>
+<!-- strat hotel page -->
+
+<!-- footer -->
+<app-footer></app-footer>
+<!-- footer -->
+
+
+
+  
+
+<ng-template #loadingt>
+  <!-- <div class="col-lg-3  col-sm-12 animationLoading mt-2">
+  </div> -->
+  <div class="col-lg-12 col-sm-12 animationLoading mt-2">
+    <div class="col-lg-12 col-sm-12 CardStyle p-0  two" style="height: inherit;">
+        <div class="hotelLoad" style="margin-bottom: 10px;">
+            <div class="row">
+              <div class="col-12 col-md-4 p-0">
+                <!-- hotel-gallery  -->
+                <div class="hotelGallery one " style="height: 100%;">                       
+                  <div class="single">
+                      <div class="galley-img" style="width: 250px; " >
+                         
+                      </div>
+                  </div>
+      
+                </div> 
+
+                <!-- hotel-gallery  -->
+              </div>
+               <!-- main-details -->
+              <div class="col-12 col-md-8 ">
+            
+             <div class="row">
+                  <div class="col-12 ">
+                  <div class="Hotel-title one" style="width: 100%;height:60px;">
+   
+                  </div>
+
+                  </div>
+                  <!-- hotelDesc -->
+                  <div class="col-12 col-md-10">
+                      <p class="hotelDes one" style="height: 30px;    border-top: 0;   margin-top: 10px;">
+                        </p>
+                 
+                
+                  </div>
+                  <!-- hotelDesc-->
+                  <!-- hotel AMENTIES  + price btn -->
+                  <div class="col-12">
+                    <div class="row">
+                        <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-7 one p-0" style="height: 70px;margin-bottom: 10px;">
+               
+                      </div>
+                       <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-5 align-self-center justify-content-center">
+
+                          <div class="Price one"   style="height:70px; border: none;">
+            
+                          </div>
+
+                      </div>
+                    </div>        
+                  </div>
+
+                </div>
+
+              </div>
+                 <!-- main-details -->
+            </div>
+          </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 CardStyle p-0  two" style="height: inherit;">
+        <div class="hotelLoad" style="margin-bottom: 10px;">
+            <div class="row">
+              <div class="col-12 col-md-4 p-0">
+                <!-- hotel-gallery  -->
+                <div class="hotelGallery one " style="height: 100%;">                       
+                  <div class="single">
+                      <div class="galley-img" style="width: 250px; " >
+                         
+                      </div>
+                  </div>
+      
+                </div> 
+
+                <!-- hotel-gallery  -->
+              </div>
+               <!-- main-details -->
+              <div class="col-12 col-md-8 ">
+            
+             <div class="row">
+                  <div class="col-12 ">
+                  <div class="Hotel-title one" style="width: 100%;height:60px;">
+   
+                  </div>
+
+                  </div>
+                  <!-- hotelDesc -->
+                  <div class="col-12 col-md-10">
+                      <p class="hotelDes one" style="height: 30px;    border-top: 0;   margin-top: 10px;">
+                        </p>
+                 
+                
+                  </div>
+                  <!-- hotelDesc-->
+                  <!-- hotel AMENTIES  + price btn -->
+                  <div class="col-12">
+                    <div class="row">
+                        <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-7 one p-0" style="height: 70px;margin-bottom: 10px;">
+               
+                      </div>
+                       <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-5 align-self-center justify-content-center">
+
+                          <div class="Price one"   style="height:70px; border: none;">
+            
+                          </div>
+
+                      </div>
+                    </div>        
+                  </div>
+
+                </div>
+
+              </div>
+                 <!-- main-details -->
+            </div>
+          </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 CardStyle p-0  two" style="height: inherit;">
+        <div class="hotelLoad" style="margin-bottom: 10px;">
+            <div class="row">
+              <div class="col-12 col-md-4 p-0">
+                <!-- hotel-gallery  -->
+                <div class="hotelGallery one " style="height: 100%;">                       
+                  <div class="single">
+                      <div class="galley-img" style="width: 250px; " >
+                         
+                      </div>
+                  </div>
+      
+                </div> 
+
+                <!-- hotel-gallery  -->
+              </div>
+               <!-- main-details -->
+              <div class="col-12 col-md-8 ">
+            
+             <div class="row">
+                  <div class="col-12 ">
+                  <div class="Hotel-title one" style="width: 100%;height:60px;">
+   
+                  </div>
+
+                  </div>
+                  <!-- hotelDesc -->
+                  <div class="col-12 col-md-10">
+                      <p class="hotelDes one" style="height: 30px;    border-top: 0;   margin-top: 10px;">
+                        </p>
+                 
+                
+                  </div>
+                  <!-- hotelDesc-->
+                  <!-- hotel AMENTIES  + price btn -->
+                  <div class="col-12">
+                    <div class="row">
+                        <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-7 one p-0" style="height: 70px;margin-bottom: 10px;">
+               
+                      </div>
+                       <!-- hotel AMENTIES  -->
+                      <div class="col-12 col-md-5 align-self-center justify-content-center">
+
+                          <div class="Price one"   style="height:70px; border: none;">
+            
+                          </div>
+
+                      </div>
+                    </div>        
+                  </div>
+
+                </div>
+
+              </div>
+                 <!-- main-details -->
+            </div>
+          </div>
+    </div>
+    
+    
+
+
+  </div>
+
+
+</ng-template>
+
+
+
+
+
+
+  
+  
+  
+  <!-- hotel search-result card -->

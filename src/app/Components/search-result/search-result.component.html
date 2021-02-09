@@ -1,0 +1,3154 @@
+<div class="resultPage">
+  <header></header>
+  <h1 class="Title">
+    {{"SearchResult.adventure"|translate}}
+  </h1>
+</div>
+<div class="container">
+  <div class="row">
+    <app-research style="width:100%;" (research)="research($event)"></app-research>
+  </div>
+
+  <!-- loading bar  -->
+
+  <div *ngIf="loading" class="loadingBar">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+
+  <!-- loading bar  -->
+  <!-- sorting button -->
+  <div class="row justify-content-between filter-sort" *ngIf="!loading">
+
+
+    <div class="col-12 col-sm-8  sort-filter align-self-center">
+      <!-- <span> <h3> {{"SearchResult.SortMyResult"|translate}} </h3> </span> -->
+      <button mat-raised-button color="accent" class="ml-2 sortingButtons" (click)='sortByPrice()'>
+        <img src="../../../assets/img/dollar.svg" alt="price">
+        <span>{{"SearchResult.Price"|translate}}</span> </button>
+      <button mat-raised-button color="accent" class="ml-2 sortingButtons" (click)='sortByDuration()'>
+        <img src="../../../assets/img/clock-regular.svg" width="34px" height="30px" alt="time">
+
+        <span>{{"SearchResult.Duration"|translate}}</span> </button>
+      <button mat-raised-button color="accent" class="ml-2 sortingButtons" (click)='sortByDeprting()'>
+        <img src="../../../assets/img/plane-departure-solid.svg" width="34px" height="30px" alt="time">
+
+        <span>{{"SearchResult.Departing"|translate}}</span></button>
+      <button mat-raised-button color="accent" class="ml-2 sortingButtons" (click)='sortByArrival()'>
+        <img src="../../../assets/img/plane-arrival-solid.svg" width="34px" height="30px" alt="time">
+
+
+        <span>{{"SearchResult.Arrivaltime"|translate}} </span> </button>
+    </div>
+    <div class="col-12 col-sm-4  text-right resNo align-self-center">
+      <h3> {{"SearchResult.ResultFound"|translate}} {{response?.airItineraries.length}}</h3>
+    </div>
+  </div>
+  <!-- sorting button -->
+  <div class="row">
+    <!-- filter -->
+    <!--start row for card-->
+    <div class="col-lg-12 col-sm-12 Card_FilterMar">
+      <div class="row">
+        <div class="row filterBtn">
+          <div class="col-6">
+            <h3>{{"SearchResult.Filter"|translate}}</h3>
+          </div>
+          <div class="col-6">
+            <button type="button" class="navbar-toggler collapsed" (click)="isShowen=!isShowen" data-toggle="collapse"
+              data-target="#filterCardT" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
+
+        <div class="col-lg-3 col-sm-12 filterCard " [formGroup]="filterForm" style="margin-top:10px">
+          <div class="collapse navbar-collapse" id="filterCardT" [ngClass]="{'in': isShowen}">
+            <ngb-accordion #acc="ngbAccordion" class="catagor" (panelChange)="changeIcon($event)"
+              [activeIds]="activeIds">
+              <ngb-panel class="catagor" id="panel-1">
+                <ng-template ngbPanelTitle>
+                  {{"SearchResult.Price"|translate}}
+                  <span>
+                    <i class="fa "
+                      [ngClass]="{'fa-chevron-up':!panelOpenState[0] ,'fa-chevron-down':panelOpenState[0] }"></i>
+                  </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <ng-container>
+                    <!-- *ngIf="!loading && !panelOpenState[0]" -->
+                    <div class="custom-slider" *ngIf="!loading && !panelOpenState[0]">
+                      <ng5-slider formControlName="priceSlider" [options]="options" value="0" highValue="3000">
+                      </ng5-slider>
+                    </div>
+                  </ng-container>
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel class="catagor" id="panel-2">
+                <ng-template ngbPanelTitle>
+                  {{"SearchResult.Stops"|translate}}
+                  <span>
+                    <i class="fa "
+                      [ngClass]="{'fa-chevron-up':!panelOpenState[1] ,'fa-chevron-down':panelOpenState[1] }"></i>
+                  </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <div formGroupName="stopsForm" class="stopsForm">
+                    <div class="row">
+                      <div class="col-12">
+                        <mat-checkbox formControlName="noStops">{{"SearchResult.Direct"|translate}}</mat-checkbox>
+                      </div>
+                      <div class="col-12">
+                        <mat-checkbox formControlName="oneStop">{{"SearchResult.OneStop"|translate}}</mat-checkbox>
+                      </div>
+                      <div class="col-12">
+                        <mat-checkbox formControlName="twoAndm">{{"SearchResult.2+Stop"|translate}}</mat-checkbox>
+                      </div>
+
+
+
+
+                    </div>
+
+                  </div>
+
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel class="catagor" id="panel-3">
+                <ng-template ngbPanelTitle>
+                  {{"SearchResult.FlightTime"|translate}} <span>
+                    <i class="fa "
+                      [ngClass]="{'fa-chevron-up':!panelOpenState[2] ,'fa-chevron-down':panelOpenState[2] }"></i>
+                  </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <p>{{"SearchResult.DpartingTime"|translate}}</p>
+                  <div class="custom-slider">
+                    <ng-container>
+                      <div class="custom-slider" *ngIf="!loading && !panelOpenState[2]">
+                        <ng5-slider formControlName="dpartingSlider" [options]="optionsdeparting" value="0"
+                          highValue="3000">
+                        </ng5-slider>
+                      </div>
+                    </ng-container>
+
+                  </div>
+                  <ng-container *ngIf="!loading">
+                    <!-- <ng-container *ngIf="response.searchCriteria.flightType == 'roundtrip'"> -->
+                    <ng-container *ngIf="false">
+                      <p>{{"SearchResult.ReturnTime"|translate}}</p>
+                      <div class="custom-slider">
+                        <ng-container>
+                          <div class="custom-slider" *ngIf="!loading">
+                            <ng5-slider formControlName="returnSlider" [options]="options3" value="0" highValue="3000">
+                            </ng5-slider>
+                          </div>
+                        </ng-container>
+
+                      </div>
+                    </ng-container>
+                  </ng-container>
+
+
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel class="catagor" id="panel-4">
+                <ng-template ngbPanelTitle>
+                  {{"SearchResult.FlightDuration"|translate}} <span>
+                    <i class="fa "
+                      [ngClass]="{'fa-chevron-up':!panelOpenState[3] ,'fa-chevron-down':panelOpenState[3] }"></i>
+                  </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <ng-container>
+                    <div class="custom-slider" *ngIf="!loading && !panelOpenState[3]">
+                      <ng5-slider formControlName="durationSlider" [options]="optionsDurathion" value="0"
+                        highValue="600">
+                      </ng5-slider>
+                    </div>
+                  </ng-container>
+
+                </ng-template>
+              </ngb-panel>
+              <ngb-panel class="catagor" id="panel-5">
+                <ng-template ngbPanelTitle>
+                  {{"SearchResult.Airlines"|translate}}
+                  <span>
+                    <i class="fa "
+                      [ngClass]="{'fa-chevron-up':!panelOpenState[4] ,'fa-chevron-down':panelOpenState[4] }"></i>
+                  </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                  <ng-container formGroupName="airline">
+                    <ng-container formArrayName='airlines'>
+                      <ng-container
+                        *ngFor="let item of filterForm.get('airline').get('airlines').controls;let i= index">
+                        <div class="row">
+                          <mat-checkbox [formControlName]="i">{{airlinesA[i]}}</mat-checkbox>
+                        </div>
+
+                      </ng-container>
+
+                    </ng-container>
+
+                  </ng-container>
+
+                </ng-template>
+              </ngb-panel>
+            </ngb-accordion>
+          </div>
+
+        </div>
+        <!-- <input type="number" #mrate [(ngModel)]="rate"  disabled> -->
+        <ng-container>
+          <!-- <div class="col-lg-9 col-sm-12 scrolling mt-2" *ngIf="resultCard"> -->
+          <div class="col-lg-9 col-sm-12  " *ngIf="resultCard">
+            <ng-container *ngFor="let item of orgnizedResponce;let i= index;">
+              <div class="col-lg-12 col-sm-12 CardStyle">
+
+                <!--first Row-->
+                <div class="row FirstRowDet">
+                  <div class="col-lg-3 col-sm-12 align-items-center justify-content-center ">
+                    <div class="airlineLogo">
+                      <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+                    </div>
+                    <!-- refundText -->
+                    <!-- <div class="refundText"
+                      [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                      <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                      <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+                    </div> -->
+                    <!-- refundText -->
+
+                  </div>
+                  <!--Dept,Land,Capin class and No.Passenger-->
+                  <div class="col-lg-6 order-sm-1 order-2 col-sm-6 DetLanDetails">
+                    <p>{{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                      ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                      -
+                      {{arrivalCity(item[0],0)}}
+                      ({{arrivalAircode(item[0],0)}})</p>
+
+                    <span> {{"SearchResult.Passenger"|translate}}: {{response.searchCriteria?.totalPassengersNum}},
+                      Class:{{response.cabinClasses}}
+                      ({{response.searchCriteria?.flightType}})</span>
+                  </div>
+                  <!--Total Amount-->
+                  <div class="col-lg-3 order-1 col-sm-6 ">
+                    <div class="Price"  (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)" >
+                        <p>{{response.searchCriteria.currency|exchange:'code'}}
+                            {{item[0].itinTotalFare.amount|exchange:'value'}}</p>
+                          <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+                    </div>
+                    <!-- refundText -->
+                    <div class="refundText"
+                    [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                    <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                    <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+                  </div>
+                  <!-- refundText -->
+                  </div>
+
+                </div>
+    
+                <!--Row for Trip duration-->
+                <div class="row durationrow">
+                  <div class=" text-center Duration p0">
+                    <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+                    <p>{{item[0].totalDuration| hourminute}}</p>
+                  </div>
+                </div>
+                <!--Row for line Dept and Land-->
+                <div class="row ArtDetails">
+                  <div class="DeptClass col-4">
+                    <p>{{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                      ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                    </p>
+                  </div>
+                  <div class="col-4">
+                    <hr>
+                  </div>
+
+                  <div class="LandClass col-4">
+                    <p>{{arrivalCity(item[0],0)}}
+                      ({{arrivalAircode(item[0],0)}})</p>
+                  </div>
+                </div>
+                <!--Date Of trip-->
+                <div class="row DateTrip">
+                  <div class="col">
+                    <p class="mb-0 ml-3">
+                      {{item[0].allJourney.flights[0].flightDTO[0].departureDate | date:'shortTime'}}
+                    </p>
+                    <div>
+                      <p>{{item[0].allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col Stops">
+                    <p>{{direct(item[0].allJourney.flights[0].stopsNum)|translate}}</p>
+                  </div>
+                  <div class="col Pright">
+                    <p class="mb-0 mr-3">{{arrivalDate(item[0],0) | date:'shortTime'}}</p>
+                    <div>
+                      <p>{{arrivalDate(item[0],0) | date:'mediumDate'}}</p>
+                    </div>
+                  </div>
+                </div>
+                <!--Btn For Details-->
+                <div class="row MoreDetBtn">
+                  <!-- <div class="col-4">
+
+                                    </div> -->
+                  <div class="col-6">
+                    <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+i"
+                      (click)='togglemodel(i)'>
+                      {{"SearchResult.MoreDetails"|translate}}
+                    </button>
+                  </div>
+                  <div class="col-6 pr-0">
+                    <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[i]= !trueT[i]"
+                      [attr.aria-expanded]="!trueT[i]" aria-controls="collapseItem" *ngIf="item.length > 1">
+                      {{item.length-1}} {{"SearchResult.Moreresult"|translate}}
+                      <i class="fa fa-chevron-down fa-x"></i>
+                    </button>
+                  </div>
+
+
+                </div>
+                <!--Modal For Details-->
+                <!-- Modal -->
+                <div class="modal fade" [id]="i" tabindex="-1" role="dialog" aria-labelledby="BookDetailsModal"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="container">
+                          <!--Start Row for Dept and price details-->
+                          <div class="row">
+                            <div class="col ">
+                              <p class="modelDA">
+                                {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                                ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                                -
+                                {{arrivalCity(item[0],0)}}
+                                ({{arrivalAircode(item[0],0)}})</p>
+                              <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                                <b>{{item[0].allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+                              </p>
+
+                            </div>
+                            <div class="col">
+                              <div class="row justify-content-end">
+                                <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}}
+                                  alt=" logo" class="modelLogo">
+                              </div>
+                              <div class="row justify-content-end">
+                                <div class="PriceDetailsM">
+                                
+                                    <span>{{response.searchCriteria?.currency}}
+                                      {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                                    <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                    <p class="refundText"
+                                    [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                    <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                                    <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}}
+                                    </span>
+    
+                                  </p>
+                              
+                       
+                                </div>
+                       
+
+
+                              </div>
+
+                              <!-- <div class="row justify-content-end">
+                                <div class="refundText"
+                                  [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                  <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                                  <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}}
+                                  </span>
+
+                                </div>
+                              </div> -->
+
+                            </div>
+                          </div>
+                          <!--second Row-->
+                          <div class="row">
+                            <div class="col">
+
+                            </div>
+                          </div>
+                          <!--Card Details-->
+                          <div class="CardDet container">
+                            <div class="row ArtDetails">
+                              <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                                <p class="cityname">
+                                  {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                                  <br><span class="airportcode text-center">
+                                    ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                                </p>
+                              </div>
+                              <div class="col-lg-8 col-sm-6 col-md-8">
+                                <div class="route ">
+                                    <!-- <div class="route routeSegment"> -->
+                                    <img src="../../../assets/img/direct.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 0"  />                    
+                                    <img src="../../../assets/img/oneS.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 1" />
+                                    <img src="../../../assets/img/twoS.png" *ngIf="item[0].allJourney.flights[0].stopsNum > 1" />
+                                  <!-- <div class="point ml-auto firstPoint"></div>
+                                  <div class="point stopPoint"
+                                    *ngIf="direct(item[0].allJourney.flights[0].stopsNum)!=='Direct'"></div>
+                                  <hr style="
+                                                                box-sizing: content-box;
+                                                                height: 1px;
+                                                                overflow: visible;
+                                                                width: 90%;
+                                                                border: 0.2px solid #00000042;
+                                                                border-radius: 0px;
+                                                                margin-left: 0px;
+                                                                margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div> -->
+                                </div>
+                              </div>
+                              <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                                <p class="cityname">{{arrivalCity(item[0],0)}} <br>
+                                  <span class="airportcode textalignc">({{arrivalAircode(item[0],0)}})</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                              <div class="col Stops">
+                                <p class="ml-auto mr-auto"> 
+                                  {{direct(item[0].allJourney.flights[0].stopsNum)|translate}}</p>
+                              </div>
+                            </div>
+                            <div class="row ">
+                              <hr style=" box-sizing: content-box;
+                                                            height: 1px;
+                                                            overflow: visible;
+                                                            width: 96%;
+                                                            border: 0.2px solid #0000001f;
+                                                            border-radius: 0px;">
+                            </div>
+                            <!-- <div *ngIf="showStop(item[0],0)"> -->
+                            <div class="row">
+                              <ng-container *ngFor="let stop of showStopStation(item[0],0);let s =index  ">
+                                <div class="col-sm-12 col-md-9">
+                                  <div class="row">
+                                    <div
+                                      class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                      <p class="marg cityname">
+                                        {{stop.departureTerminalAirport.cityName}}
+                                        ({{stop.departureTerminalAirport.airportCode}})
+                                      </p>
+                                      <span class="marg small">
+                                        <small class="marg infodate">
+                                          <!-- departure date  -->
+                                          {{stop.departureDate | date:'dd MMM'}}
+                                          <!-- 15 April -->
+
+                                        </small>
+                                        <small class="marg infotimeandHall">
+                                          {{stop.departureDate | date:'shortTime'}}
+                                          <!-- 6:50 -->
+                                        </small>
+                                        <!-- operated air line -->
+                                        <small class="marg infotimeandHall">
+                                          operated by :{{stop.operatedAirline.airlineName}}
+                                        </small>
+
+                                        <small class="marg infotimeandHall bags">
+                                          <b> {{"SearchResult.baggage"|translate}} =
+                                            {{ item[0].baggageInformation[s].baggage }}</b>
+                                          <br>
+                                     <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                      {{ item[0].baggageInformation[s].childBaggage }}</b> -->
+                                      <b *ngIf="item[0].baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                          {{ item[0].baggageInformation[s].childBaggage }}</b>
+
+                                          <!-- baggage=2 Piece(s) -->
+                                        </small>
+
+                                      </span>
+
+                                      <!-- <small class="marg hall infotimeandHall"> -->
+                                      <!-- notworked -->
+                                      <!-- {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.regionName}} -->
+                                      <!-- hall(2) -->
+                                      <!-- </small> -->
+                                    </div>
+                                    <div class=" col-sm-12 col-md-4 justify-content-center">
+                                      <div class="route smallsegmant">
+                                        <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                        <hr
+                                          style="
+                                                                                                                            box-sizing: content-box;
+                                                                                                                            height: 1px;
+                                                                                                                            overflow: visible;
+                                                                                                                            width: 100%;
+                                                                                                                            border: 0.2px solid #00000042;
+                                                                                                                            border-radius: 0px;
+                                                                                                                            margin-left: 0px;
+                                                                                                                            margin-right: 0px;">
+
+                                        <div class="point mr-auto"></div>
+                                      </div>
+                                    </div>
+                                    <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                      <p class="marg cityname">
+                                        <!-- notworked -->
+
+                                        <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                                                             ({{arrivalStopAircode(item[0],0)}})   -->
+                                        {{stop.arrivalTerminalAirport.cityName}}
+                                        ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                        <!-- Jeddah (JED) -->
+                                      </p>
+                                      <span class="marg small">
+                                        <small class="marg infodate">
+                                          {{stop.arrivalDate |date :'dd MMM'}}
+
+                                          <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+
+                                          <!-- 15 April -->
+                                        </small>
+                                        <small class="marg infotimeandHall">
+                                          {{stop.arrivalDate | date:'shortTime'}}
+
+                                          <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                          <!-- 6:50 -->
+                                        </small>
+                                      </span>
+
+                                      <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                                    </div>
+                                  </div>
+
+                                </div>
+                                <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                                  <p class="segmentStop textalignc cityname">
+                                    {{stop.arrivalTerminalAirport.airportName}}
+                                    <!-- {{arrivalStopAirPort(item[0],0) }} -->
+
+                                  </p>
+                                  <p class="segmentstopTime textalignc">
+
+                                    ({{stop.transitTime }} )
+                                    <!-- (5h 50m) -->
+                                  </p>
+                                </div>
+                              </ng-container>
+
+                            </div>
+                            <!-- </div> -->
+
+
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer fareLink">
+                        <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)" target="blank"
+                          class="  btn btn-outline-primary cancelationd" style="    color: white;
+                        background: #ffc107;
+                        border: 3px solid #ffc107;
+                        border-radius: 0px;">
+                          {{"SearchResult.terms"|translate}} </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12 CardStyle" id="collapseItem" [ngbCollapse]="trueT[i]"
+                *ngFor="let term of item|slice:1;let m= index;">
+                <!--first Row-->
+                <div class="row FirstRowDet">
+                  <!-- <div class="col-lg-3 col-sm-12 airlineLogo">
+                    <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+                  </div> -->
+                  <div class="col-lg-3 col-sm-12 align-items-center justify-content-center ">
+                    <div class="airlineLogo">
+                      <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+                    </div>
+        
+
+                  </div>
+                  <!--Dept,Land,Capin class and No.Passenger-->
+                  <div class="col-lg-6 order-sm-1 order-2 col-sm-6 DetLanDetails">
+                    <p>{{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                      ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                      -
+                      {{arrivalCity(term,0)}}
+                      ({{arrivalAircode(term,0)}})</p>
+
+                    <span> {{"SearchResult.Passenger"|translate}}: {{response.searchCriteria?.totalPassengersNum}},
+                      Class:{{response.cabinClasses}}
+                      ({{response.searchCriteria?.flightType}})</span>
+                  </div>
+                  <!--Total Amount-->
+       
+                  <!-- <div class="col-lg-3 order-1 col-sm-6 Price"
+                    (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)">
+
+                    <p>{{response.searchCriteria.currency|exchange:'code'}}
+                      {{item[0].itinTotalFare.amount|exchange:'value'}}</p>
+                    <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+                  </div> -->
+                  <div class="col-lg-3 order-1 col-sm-6 ">
+                      <div class="Price"  (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)" >
+                          <p>{{response.searchCriteria.currency|exchange:'code'}}
+                              {{item[0].itinTotalFare.amount|exchange:'value'}}</p>
+                            <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+                      </div>
+            <!-- refundText -->
+            <div class="refundText" [ngClass]="{'refund': term.isRefundable,'norefund':!term.isRefundable }">
+                <span *ngIf="term.isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                <span *ngIf="!term.isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+              </div>
+              <!-- refundText -->
+                    </div>
+
+
+                </div>
+                <!--Row for Trip duration-->
+                <div class="row durationrow">
+                  <div class=" text-center Duration p0">
+                    <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+                    <p>{{term.totalDuration| hourminute}}</p>
+                  </div>
+                </div>
+                <!--Row for line Dept and Land-->
+                <div class="row ArtDetails">
+                  <div class="DeptClass col-4">
+                    <p>{{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                      ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                    </p>
+                  </div>
+                  <div class="col-4">
+                    <hr>
+                  </div>
+
+                  <div class="LandClass col-4">
+                    <p>{{arrivalCity(term,0)}}
+                      ({{arrivalAircode(term,0)}})</p>
+                  </div>
+                </div>
+                <!--Date Of trip-->
+                <div class="row DateTrip">
+                  <div class="col">
+                    <p class="mb-0 ml-3">
+                      {{term.allJourney.flights[0].flightDTO[0].departureDate | date:'shortTime'}}
+                    </p>
+                    <div>
+                      <p>{{term.allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col Stops">
+                    <p>{{direct(term.allJourney.flights[0].stopsNum)|translate}}</p>
+                  </div>
+                  <div class="col Pright">
+                    <p class="mb-0 mr-3">{{arrivalDate(term,0) | date:'shortTime'}}</p>
+                    <div>
+                      <p>{{arrivalDate(term,0) | date:'mediumDate'}}</p>
+                    </div>
+                  </div>
+                </div>
+                <!--Btn For Details-->
+                <div class="row MoreDetBtn">
+                  <!-- <div class="col-4">
+
+                                    </div> -->
+                  <div class="col-6">
+                    <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+ m+'l' +m +i"
+                      (click)='togglemodelt(m,i)'>
+                      {{"SearchResult.MoreDetails"|translate}}
+                    </button>
+                  </div>
+                  <div class="col-6 pr-0">
+                    <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[i] = !trueT[i]"
+                      [attr.aria-expanded]="!trueT[i]" aria-controls="trueT[i]" *ngIf=" m+2 == item.length">
+                      {{"SearchResult.lessresult"|translate}}
+                      <i class="fa fa-chevron-up fa-x"></i>
+                    </button>
+                  </div>
+
+                </div>
+                <!--Modal For Details-->
+                <!-- Modal -->
+                <!-- Modal -->
+                <div class="modal fade" [id]="gettermid(m,i)" tabindex="-1" role="dialog"
+                  aria-labelledby="BookDetailsModal" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="container">
+                          <!--Start Row for Dept and price details-->
+                          <div class="row">
+                            <div class="col ">
+                              <p class="modelDA">
+                                {{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                                ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                                -
+                                {{arrivalCity(term,0)}}
+                                ({{arrivalAircode(term,0)}})</p>
+                              <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                                <b>{{term.allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+                              </p>
+
+                            </div>
+                            <div class="col">
+                              <div class="row justify-content-end">
+                                <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}}
+                                  alt=" logo" class="modelLogo">
+                              </div>
+                              <div class="row justify-content-end">
+                                <div class="PriceDetailsM">
+                                  <!-- <p><span>{{response.searchCriteria?.currency}}
+                                      {{term.itinTotalFare.amount}}</span>
+                                    <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                  </p> -->
+                                  <span>{{response.searchCriteria?.currency}}
+                                      {{term.itinTotalFare.amount|exchange:'value'}}</span>
+                                    <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                    <div class="refundText"
+                                    [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                    <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                                    <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}}
+                                    </span>
+  
+                                  </div>
+
+                                </div>
+                              </div>
+
+                              <!-- <div class="row justify-content-end">
+                                <div class="refundText"
+                                  [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                  <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                                  <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}}
+                                  </span>
+
+                                </div>
+                              </div> -->
+
+                            </div>
+                          </div>
+                          <!--second Row-->
+                          <div class="row">
+                            <div class="col">
+
+                            </div>
+                          </div>
+                          <!--Card Details-->
+                          <div class="CardDet container">
+                            <div class="row ArtDetails">
+                              <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                                <p class="cityname">
+                                  {{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                                  <br><span class="airportcode text-center">
+                                    ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                                </p>
+                              </div>
+                              <div class="col-lg-8 col-sm-6 col-md-8">
+                                  <div class="route ">
+                                <!-- <div class="route routeSegment"> -->
+                                    <img src="../../../assets/img/direct.png" *ngIf="term.allJourney.flights[0].stopsNum == 0"  />                    
+                                    <img src="../../../assets/img/oneS.png" *ngIf="term.allJourney.flights[0].stopsNum == 1" />
+                                    <img src="../../../assets/img/twoS.png" *ngIf="term.allJourney.flights[0].stopsNum > 1" />
+                                  <!-- <div class="point ml-auto firstPoint"></div>
+                                  <div class="point stopPoint"
+                                    *ngIf="direct(term.allJourney.flights[0].stopsNum)!=='Direct'"></div>
+                                  <hr style="
+                                                           box-sizing: content-box;
+                                                           height: 1px;
+                                                           overflow: visible;
+                                                           width: 90%;
+                                                           border: 0.2px solid #00000042;
+                                                           border-radius: 0px;
+                                                           margin-left: 0px;
+                                                           margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div> -->
+                                </div>
+                              </div>
+                              <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                                <p class="cityname">{{arrivalCity(term,0)}} <br>
+                                  <span class="airportcode textalignc">({{arrivalAircode(term,0)}})</span>
+                                </p>
+                              </div>
+                            </div>
+                            <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                              <div class="col Stops">
+                                <p class="ml-auto mr-auto"> 
+                                  {{direct(term.allJourney.flights[0].stopsNum)|translate}}</p>
+                              </div>
+                            </div>
+                            <div class="row ">
+                              <hr style=" box-sizing: content-box;
+                                                       height: 1px;
+                                                       overflow: visible;
+                                                       width: 96%;
+                                                       border: 0.2px solid #0000001f;
+                                                       border-radius: 0px;">
+                            </div>
+                            <div>
+                              <div class="row">
+                                <ng-container *ngFor="let stop of showStopStation(term,0);let s =index  ">
+                                  <div class="col-sm-12 col-md-9">
+                                    <div class="row">
+                                      <div
+                                        class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                        <p class="marg cityname">
+                                          {{stop.departureTerminalAirport.cityName}}
+                                          ({{stop.departureTerminalAirport.airportCode}})
+                                        </p>
+                                        <span class="marg small">
+                                          <small class="marg infodate">
+                                            <!-- departure date  -->
+                                            {{stop.departureDate | date:'dd MMM'}}
+                                            <!-- 15 April -->
+
+                                          </small>
+                                          <small class="marg infotimeandHall">
+                                            {{stop.departureDate | date:'shortTime'}}
+                                            <!-- 6:50 -->
+                                          </small>
+
+                                          <small class="marg infotimeandHall bags">
+                                            <b> {{"SearchResult.baggage"|translate}} =
+                                              {{ term.baggageInformation[s].baggage }}</b>
+                                            <br>
+                                            <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                              {{ term.baggageInformation[s].childBaggage }}</b> -->
+                                              <b *ngIf="term.baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                                  {{ term.baggageInformation[s].childBaggage }}</b>
+
+                                            <!-- baggage=2 Piece(s) -->
+                                          </small>
+
+                                        </span>
+
+                                        <!-- <small class="marg hall infotimeandHall"> -->
+                                        <!-- notworked -->
+                                        <!-- {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.regionName}} -->
+                                        <!-- hall(2) -->
+                                        <!-- </small> -->
+                                      </div>
+                                      <div class=" col-sm-12 col-md-4 justify-content-center">
+                                        <div class="route smallsegmant">
+                                          <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                          <hr
+                                            style="
+                                                                                                                       box-sizing: content-box;
+                                                                                                                       height: 1px;
+                                                                                                                       overflow: visible;
+                                                                                                                       width: 100%;
+                                                                                                                       border: 0.2px solid #00000042;
+                                                                                                                       border-radius: 0px;
+                                                                                                                       margin-left: 0px;
+                                                                                                                       margin-right: 0px;">
+
+                                          <div class="point mr-auto"></div>
+                                        </div>
+                                      </div>
+                                      <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                        <p class="marg cityname">
+                                          <!-- notworked -->
+
+                                          <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                                                        ({{arrivalStopAircode(item[0],0)}})   -->
+                                          {{stop.arrivalTerminalAirport.cityName}}
+                                          ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                          <!-- Jeddah (JED) -->
+                                        </p>
+                                        <span class="marg small">
+                                          <small class="marg infodate">
+                                            {{stop.arrivalDate |date :'dd MMM'}}
+
+                                            <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+
+                                            <!-- 15 April -->
+                                          </small>
+                                          <small class="marg infotimeandHall">
+                                            {{stop.arrivalDate | date:'shortTime'}}
+
+                                            <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                            <!-- 6:50 -->
+                                          </small>
+                                        </span>
+
+                                        <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                  <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                                    <p class="segmentStop textalignc cityname">
+                                      {{stop.arrivalTerminalAirport.airportName}}
+                                      <!-- {{arrivalStopAirPort(item[0],0) }} -->
+
+                                    </p>
+                                    <p class="segmentstopTime textalignc">
+
+                                      ({{stop.transitTime }} )
+                                      <!-- (5h 50m) -->
+                                    </p>
+                                  </div>
+                                </ng-container>
+
+                              </div>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="modal-footer fareLink">
+                        <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)"
+                          class=" btn btn-outline-primary cancelationd " target="blank" style="    color: white;
+                          background: #ffc107;
+                          border: 3px solid #ffc107;
+                          border-radius: 0px;">
+                          {{"SearchResult.terms"|translate}}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </ng-container>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="loading">
+          <ng-container *ngTemplateOutlet="loadingt"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="roundT">
+          <ng-container *ngTemplateOutlet="Round"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="Multi">
+          <ng-container *ngTemplateOutlet="MultiT"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="noResultAlert">
+          <ng-container *ngTemplateOutlet="alert"></ng-container>
+        </ng-container>
+        <!-- <ng-container *ngIf="Multi">
+                    <app-multi-result-card [orgnizedResponce]='orgnizedResponce' [response]='response'></app-multi-result-card>
+                </ng-container> -->
+      </div>
+
+      <!--Start Card-->
+
+    </div>
+    <!--End Card-->
+    <!--Start Filter Div-->
+
+
+
+  </div>
+
+
+
+
+
+</div>
+<app-footer></app-footer>
+<app-normalerror [normalError]="normalError" *ngIf="normalErrorStatus"></app-normalerror>
+<ng-template #loadingt>
+  <div class="col-lg-9 col-sm-12 animationLoading mt-2">
+    <div class="col-lg-12 col-sm-12 CardStyle  two" style="height: inherit;">
+      <!--first Row-->
+      <div class="row FirstRowDet">
+        <div class="col-lg-3 col-sm-12 airlineLogo one" style="width: 150px; height: 150px;margin-top: 20px;">
+          <!-- <img src="../../../assets/img/gulf-air.svg" width="150px"> -->
+        </div>
+        <!--Dept,Land,Capin class and No.Passenger-->
+        <div class="col-lg-5 col-sm-6 DetLanDetails one" style="height :74px; margin-left: 10px;margin-top: 20px;">
+        </div>
+        <!--Total Amount-->
+        <div class="col-lg-3 col-sm-6 Price one ml-auto" style="height:70px; border: none;">
+
+        </div>
+      </div>
+      <!--Row for Trip duration-->
+      <div class="row durationrow">
+        <div class=" text-center Duration  one" style="height:30px">
+        </div>
+      </div>
+      <!--Row for line Dept and Land-->
+      <div class="row ArtDetails">
+        <div class="DeptClass one" style="height:20px">
+
+        </div>
+        <div class="LandClass one" style="height:20px">
+        </div>
+      </div>
+      <!--Date Of trip-->
+      <div class="row DateTrip">
+        <div class="col one" style="height:20px; margin-right:30px;">
+
+        </div>
+        <div class="col Stops one" style="height:20px;margin-right:20px;">
+
+        </div>
+        <div class="col Pright one" style="height:20px;margin-right:20px;">
+        </div>
+      </div>
+      <!--Btn For Details-->
+      <div class="row ">
+        <div class="DeatilsBtn one ml-auto mr-auto " style="height:50px;width: 240px; margin-top: 10px">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 CardStyle  two" style="height: inherit;">
+      <!--first Row-->
+      <div class="row FirstRowDet">
+        <div class="col-lg-3 col-sm-12 airlineLogo one" style="width: 150px; height: 150px;margin-top: 20px;">
+          <!-- <img src="../../../assets/img/gulf-air.svg" width="150px"> -->
+        </div>
+        <!--Dept,Land,Capin class and No.Passenger-->
+        <div class="col-lg-5 col-sm-6 DetLanDetails one" style="height :74px; margin-left: 10px;margin-top: 20px;">
+        </div>
+        <!--Total Amount-->
+        <div class="col-lg-3 col-sm-6 Price one ml-auto" style="height:70px; border: none;">
+
+        </div>
+      </div>
+      <!--Row for Trip duration-->
+      <div class="row durationrow">
+        <div class=" text-center Duration one" style="height:30px">
+        </div>
+      </div>
+      <!--Row for line Dept and Land-->
+      <div class="row ArtDetails">
+        <div class="DeptClass one" style="height:20px">
+
+        </div>
+        <div class="LandClass one" style="height:20px">
+        </div>
+      </div>
+      <!--Date Of trip-->
+      <div class="row DateTrip">
+        <div class="col one" style="height:20px; margin-right:30px;">
+
+        </div>
+        <div class="col Stops one" style="height:20px;margin-right:20px;">
+
+        </div>
+        <div class="col Pright one" style="height:20px;margin-right:20px;">
+        </div>
+      </div>
+      <!--Btn For Details-->
+      <div class="row ">
+        <div class="DeatilsBtn one ml-auto mr-auto " style="height:50px;width: 240px; margin-top: 10px">
+
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12 col-sm-12 CardStyle  two " style="height: inherit;">
+      <!--first Row-->
+      <div class="row FirstRowDet">
+        <div class="col-lg-3 col-sm-12 airlineLogo one" style="width: 150px; height: 150px;margin-top: 20px;">
+          <!-- <img src="../../../assets/img/gulf-air.svg" width="150px"> -->
+        </div>
+        <!--Dept,Land,Capin class and No.Passenger-->
+        <div class="col-lg-5 col-sm-6 DetLanDetails one" style="height :74px; margin-left: 10px;margin-top: 20px;">
+        </div>
+        <!--Total Amount-->
+        <div class="col-lg-3 col-sm-6 Price one ml-auto" style="height:70px; border: none;">
+
+        </div>
+      </div>
+      <!--Row for Trip duration-->
+      <div class="row durationrow">
+        <div class=" text-center Duration one" style="height:30px">
+        </div>
+      </div>
+      <!--Row for line Dept and Land-->
+      <div class="row ArtDetails">
+        <div class="DeptClass one" style="height:20px">
+
+        </div>
+        <div class="LandClass one" style="height:20px">
+        </div>
+      </div>
+      <!--Date Of trip-->
+      <div class="row DateTrip">
+        <div class="col one" style="height:20px; margin-right:30px;">
+
+        </div>
+        <div class="col Stops one" style="height:20px;margin-right:20px;">
+
+        </div>
+        <div class="col Pright one" style="height:20px;margin-right:20px;">
+        </div>
+      </div>
+      <!--Btn For Details-->
+      <div class="row ">
+        <div class="DeatilsBtn one ml-auto mr-auto " style="height:50px;width: 240px; margin-top: 10px">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-9 col-sm-12 animationLoading">
+
+  </div>
+</ng-template>
+<ng-template #alert>
+  <p class="mt-4">
+    <ngb-alert type="warning" [dismissible]="false"> {{"SearchResult.noResult"|translate}}</ngb-alert>
+  </p>
+</ng-template>
+<ng-template #Round>
+
+  <!--start row for card-->
+
+  <!--Start Card-->
+  <ng-container>
+    <div class="col-lg-9 col-sm-12 ">
+      <ng-container *ngFor="let item of orgnizedResponce;let n= index;">
+
+        <div class="col-lg-12 col-sm-12 CardStyle">
+          <!--first Row-->
+          <div class="row FirstRowDet">
+            <!-- <div class="col-lg-3 col-sm-12 airlineLogo">
+              <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+            </div> -->
+            <div class="col-lg-3 col-sm-12 align-items-center justify-content-center ">
+              <div class="airlineLogo">
+                <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+              </div>
+         
+
+            </div>
+            <!--Dept,Land,Capin class and No.Passenger-->
+            <div class="col-lg-6 col-sm-6 order-sm-1 order-2 DetLanDetails">
+              <p>{{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}}) -
+                {{arrivalCity(item[0],0)}}
+                ({{arrivalAircode(item[0],0)}})</p>
+
+              <span> {{"SearchResult.Passenger"|translate}}: {{response.searchCriteria.totalPassengersNum}},
+                Class:{{response.cabinClasses}} ({{response.searchCriteria.flightType}})</span>
+            </div>
+            <!--Total Amount-->
+            <!-- <div class="col-lg-3 order-1 col-sm-6 Price"
+              (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)">
+              <p>{{response.searchCriteria.currency|exchange:'code'}} {{item[0].itinTotalFare.amount|exchange:'value'}}
+              </p>
+              <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+            </div> -->
+            <div class="col-lg-3 order-1 col-sm-6 ">
+              <!-- price -->
+              <div class="Price" (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)">
+                <p>{{response.searchCriteria.currency|exchange:'code'}}
+                  {{item[0].itinTotalFare.amount|exchange:'value'}}</p>
+                <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+              </div>
+                <!-- refundText -->
+                <div class="refundText" [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                  <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                  <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+  
+                </div>
+                <!-- refundText -->
+              
+              <!-- price -->
+              <!-- faireRules -->
+              <!-- <div class="faireRules">
+                  <button class="btn ">{{"SearchResult.faireRules"|translate}}</button>
+                </div> -->
+              <!-- faireRules -->
+
+            </div>
+
+                 
+
+          </div>
+          <!--Row for Trip duration-->
+          <div class="row durationrow">
+            <div class=" text-center Duration p0">
+              <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+              <p>{{item[0].allJourney.flights[0].elapsedTime| hourminute}}</p>
+            </div>
+          </div>
+          <!--Row for line Dept and Land-->
+          <div class="row ArtDetails">
+            <div class="DeptClass col-4">
+              <p>{{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+              </p>
+            </div>
+            <div class="col-4">
+              <hr>
+            </div>
+
+            <div class="LandClass col-4">
+              <p>{{arrivalCity(item[0],0)}}
+                ({{arrivalAircode(item[0],0)}})</p>
+            </div>
+          </div>
+          <!--Date Of trip departing-->
+          <div class="row DateTrip">
+            <div class="col">
+              <p>{{item[0].allJourney.flights[0].flightDTO[0].departureDate | date:'shortTime'}}</p>
+            </div>
+            <div class="col Stops">
+              <p>{{direct(item[0].allJourney.flights[0].stopsNum)|translate}}</p>
+            </div>
+            <div class="col Pright">
+              <p>{{arrivalDate(item[0],0) | date:'shortTime'}}</p>
+            </div>
+          </div>
+          <!-- return -->
+          <!-- Row of return duration -->
+          <div class="row durationrow">
+            <div class=" text-center Duration p0">
+              <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+              <p>{{item[0].allJourney.flights[1].elapsedTime| hourminute}}</p>
+            </div>
+          </div>
+          <!--Row for line Dept and Land Return -->
+          <div class="row ArtDetails">
+            <div class="DeptClass col-4">
+              <p>{{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})
+              </p>
+            </div>
+            <div class="col-4">
+              <hr>
+            </div>
+
+            <div class="LandClass col-4">
+              <p>{{arrivalCity(item[0],1)}}
+                ({{arrivalAircode(item[0],1)}})</p>
+            </div>
+          </div>
+          <!--Date Of trip departing-->
+          <div class="row DateTrip">
+            <div class="col">
+              <p>{{item[0].allJourney.flights[1].flightDTO[0].departureDate | date:'shortTime'}}</p>
+            </div>
+            <div class="col Stops">
+              <p>{{direct(item[0].allJourney.flights[1].stopsNum)|translate}}</p>
+            </div>
+            <div class="col Pright">
+              <p>{{arrivalDate(item[0],1) | date:'shortTime'}}</p>
+            </div>
+          </div>
+          <!--Btn For Details-->
+          <div class="row MoreDetBtn">
+            <!-- <div class="col-4">
+        
+                            </div> -->
+            <div class="col-6">
+              <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+n"
+                (click)='togglemodel(n)'>
+                {{"SearchResult.MoreDetails"|translate}}
+              </button>
+            </div>
+            <div class="col-6 pr-0">
+              <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[n]= !trueT[n]"
+                [attr.aria-expanded]="!trueT[n]" aria-controls="collapseItem2" *ngIf="item.length > 1">
+                {{item.length-1}} {{"SearchResult.Moreresult"|translate}}
+                <i class="fa fa-chevron-down fa-x"></i>
+              </button>
+            </div>
+
+
+          </div>
+          <!--Modal For Details-->
+          <!-- Modal -->
+          <div class="modal fade" [id]="n" tabindex="-1" role="dialog" aria-labelledby="BookDetailsModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="container">
+                    <div class="modalTitle">
+                      <h3 class="">{{"SearchResult.Departure"|translate}}
+
+                      </h3>
+                    </div>
+                    <!--Start Row for Dept and price details-->
+
+                    <div class="row">
+                      <div class="col ">
+                        <p class="modelDA">
+                          {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                          -
+                          {{arrivalCity(item[0],0)}}
+                          ({{arrivalAircode(item[0],0)}})</p>
+                        <!-- <p class="modelDA">Cairo (CAI) - Dubai (DXB)</p> -->
+                        <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                          <!-- 30 May,2019 -->
+                          <b>{{item[0].allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+
+                        </p>
+
+                      </div>
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                            class="modelLogo">
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="PriceDetailsM">
+                            <!-- <p><span>
+                             
+                                {{response.searchCriteria.currency|exchange:'code'}}
+                                {{item[0].itinTotalFare.amount|exchange:'value'}}
+                              </span> <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                            </p> -->
+                            <span>{{response.searchCriteria?.currency}}
+                                {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                              <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                              <div class="refundText"
+                            [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                            <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                            <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+                          </div>
+                          </div>
+                        </div>
+                        <!-- <div class="row justify-content-end">
+                          <div class="refundText"
+                            [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                            <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                            <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+                          </div>
+                        </div> -->
+
+                      </div>
+                    </div>
+
+                    <!--Card Details-->
+                    <div class="CardDet container">
+                      <div class="row ArtDetails">
+                        <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                          <p class="cityname">
+                            <!-- Cairo -->
+                            {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                            <br><span class="airportcode text-center">
+                              ({{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                          </p>
+                        </div>
+                        <div class="col-lg-8 col-sm-6 col-md-8">
+                          <div class="route ">
+                             <!-- <div class="route routeSegment"> -->
+                              <img src="../../../assets/img/direct.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 0"  />                    
+                              <img src="../../../assets/img/oneS.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 1" />
+                              <img src="../../../assets/img/twoS.png" *ngIf="item[0].allJourney.flights[0].stopsNum > 1" />
+                            <!-- <div class="point ml-auto firstPoint"></div>
+                            <div class="point stopPoint"
+                              *ngIf="direct(item[0].allJourney.flights[0].stopsNum)!=='Direct'"></div>
+                            <hr style="
+                                                                              box-sizing: content-box;
+                                                                              height: 1px;
+                                                                              overflow: visible;
+                                                                              width: 90%;
+                                                                              border: 0.2px solid #00000042;
+                                                                              border-radius: 0px;
+                                                                              margin-left: 0px;
+                                                                              margin-right: 0px;">
+
+                            <div class="point mr-auto"></div> -->
+                          </div>
+                        </div>
+                        <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                          <p class="cityname">
+                            <!-- Dubai -->
+                            {{arrivalCity(item[0],0)}}
+                            <br> <span class="airportcode textalignc">
+                              <!-- (DXB) -->
+                              ({{arrivalAircode(item[0],0)}})
+                            </span></p>
+                        </div>
+                      </div>
+                      <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                        <div class="col Stops">
+                          <p class="ml-auto mr-auto">
+                            <!--  Stop1  -->
+                             {{direct(item[0].allJourney.flights[0].stopsNum)|translate}}
+                            <!-- Stop1  -->
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row ">
+                        <hr style=" box-sizing: content-box;
+                                                                          height: 1px;
+                                                                          overflow: visible;
+                                                                          width: 96%;
+                                                                          border: 0.2px solid #0000001f;
+                                                                          border-radius: 0px;">
+                      </div>
+                      <!-- loop stops  -->
+
+
+                      <div class="row">
+                        <ng-container *ngFor="let stop of showStopStation(item[0],0);let s =index  ">
+                          <div class="col-sm-12 col-md-9">
+                            <div class="row">
+                              <div
+                                class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                <p class="marg cityname">
+                                  {{stop.departureTerminalAirport.cityName}}
+                                  ({{stop.departureTerminalAirport.airportCode}}) </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    <!-- departure date  -->
+                                    {{stop.departureDate | date:'dd MMM'}}
+                                    <!-- 15 April -->
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.departureDate | date:'shortTime'}}
+                                    <!-- 6:50 -->
+                                  </small>
+                                  <small class="marg infotimeandHall bags">
+                                    <b>{{"SearchResult.baggage"|translate}}=
+                                      {{ item[0].baggageInformation[s].baggage }}</b>
+                                    <br>
+                                    <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                      {{ item[0].baggageInformation[s].childBaggage }}</b> -->
+                                      <b *ngIf="item[0].baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                          {{ item[0].baggageInformation[s].childBaggage }}</b>
+
+
+                                    <!-- baggage=2 Piece(s) -->
+                                  </small>
+
+                                </span>
+
+                                <!-- <small class="marg hall infotimeandHall"> -->
+                                <!-- notworked -->
+                                <!-- {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.regionName}} -->
+                                <!-- hall(2) -->
+                                <!-- </small> -->
+                              </div>
+                              <div class=" col-sm-12 col-md-4 justify-content-center">
+                                <div class="route smallsegmant">
+                                  <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                  <hr style="
+                                                                                                  box-sizing: content-box;
+                                                                                                  height: 1px;
+                                                                                                  overflow: visible;
+                                                                                                  width: 100%;
+                                                                                                  border: 0.2px solid #00000042;
+                                                                                                  border-radius: 0px;
+                                                                                                  margin-left: 0px;
+                                                                                                  margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div>
+                                </div>
+                              </div>
+                              <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                <p class="marg cityname">
+                                  <!-- notworked -->
+
+                                  <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                                   ({{arrivalStopAircode(item[0],0)}})   -->
+                                  {{stop.arrivalTerminalAirport.cityName}}
+                                  ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                  <!-- Jeddah (JED) -->
+                                </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    {{stop.arrivalDate |date :'dd MMM'}}
+
+                                    <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+
+                                    <!-- 15 April -->
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.arrivalDate | date:'shortTime'}}
+
+                                    <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                    <!-- 6:50 -->
+                                  </small>
+                                </span>
+
+                                <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                            <p class="segmentStop textalignc cityname">
+                              {{stop.arrivalTerminalAirport.airportName}}
+                              <!-- {{arrivalStopAirPort(item[0],0) }} -->
+
+                            </p>
+                            <p class="segmentstopTime textalignc">
+
+                              ({{stop.transitTime }} )
+                              <!-- (5h 50m) -->
+                            </p>
+                          </div>
+                        </ng-container>
+                      </div>
+
+
+
+
+                    </div>
+
+                    <!--second Row -->
+                    <div class="modalTitle">
+                      <h3 class="">{{"SearchResult.Return"|translate}}
+                      </h3>
+                    </div>
+
+                    <div class="row">
+                      <div class="col ">
+                        <p class="modelDA">
+                          {{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})
+                          -
+                          {{arrivalCity(item[0],1)}}
+                          ({{arrivalAircode(item[0],1)}})</p>
+                        <!-- <p class="modelDA">Cairo (CAI) - Dubai (DXB)</p> -->
+                        <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                          <!-- 30 May,2019 -->
+                          <b>{{item[0].allJourney.flights[1].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+
+                        </p>
+
+                      </div>
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <img src={{item[0].allJourney.flights[1].flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                            class="modelLogo">
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="PriceDetailsM">
+                            <!-- <p><span>{{response.searchCriteria?.currency}}
+                                {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                              <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                            </p> -->
+                                    <span>{{response.searchCriteria?.currency}}
+                                {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                              <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                              <div class="refundText"
+                            [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                            <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                            <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+                          </div>
+                          </div>
+                          <!-- continue herer tommorrow -->
+                        </div>
+
+                      </div>
+                    </div>
+                    <!--second Row-->
+
+                    <div class="CardDet container">
+                      <div class="row ArtDetails">
+                        <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                          <p class="cityname">
+                            <!-- Cairo -->
+                            {{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                            <br><span class="airportcode text-center">
+                              ({{item[0].allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                          </p>
+                        </div>
+                        <div class="col-lg-8 col-sm-6 col-md-8">
+                          <div class="route ">
+                              <!-- <div class="route routeSegment"> -->
+                              <img src="../../../assets/img/direct.png" *ngIf="item[0].allJourney.flights[1].stopsNum == 0"  />                    
+                              <img src="../../../assets/img/oneS.png" *ngIf="item[0].allJourney.flights[1].stopsNum == 1" />
+                              <img src="../../../assets/img/twoS.png" *ngIf="item[0].allJourney.flights[1].stopsNum > 1" />
+                            <!-- <div class="point ml-auto firstPoint"></div>
+                            <div class="point stopPoint"></div>
+                            <hr style="
+                                                                              box-sizing: content-box;
+                                                                              height: 1px;
+                                                                              overflow: visible;
+                                                                              width: 90%;
+                                                                              border: 0.2px solid #00000042;
+                                                                              border-radius: 0px;
+                                                                              margin-left: 0px;
+                                                                              margin-right: 0px;">
+
+                            <div class="point mr-auto"></div> -->
+                          </div>
+                        </div>
+                        <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                          <p class="cityname">
+                            <!-- Dubai -->
+                            {{arrivalCity(item[0],1)}}
+                            <br> <span class="airportcode textalignc">
+                              <!-- (DXB) -->
+                              ({{arrivalAircode(item[0],1)}})
+                            </span></p>
+                        </div>
+                      </div>
+                      <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                        <div class="col Stops">
+                          <p class="ml-auto mr-auto">
+                            <!--  Stop1  -->
+                             {{direct(item[0].allJourney.flights[1].stopsNum)|translate}}
+                            <!-- Stop1  -->
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row ">
+                        <hr style=" box-sizing: content-box;
+                                                                          height: 1px;
+                                                                          overflow: visible;
+                                                                          width: 96%;
+                                                                          border: 0.2px solid #0000001f;
+                                                                          border-radius: 0px;">
+                      </div>
+                      <!-- loop stops  -->
+
+
+                      <div class="row">
+                        <ng-container *ngFor="let stop of showStopStation(item[0],1);let s =index  ">
+                          <div class="col-sm-12 col-md-9">
+                            <div class="row">
+                              <div
+                                class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                <p class="marg cityname">
+                                  {{stop.departureTerminalAirport.cityName}}
+                                  ({{stop.departureTerminalAirport.airportCode}}) </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    <!-- departure date  -->
+                                    {{stop.departureDate | date:'dd MMM'}}
+                                    <!-- 15 April -->
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.departureDate | date:'shortTime'}}
+                                    <!-- 6:50 -->
+                                  </small>
+
+                                  <small class="marg infotimeandHall bags">
+                                    <b> baggage = {{ item[0].baggageInformation[s].baggage }}</b>
+                                    <br>
+                                    <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                      {{ item[0].baggageInformation[s].childBaggage }}</b> -->
+                                      <b *ngIf="item[0].baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                          {{ item[0].baggageInformation[s].childBaggage }}</b>
+
+                                    <!-- baggage=2 Piece(s) -->
+                                  </small>
+
+                                </span>
+
+                                <!-- <small class="marg hall infotimeandHall"> -->
+                                <!-- notworked -->
+                                <!-- {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.regionName}} -->
+                                <!-- hall(2) -->
+                                <!-- </small> -->
+                              </div>
+                              <div class=" col-sm-12 col-md-4 justify-content-center">
+                                <div class="route smallsegmant">
+                                  <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                  <hr style="
+                                                                                                  box-sizing: content-box;
+                                                                                                  height: 1px;
+                                                                                                  overflow: visible;
+                                                                                                  width: 100%;
+                                                                                                  border: 0.2px solid #00000042;
+                                                                                                  border-radius: 0px;
+                                                                                                  margin-left: 0px;
+                                                                                                  margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div>
+                                </div>
+                              </div>
+                              <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                <p class="marg cityname">
+                                  <!-- notworked -->
+
+                                  <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                                    ({{arrivalStopAircode(item[0],0)}})   -->
+                                  {{stop.arrivalTerminalAirport.cityName}}
+                                  ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                  <!-- Jeddah (JED) -->
+                                </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    {{stop.arrivalDate |date :'dd MMM'}}
+
+                                    <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+
+                                    <!-- 15 April -->
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.arrivalDate | date:'shortTime'}}
+
+                                    <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                    <!-- 6:50 -->
+                                  </small>
+                                </span>
+
+                                <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                            <p class="segmentStop textalignc cityname">
+                              {{stop.arrivalTerminalAirport.airportName}}
+                              <!-- {{arrivalStopAirPort(item[0],0) }} -->
+
+                            </p>
+                            <p class="segmentstopTime textalignc">
+
+                              ({{stop.transitTime }} )
+                              <!-- (5h 50m) -->
+                            </p>
+                          </div>
+                        </ng-container>
+                      </div>
+
+
+
+
+                    </div>
+
+
+                  </div>
+                  <!-- end of loop -->
+
+                </div>
+                <div class="modal-footer fareLink">
+                  <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)"
+                    class=" btn btn-outline-primary cancelationd" target="blank" style="    color: white;
+                    background: #ffc107;
+                    border: 3px solid #ffc107;
+                    border-radius: 0px;">
+                    {{"SearchResult.terms"|translate}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-sm-12 CardStyle" id="collapseItem2" [ngbCollapse]="trueT[n]"
+          *ngFor="let term of item|slice:1;let o=index">
+          <!--first Row-->
+          <div class="row FirstRowDet">
+            <!-- <div class="col-lg-3 col-sm-12 airlineLogo ">
+              <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+            </div> -->
+            <div class="col-lg-3 col-sm-12 align-items-center justify-content-center ">
+              <div class="airlineLogo">
+                <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+              </div>
+
+
+            </div>
+            <!--Dept,Land,Capin class and No.Passenger-->
+            <div class="col-lg-6 order-sm-1 order-2 col-sm-6 DetLanDetails">
+              <p>{{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}}) -
+                {{arrivalCity(term,0)}}
+                ({{arrivalAircode(term,0)}})</p>
+
+              <span>{{"SearchResult.Passenger"|translate}}: {{response.searchCriteria.totalPassengersNum}},
+                Class:{{response.cabinClasses}} ({{response.searchCriteria.flightType}})</span>
+            </div>
+            <!--Total Amount-->
+            <!-- <div class="col-lg-3 col-sm-6 Price order-1"
+              (click)="toCheckout(response.searchCriteria?.searchId,term.sequenceNum)">
+              <p>{{response.searchCriteria.currency|exchange:'code'}} {{term.itinTotalFare.amount}}</p>
+              <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+            </div> -->
+            <div class="col-lg-3 order-1 col-sm-6 ">
+              <!-- price -->
+              <div class="Price" (click)="toCheckout(response.searchCriteria.searchId,term.sequenceNum)">
+                <p>{{response.searchCriteria.currency|exchange:'code'}} {{term.itinTotalFare.amount|exchange:'value'}}
+                </p>
+                <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+              </div>
+
+                <!-- refundText -->
+                <div class="refundText" [ngClass]="{'refund': term.isRefundable,'norefund':!term.isRefundable }">
+                    <span *ngIf="term.isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                    <span *ngIf="!term.isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+    
+                  </div>
+                  <!-- refundText -->
+              
+              <!-- price -->
+              <!-- faireRules -->
+              <!-- <div class="faireRules">
+                  <button class="btn ">{{"SearchResult.faireRules"|translate}}</button>
+                </div> -->
+              <!-- faireRules -->
+
+            </div>
+          </div>
+          <!--Row for Trip duration-->
+          <div class="row durationrow">
+            <div class=" text-center Duration p0">
+              <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+              <p>{{term.allJourney.flights[0].elapsedTime| hourminute}}</p>
+            </div>
+          </div>
+          <!--Row for line Dept and Land-->
+          <div class="row ArtDetails ">
+            <div class="DeptClass col-4">
+              <p>{{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+              </p>
+            </div>
+            <div class="col-4">
+              <hr>
+            </div>
+
+            <div class="LandClass col-4">
+              <p>{{arrivalCity(term,0)}}
+                ({{arrivalAircode(term,0)}})</p>
+            </div>
+          </div>
+          <!--Date Of trip departing-->
+          <div class="row DateTrip">
+            <div class="col">
+              <p>{{term.allJourney.flights[0].flightDTO[0].departureDate | date:'shortTime'}}</p>
+            </div>
+            <div class="col Stops">
+              <p>{{direct(term.allJourney.flights[0].stopsNum)|translate}}</p>
+            </div>
+            <div class="col Pright">
+              <p>{{arrivalDate(term,0) | date:'shortTime'}}</p>
+            </div>
+          </div>
+          <!-- return -->
+          <!-- Row of return duration -->
+          <div class="row durationrow">
+            <div class=" text-center Duration p0">
+              <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+              <p>{{term.allJourney.flights[1].elapsedTime| hourminute}}</p>
+            </div>
+          </div>
+          <!--Row for line Dept and Land Return -->
+          <div class="row ArtDetails">
+            <div class="DeptClass col-4">
+              <p>{{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                ({{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})
+              </p>
+            </div>
+            <div class="col-4">
+              <hr>
+            </div>
+
+            <div class="LandClass col-4">
+              <p>{{arrivalCity(term,1)}}
+                ({{arrivalAircode(term,1)}})</p>
+            </div>
+          </div>
+          <!--Date Of trip departing-->
+          <div class="row DateTrip">
+            <div class="col">
+              <p>{{term.allJourney.flights[1].flightDTO[0].departureDate | date:'shortTime'}}</p>
+            </div>
+            <div class="col Stops">
+              <p>{{direct(term.allJourney.flights[1].stopsNum)|translate}}</p>
+            </div>
+            <div class="col Pright">
+              <p>{{arrivalDate(term,1) | date:'shortTime'}}</p>
+            </div>
+          </div>
+          <!--Btn For Details-->
+          <div class="row MoreDetBtn">
+            <!-- <div class="col-4">
+        
+                            </div> -->
+            <div class="col-6">
+              <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+o+'l'+o+ n"
+                (click)='togglemodelt(o,n)'>
+                {{"SearchResult.MoreDetails"|translate}}
+              </button>
+            </div>
+            <div class="col-6 pr-0">
+              <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[n] = !trueT[n]"
+                [attr.aria-expanded]="!trueT[n]" aria-controls="trueT[n]" *ngIf=" o+2 == item.length">
+                less result
+                <i class="fa fa-chevron-up fa-x"></i>
+              </button>
+            </div>
+
+
+          </div>
+          <!--Modal For Details-->
+          <!-- Modal -->
+          <div class="modal fade" [id]="gettermid(o,n)" tabindex="-1" role="dialog" aria-labelledby="BookDetailsModal"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+
+                <div class="modal-body">
+                  <div class="container">
+                    <!--Start Row for Dept and price details-->
+
+                    <div class="modalTitle">
+                      <h3 class="">
+                        {{"SearchResult.Departure"|translate}}
+                      </h3>
+                    </div>
+
+                    <div class="row">
+                      <div class="col ">
+                        <p class="modelDA">
+                          {{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})
+                          -
+                          {{arrivalCity(term,0)}}
+                          ({{arrivalAircode(term,0)}})</p>
+                        <!-- <p class="modelDA">Cairo (CAI) - Dubai (DXB)</p> -->
+                        <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                          <!-- 30 May,2019 -->
+                          <b>{{term.allJourney.flights[0].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+
+                        </p>
+
+                      </div>
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                            class="modelLogo">
+                        </div>
+                        <div class="row justify-content-end">
+                          <!-- <div class="PriceDetailsM">
+                            <p><span>
+                              
+                                {{response.searchCriteria.currency|exchange:'code'}} {{term.itinTotalFare.amount}}
+                              </span> <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                            </p>
+                          </div> -->
+                          <div class="PriceDetailsM">
+                    
+                                    <span>{{response.searchCriteria?.currency}}
+                                {{term.itinTotalFare.amount|exchange:'value'}}</span>
+                              <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                              <div class="refundText"
+                            [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                            <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                            <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+                          </div>
+                          </div>
+                        </div>
+
+<!-- 
+                        <div class="row justify-content-end">
+                          <div class="refundText"
+                            [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                            <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}}</span>
+                            <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+
+                          </div>
+                        </div> -->
+
+                      </div>
+                    </div>
+
+                    <!--Card Details-->
+                    <div class="CardDet container">
+                      <div class="row ArtDetails">
+                        <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                          <p class="cityname">
+                            <!-- Cairo -->
+                            {{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.cityName}}
+                            <br><span class="airportcode text-center">
+                              ({{term.allJourney.flights[0].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                          </p>
+                        </div>
+                        <div class="col-lg-8 col-sm-6 col-md-8">
+                            <div class="route "> 
+                          <!-- <div class="route routeSegment"> -->
+                              <img src="../../../assets/img/direct.png" *ngIf="term.allJourney.flights[0].stopsNum == 0"  />                    
+                              <img src="../../../assets/img/oneS.png" *ngIf="term.allJourney.flights[0].stopsNum == 1" />
+                              <img src="../../../assets/img/twoS.png" *ngIf="term.allJourney.flights[0].stopsNum > 1" />
+                            <!-- <div class="point ml-auto firstPoint"></div>
+                            <div class="point stopPoint" *ngIf="direct(term.allJourney.flights[0].stopsNum)!=='Direct'">
+                            </div>
+                            <hr style="
+                                                                                box-sizing: content-box;
+                                                                                height: 1px;
+                                                                                overflow: visible;
+                                                                                width: 90%;
+                                                                                border: 0.2px solid #00000042;
+                                                                                border-radius: 0px;
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;">
+
+                            <div class="point mr-auto"></div> -->
+                          </div>
+                        </div>
+                        <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                          <p class="cityname">
+                            <!-- Dubai -->
+                            {{arrivalCity(term,0)}}
+                            <br> <span class="airportcode textalignc">
+                              <!-- (DXB) -->
+                              ({{arrivalAircode(term,0)}})
+                            </span></p>
+                        </div>
+                      </div>
+                      <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                        <div class="col Stops">
+                          <p class="ml-auto mr-auto">
+                            <!--  Stop1  -->
+                             {{direct(term.allJourney.flights[0].stopsNum)|translate}}
+                            <!-- Stop1  -->
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row ">
+                        <hr style=" box-sizing: content-box;
+                                                                            height: 1px;
+                                                                            overflow: visible;
+                                                                            width: 96%;
+                                                                            border: 0.2px solid #0000001f;
+                                                                            border-radius: 0px;">
+                      </div>
+                      <!-- loop stops  -->
+
+
+                      <div class="row">
+                        <ng-container *ngFor="let stop of showStopStation(term,0);let s =index  ">
+                          <div class="col-sm-12 col-md-9">
+                            <div class="row">
+                              <div
+                                class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                <p class="marg cityname">
+                                  {{stop.departureTerminalAirport.cityName}}
+                                  ({{stop.departureTerminalAirport.airportCode}}) </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    <!-- departure date  -->
+                                    {{stop.departureDate | date:'dd MMM'}}
+                                    <!-- 15 April -->
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.departureDate | date:'shortTime'}}
+                                    <!-- 6:50 -->
+                                  </small>
+
+                                </span>
+
+
+                              </div>
+                              <div class=" col-sm-12 col-md-4 justify-content-center">
+                                <div class="route smallsegmant">
+                                  <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                  <hr
+                                    style="
+                                                                                                    box-sizing: content-box;
+                                                                                                    height: 1px;
+                                                                                                    overflow: visible;
+                                                                                                    width: 100%;
+                                                                                                    border: 0.2px solid #00000042;
+                                                                                                    border-radius: 0px;
+                                                                                                    margin-left: 0px;
+                                                                                                    margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div>
+                                </div>
+                              </div>
+                              <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                <p class="marg cityname">
+
+                                  {{stop.arrivalTerminalAirport.cityName}}
+                                  ({{stop.arrivalTerminalAirport.airportCode}})
+
+
+                                </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    {{stop.arrivalDate |date :'dd MMM'}}
+
+
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.arrivalDate | date:'shortTime'}}
+
+
+                                  </small>
+                                </span>
+
+
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                            <p class="segmentStop textalignc cityname">
+                              {{stop.arrivalTerminalAirport.airportName}}
+                              <!-- {{arrivalStopAirPort(term,0) }} -->
+
+                            </p>
+                            <p class="segmentstopTime textalignc">
+
+                              ({{stop.transitTime }} )
+                              <!-- (5h 50m) -->
+                            </p>
+                          </div>
+                        </ng-container>
+                      </div>
+
+
+
+
+                    </div>
+
+                    <!--second Row -->
+                    <div class="modalTitle">
+                      <h3 class="">
+                        {{"SearchResult.Return"|translate}}
+                      </h3>
+                    </div>
+
+                    <div class="row">
+                      <div class="col ">
+                        <p class="modelDA">
+                          {{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})
+                          -
+                          {{arrivalCity(term,1)}}
+                          ({{arrivalAircode(term,1)}})</p>
+                        <!-- <p class="modelDA">Cairo (CAI) - Dubai (DXB)</p> -->
+                        <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                          <!-- 30 May,2019 -->
+                          <b>{{term.allJourney.flights[1].flightDTO[0].departureDate | date:'mediumDate'}}</b>
+
+                        </p>
+
+                      </div>
+                      <div class="col">
+                        <div class="row justify-content-end">
+                          <img src={{term.allJourney.flights[1].flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                            class="modelLogo">
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="PriceDetailsM">
+                            <p><span>
+                                <!-- KWD 200 -->
+                                {{response.searchCriteria.currency|exchange:'code'}} {{term.itinTotalFare.amount}}
+                              </span> <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                    <!--second Row-->
+
+                    <div class="CardDet container">
+                      <div class="row ArtDetails">
+                        <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                          <p class="cityname">
+                            <!-- Cairo -->
+                            {{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.cityName}}
+                            <br><span class="airportcode text-center">
+                              ({{term.allJourney.flights[1].flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                          </p>
+                        </div>
+                        <div class="col-lg-8 col-sm-6 col-md-8">
+                          <!-- <div class="route routeSegment"> -->
+                              <div class="route "> 
+                              <img src="../../../assets/img/direct.png" *ngIf="term.allJourney.flights[1].stopsNum == 0"  />                    
+                              <img src="../../../assets/img/oneS.png" *ngIf="term.allJourney.flights[1].stopsNum == 1" />
+                              <img src="../../../assets/img/twoS.png" *ngIf="term.allJourney.flights[1].stopsNum > 1" />
+                            <!-- <div class="point ml-auto firstPoint"></div>
+                            <div class="point stopPoint"></div>
+                            <hr style="
+                                                                                box-sizing: content-box;
+                                                                                height: 1px;
+                                                                                overflow: visible;
+                                                                                width: 90%;
+                                                                                border: 0.2px solid #00000042;
+                                                                                border-radius: 0px;
+                                                                                margin-left: 0px;
+                                                                                margin-right: 0px;">
+
+                            <div class="point mr-auto"></div> -->
+                          </div>
+                        </div>
+                        <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                          <p class="cityname">
+                            <!-- Dubai -->
+                            {{arrivalCity(term,1)}}
+                            <br> <span class="airportcode textalignc">
+                              <!-- (DXB) -->
+                              ({{arrivalAircode(term,1)}})
+                            </span></p>
+                        </div>
+                      </div>
+                      <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                        <div class="col Stops">
+                          <p class="ml-auto mr-auto">
+                            <!--  Stop1  -->
+                             {{direct(term.allJourney.flights[1].stopsNum)|translate}}
+                            <!-- Stop1  -->
+                          </p>
+                        </div>
+                      </div>
+                      <div class="row ">
+                        <hr style=" box-sizing: content-box;
+                                                                            height: 1px;
+                                                                            overflow: visible;
+                                                                            width: 96%;
+                                                                            border: 0.2px solid #0000001f;
+                                                                            border-radius: 0px;">
+                      </div>
+                      <!-- loop stops  -->
+
+
+                      <div class="row">
+                        <ng-container *ngFor="let stop of showStopStation(term,1);let s =index  ">
+                          <div class="col-sm-12 col-md-9">
+                            <div class="row">
+                              <div
+                                class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                <p class="marg cityname">
+                                  {{stop.departureTerminalAirport.cityName}}
+                                  ({{stop.departureTerminalAirport.airportCode}}) </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+
+                                    {{stop.departureDate | date:'dd MMM'}}
+
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.departureDate | date:'shortTime'}}
+
+                                  </small>
+                                  <small class="marg infotimeandHall bags">
+                                    <b> baggage = {{ term.baggageInformation[s].baggage }}</b>
+                                    <br>
+                                    <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                      {{term.baggageInformation[s].childBaggage }}</b> -->
+                                      <b *ngIf="term.baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                          {{ term.baggageInformation[s].childBaggage }}</b>
+
+                                    <!-- baggage=2 Piece(s) -->
+                                  </small>
+
+                                </span>
+
+
+                              </div>
+                              <div class=" col-sm-12 col-md-4 justify-content-center">
+                                <div class="route smallsegmant">
+                                  <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                  <hr
+                                    style="
+                                                                                                    box-sizing: content-box;
+                                                                                                    height: 1px;
+                                                                                                    overflow: visible;
+                                                                                                    width: 100%;
+                                                                                                    border: 0.2px solid #00000042;
+                                                                                                    border-radius: 0px;
+                                                                                                    margin-left: 0px;
+                                                                                                    margin-right: 0px;">
+
+                                  <div class="point mr-auto"></div>
+                                </div>
+                              </div>
+                              <div class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                <p class="marg cityname">
+
+                                  {{stop.arrivalTerminalAirport.cityName}}
+                                  ({{stop.arrivalTerminalAirport.airportCode}})
+
+
+                                </p>
+                                <span class="marg small">
+                                  <small class="marg infodate">
+                                    {{stop.arrivalDate |date :'dd MMM'}}
+
+                                  </small>
+                                  <small class="marg infotimeandHall">
+                                    {{stop.arrivalDate | date:'shortTime'}}
+
+
+                                  </small>
+                                </span>
+
+
+                              </div>
+                            </div>
+
+                          </div>
+                          <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                            <p class="segmentStop textalignc cityname">
+                              {{stop.arrivalTerminalAirport.airportName}}
+
+
+                            </p>
+                            <p class="segmentstopTime textalignc">
+
+                              ({{stop.transitTime }} )
+
+                            </p>
+                          </div>
+                        </ng-container>
+                      </div>
+
+
+
+
+                    </div>
+
+
+                  </div>
+                  <!-- end of loop -->
+
+                </div>
+
+
+                <div class="modal-footer fareLink">
+                  <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)"
+                    class="btn btn-outline-primary cancelationd " target="blank" style="    color: white;
+                    background: #ffc107;
+                    border: 3px solid #ffc107;
+                    border-radius: 0px;">
+                    {{"SearchResult.terms"|translate}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </ng-container>
+
+    </div>
+  </ng-container>
+
+  <!--End Card-->
+  <!--Start Filter Div-->
+
+</ng-template>
+
+
+<ng-template #MultiT>
+  <div class="col-lg-9 col-sm-12   ">
+    <ng-container *ngFor="let item of orgnizedResponce;let i= index;">
+      <div class="row multiDes">
+        <!-- logo and  price  more button  -->
+        <div class=" col-12 col-md-4 ">
+          <div class="flight-side" style="height:100%">
+
+            <!-- <div class="airlineLogo ">
+              <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+            </div> -->
+
+            <div class="airlineLogo">
+              <img src={{item[0].allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+            </div>
+            <!-- refundText -->
+            <div class="refundText" [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+              <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+              <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+            </div>
+            <!-- refundText -->
+
+
+
+
+            <!-- price -->
+            <div class="Price totalPrice" (click)="toCheckout(response.searchCriteria.searchId,item[0].sequenceNum)">
+              <p>{{response.searchCriteria.currency|exchange:'code'}} {{item[0].itinTotalFare.amount|exchange:'value'}}
+              </p>
+              <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+            </div>
+            <!-- price -->
+            <!-- faireRules -->
+            <!-- <div class="faireRules">
+                    <button class="btn ">{{"SearchResult.faireRules"|translate}}</button>
+                  </div> -->
+            <!-- faireRules -->
+            <div class="MoreDetBtn totalPrice">
+              <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+i"
+                (click)='togglemodel(i)'>
+                {{"SearchResult.MoreDetails"|translate}}
+              </button>
+            </div>
+
+
+
+          </div>
+
+        </div>
+        <div class="col-12 col-md-8 ">
+          <div class="row">
+            <div classs="col-12" style="width: 100%">
+              <ng-container *ngFor="let flight  of item[0].allJourney.flights;let f=index">
+
+                <div class=" CardStyle line">
+                  <div class="row FirstRowDet">
+
+                    <!--Dept,Land,Capin class and No.Passenger-->
+                    <div class="col-lg-6 order-sm-1 order-2 col-sm-6 DetLanDetails">
+                      <p>{{flight.flightDTO[0]?.departureTerminalAirport.cityName}}
+                        ({{flight.flightDTO[0]?.departureTerminalAirport.airportCode}})
+                        -
+                        {{arrivalCity(item[0],f)}}
+                        ({{arrivalAircode(item[0],f)}})</p>
+
+                      <span> {{"SearchResult.Passenger"|translate}}: {{response.searchCriteria?.totalPassengersNum}},
+                        Class:{{response.cabinClasses}}
+                        ({{response.searchCriteria?.flightType}})</span>
+                    </div>
+                    <!--Total Amount-->
+                  </div>
+                  <div class="row durationrow">
+                    <div class=" text-center Duration p0">
+                      <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+                      <p>{{flight.elapsedTime| hourminute}}</p>
+                    </div>
+                  </div>
+                  <div class="row ArtDetails">
+                    <div class="DeptClass col-4">
+                      <p>{{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                        ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})
+                      </p>
+                    </div>
+                    <div class="col-4">
+                      <hr>
+                    </div>
+
+                    <div class="LandClass col-4">
+                      <p>{{arrivalCity(item[0],f)}}
+                        ({{arrivalAircode(item[0],f)}})</p>
+                    </div>
+                  </div>
+                  <div class="row DateTrip">
+                    <div class="col">
+                      <p class="mb-0 ml-3">
+                        {{flight.flightDTO[0].departureDate | date:'shortTime'}}
+                      </p>
+                      <div>
+                        <p>{{flight.flightDTO[0].departureDate | date:'mediumDate'}}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col Stops">
+                      <p>{{direct(flight.stopsNum)|translate}}</p>
+                    </div>
+                    <div class="col Pright">
+                      <p class="mb-0 mr-3">{{arrivalDate(item[0],f) | date:'shortTime'}}</p>
+                      <div>
+                        <p>{{arrivalDate(item[0],f) | date:'mediumDate'}}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- *ngIf="f > item[0].allJourney.flights.length-1  " -->
+                  <div class="row MoreDetBtn morResultbtn " *ngIf=" f == item[0].allJourney.flights.length-1">
+                    <div class="col-6 ">
+                      <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[i]= !trueT[i]"
+                        [attr.aria-expanded]="!trueT[i]" aria-controls="collapseItem" *ngIf="item.length > 1">
+                        {{item.length-1}} {{"SearchResult.Moreresult"|translate}}
+                        <i class="fa fa-chevron-down fa-x"></i>
+                      </button>
+                    </div>
+
+
+                  </div>
+
+                  <!--Modal For Details-->
+                  <!-- Modal -->
+                  <div class="modal fade" [id]="i" tabindex="-1" role="dialog" aria-labelledby="BookDetailsModal"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="container">
+                            <ng-container *ngFor="let flight of item[0].allJourney.flights ;let f =index ">
+
+                              <!--Start Row for Dept and price details-->
+                              <div class="row">
+                                <div class="col ">
+                                  <p class="modelDA">
+                                    {{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                                    ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})
+                                    -
+                                    {{arrivalCity(item[0],f)}}
+                                    ({{arrivalAircode(item[0],f)}})</p>
+                                  <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                                    <b>{{flight.flightDTO[0].departureDate | date:'mediumDate'}}</b>
+                                  </p>
+
+                                </div>
+                                <div class="col">
+                                  <div class="row justify-content-end">
+                                    <img src={{flight.flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                                      class="modelLogo">
+                                  </div>
+                                  <div class="row justify-content-end">
+                                    <!-- <div class="PriceDetailsM">
+                                      <p><span>{{response.searchCriteria?.currency}}
+                                          {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                                        <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                      </p>
+                                    </div> -->
+                                    <div class="PriceDetailsM">
+                                    <span>{{response.searchCriteria?.currency}}
+                                  {{item[0].itinTotalFare.amount|exchange:'value'}}</span>
+                                <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                <div class="refundText"
+                              [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                              <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                              <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+  
+                            </div>
+                            </div>
+
+
+
+                                  </div>
+                                  <!-- <div class="row justify-content-end">
+                                    <div class="refundText"
+                                      [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                      <span *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                                      <span *ngIf="!item[0].isRefundable">
+                                        {{"SearchResult.NonRefundable"|translate}}</span>
+
+                                    </div>
+                                  </div> -->
+
+                                </div>
+                              </div>
+                              <!--second Row-->
+                              <div class="row">
+                                <div class="col">
+
+                                </div>
+                              </div>
+                              <!--Card Details-->
+                              <div class="CardDet container">
+                                <div class="row ArtDetails">
+                                  <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                                    <p class="cityname">
+                                      {{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                                      <br><span class="airportcode text-center">
+                                        ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                                    </p>
+                                  </div>
+                                  <div class="col-lg-8 col-sm-6 col-md-8">
+                                    <div class="route ">
+                                        <!-- <div class="route routeSegment"> -->
+                                        <img src="../../../assets/img/direct.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 0"  />                    
+                                        <img src="../../../assets/img/oneS.png" *ngIf="item[0].allJourney.flights[0].stopsNum == 1" />
+                                        <img src="../../../assets/img/twoS.png" *ngIf="item[0].allJourney.flights[0].stopsNum > 1" />
+                                      <!-- <div class="point ml-auto firstPoint"></div>
+                                      <div class="point stopPoint"
+                                        *ngIf="direct(item[0].allJourney.flights[0].stopsNum)!=='Direct'"></div>
+                                      <hr style="
+                                                                  box-sizing: content-box;
+                                                                  height: 1px;
+                                                                  overflow: visible;
+                                                                  width: 90%;
+                                                                  border: 0.2px solid #00000042;
+                                                                  border-radius: 0px;
+                                                                  margin-left: 0px;
+                                                                  margin-right: 0px;">
+
+                                      <div class="point mr-auto"></div> -->
+                                    </div>
+                                  </div>
+                                  <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                                    <p class="cityname">{{arrivalCity(item[0],f)}} <br>
+                                      <span class="airportcode textalignc">({{arrivalAircode(item[0],f)}})</span>
+                                    </p>
+                                  </div>
+                                </div>
+                                <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                                  <div class="col Stops">
+                                    <p class="ml-auto mr-auto"> 
+                                      {{direct(flight.stopsNum)|translate}}</p>
+                                  </div>
+                                </div>
+                                <div class="row ">
+                                  <hr style=" box-sizing: content-box;
+                                                              height: 1px;
+                                                              overflow: visible;
+                                                              width: 96%;
+                                                              border: 0.2px solid #0000001f;
+                                                              border-radius: 0px;">
+                                </div>
+                                <!-- <div *ngIf="showStop(item[0],0)"> -->
+                                <div class="row">
+                                  <ng-container *ngFor="let stop of showStopStation(item[0],f);let s =index  ">
+                                    <div class="col-sm-12 col-md-9">
+                                      <div class="row">
+                                        <div
+                                          class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                          <p class="marg cityname">
+                                            {{stop.departureTerminalAirport.cityName}}
+                                            ({{stop.departureTerminalAirport.airportCode}})
+                                          </p>
+                                          <span class="marg small">
+                                            <small class="marg infodate">
+                                              <!-- departure date  -->
+                                              {{stop.departureDate | date:'dd MMM'}}
+                                              <!-- 15 April -->
+
+                                            </small>
+                                            <small class="marg infotimeandHall">
+                                              {{stop.departureDate | date:'shortTime'}}
+                                              <!-- 6:50 -->
+                                            </small>
+                                            <small class="marg infotimeandHall bags">
+                                              <b> baggage = {{ item[0].baggageInformation[s]?.baggage }}</b>
+                                              <br>
+                                              <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                                {{ item[0].baggageInformation[s].childBaggage }}</b> -->
+                                                <b *ngIf="item[0].baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                                    {{ item[0].baggageInformation[s].childBaggage }}</b>
+
+                                              <!-- baggage=2 Piece(s) -->
+                                            </small>
+
+                                          </span>
+
+                                          <!-- <small class="marg hall infotimeandHall"> -->
+                                          <!-- notworked -->
+                                          <!-- {{flight.flightDTO[0].departureTerminalAirport.regionName}} -->
+                                          <!-- hall(2) -->
+                                          <!-- </small> -->
+                                        </div>
+                                        <div class=" col-sm-12 col-md-4 justify-content-center">
+                                          <div class="route smallsegmant">
+                                            <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                            <hr
+                                              style="
+                                                                                                                              box-sizing: content-box;
+                                                                                                                              height: 1px;
+                                                                                                                              overflow: visible;
+                                                                                                                              width: 100%;
+                                                                                                                              border: 0.2px solid #00000042;
+                                                                                                                              border-radius: 0px;
+                                                                                                                              margin-left: 0px;
+                                                                                                                              margin-right: 0px;">
+
+                                            <div class="point mr-auto"></div>
+                                          </div>
+                                        </div>
+                                        <div
+                                          class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                          <p class="marg cityname">
+                                            <!-- notworked -->
+
+                                            <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                                                               ({{arrivalStopAircode(item[0],0)}})   -->
+                                            {{stop.arrivalTerminalAirport.cityName}}
+                                            ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                            <!-- Jeddah (JED) -->
+                                          </p>
+                                          <span class="marg small">
+                                            <small class="marg infodate">
+                                              {{stop.arrivalDate |date :'dd MMM'}}
+
+                                              <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+
+                                              <!-- 15 April -->
+                                            </small>
+                                            <small class="marg infotimeandHall">
+                                              {{stop.arrivalDate | date:'shortTime'}}
+
+                                              <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                              <!-- 6:50 -->
+                                            </small>
+                                          </span>
+
+                                          <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                                        </div>
+                                      </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                                      <p class="segmentStop textalignc cityname">
+                                        {{stop.arrivalTerminalAirport.airportName}}
+                                        <!-- {{arrivalStopAirPort(item[0],0) }} -->
+
+                                      </p>
+                                      <p class="segmentstopTime textalignc">
+
+                                        ({{stop.transitTime }} )
+                                        <!-- (5h 50m) -->
+                                      </p>
+                                    </div>
+                                  </ng-container>
+
+                                </div>
+                                <!-- </div> -->
+
+
+                              </div>
+
+                            </ng-container>
+
+                          </div>
+
+                        </div>
+                        <div class="modal-footer fareLink">
+                          <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)"
+                            class="btn btn-outline-primary cancelationd " target="blank" style="    color: white;
+                            background: #ffc107;
+                            border: 3px solid #ffc107;
+                            border-radius: 0px;">
+                            {{"SearchResult.terms"|translate}}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+                </div>
+
+
+
+
+
+              </ng-container>
+
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <!--       <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+ m+'l' +m +i"
+              (click)='togglemodelt(m,i)'>
+              More Details
+            </button> -->
+
+      <!-- term  -->
+      <div class="col-lg-12 col-sm-12 " id="collapseItem" [ngbCollapse]="trueT[i]"
+        *ngFor="let term of item|slice:1;let m= index;">
+
+        <div class="row multiDes">
+          <!-- logo and  price  more button  -->
+          <div class=" col-12 col-md-4 ">
+            <div class="flight-side" style="height:100%">
+
+              <div class="airlineLogo ">
+                <img src={{term.allJourney.flights[0].flightDTO[0].flightAirline.airlineLogo}} width="150px">
+              </div>
+              <div class="refundText" [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                <span *ngIf="term.isRefundable">{{"SearchResult.Refundable"|translate}} </span>
+                <span *ngIf="!term.isRefundable"> {{"SearchResult.NonRefundable"|translate}} </span>
+              </div>
+
+              <div class="Price totalPrice" (click)="toCheckout(response.searchCriteria.searchId,term.sequenceNum)">
+                <p>{{response.searchCriteria.currency|exchange:'code'}} {{term.itinTotalFare.amount}}</p>
+                <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+
+              </div>
+              <div class="MoreDetBtn">
+                <button type="button" class="DeatilsBtn" data-toggle="modal" [attr.data-target]="'#'+ m+'l' +m +i"
+                  (click)='togglemodelt(m,i)'>
+                  {{"SearchResult.MoreDetails"|translate}}
+                </button>
+              </div>
+
+
+
+            </div>
+
+          </div>
+          <div class="col-12 col-md-8 ">
+            <div class="row">
+              <div classs="col-12" style="width: 100%">
+                <ng-container *ngFor="let flight  of term.allJourney.flights;let f=index">
+
+                  <div class=" CardStyle">
+                    <div class="row FirstRowDet">
+
+                      <!--Dept,Land,Capin class and No.Passenger-->
+                      <div class="col-lg-6 order-sm-1 order-2 col-sm-6 DetLanDetails">
+                        <p>{{flight.flightDTO[0]?.departureTerminalAirport.cityName}}
+                          ({{flight.flightDTO[0]?.departureTerminalAirport.airportCode}})
+                          -
+                          {{arrivalCity(term,f)}}
+                          ({{arrivalAircode(term,f)}})</p>
+
+                        <span> {{"SearchResult.Passenger"|translate}}: {{response.searchCriteria?.totalPassengersNum}},
+                          Class:{{response.cabinClasses}}
+                          ({{response.searchCriteria?.flightType}})</span>
+                      </div>
+                      <!--Total Amount-->
+                    </div>
+                    <div class="row durationrow">
+                      <div class=" text-center Duration">
+                        <!-- <p>{{item.totalDuration | durationToHourMin}}</p> -->
+                        <p>{{flight.elapsedTime| hourminute}}</p>
+                      </div>
+                    </div>
+                    <div class="row ArtDetails">
+                      <div class="DeptClass col-4">
+                        <p>{{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})
+                        </p>
+                      </div>
+                      <div class="col-4">
+                        <hr>
+                      </div>
+
+                      <div class="LandClass col-4">
+                        <p>{{arrivalCity(term,f)}}
+                          ({{arrivalAircode(term,f)}})</p>
+                      </div>
+                    </div>
+                    <div class="row DateTrip">
+                      <div class="col">
+                        <p class="mb-0 ml-3">
+                          {{flight.flightDTO[0].departureDate | date:'shortTime'}}
+                        </p>
+                        <div>
+                          <p>{{flight.flightDTO[0].departureDate | date:'mediumDate'}}
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col Stops">
+                        <p>{{direct(flight.stopsNum)|translate}}</p>
+                      </div>
+                      <div class="col Pright">
+                        <p class="mb-0 mr-3">{{arrivalDate(term,f) | date:'shortTime'}}</p>
+                        <div>
+                          <p>{{arrivalDate(term,f) | date:'mediumDate'}}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- *ngIf="f > term.allJourney.flights.length-1  " -->
+                    <div class="row MoreDetBtn morResultbtn " *ngIf=" f == term.allJourney.flights.length-1">
+                      <div class="col-6 ">
+                        <button type="button" class="btn btn-outline-primary moreResult" (click)="trueT[i] = !trueT[i]"
+                          [attr.aria-expanded]="!trueT[i]" aria-controls="trueT[i]" *ngIf=" m+2 == item.length">
+                          less result
+                          <i class="fa fa-chevron-up fa-x"></i>
+                        </button>
+                      </div>
+
+
+                    </div>
+
+                    <!--Modal For Details-->
+                    <!-- Modal -->
+                    <div class="modal fade" [id]="gettermid(m,i)" tabindex="-1" role="dialog"
+                      aria-labelledby="BookDetailsModal" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="container">
+                              <ng-container *ngFor="let flight of term.allJourney.flights ;let f =index ">
+
+                                <!--Start Row for Dept and price details-->
+                                <div class="row">
+                                  <div class="col ">
+                                    <p class="modelDA">
+                                      {{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                                      ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})
+                                      -
+                                      {{arrivalCity(term,f)}}
+                                      ({{arrivalAircode(term,f)}})</p>
+                                    <p class="modelDAd"><span>{{"SearchResult.DepartureDate"|translate}}:</span>
+                                      <b>{{flight.flightDTO[0].departureDate | date:'mediumDate'}}</b>
+                                    </p>
+
+                                  </div>
+                                  <div class="col">
+                                    <div class="row justify-content-end">
+                                      <img src={{flight.flightDTO[0].flightAirline.airlineLogo}} alt=" logo"
+                                        class="modelLogo">
+                                    </div>
+                                    <div class="row justify-content-end">
+                                      <div class="PriceDetailsM">
+                                        <p><span>{{response.searchCriteria?.currency}}
+                                            {{term.itinTotalFare.amount}}</span>
+                                          <small>{{"SearchResult.IncludeTaxes"|translate}}</small>
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="row justify-content-end">
+                                      <div class="refundText"
+                                        [ngClass]="{'refund': item[0].isRefundable,'norefund':!item[0].isRefundable }">
+                                        <span
+                                          *ngIf="item[0].isRefundable">{{"SearchResult.Refundable"|translate}}</span>
+                                        <span *ngIf="!item[0].isRefundable"> {{"SearchResult.NonRefundable"|translate}}
+                                        </span>
+
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+                                <!--second Row-->
+                                <div class="row">
+                                  <div class="col">
+
+                                  </div>
+                                </div>
+                                <!--Card Details-->
+                                <div class="CardDet container">
+                                  <div class="row ArtDetails">
+                                    <div class="DeptClass col-sm-3 col-lg-2 col-md-2">
+                                      <p class="cityname">
+                                        {{flight.flightDTO[0].departureTerminalAirport.cityName}}
+                                        <br><span class="airportcode text-center">
+                                          ({{flight.flightDTO[0].departureTerminalAirport.airportCode}})</span>
+                                      </p>
+                                    </div>
+                                    <div class="col-lg-8 col-sm-6 col-md-8">
+                                      <div class="route ">
+                                          <!-- <div class="route routeSegment"> -->
+                                          <img src="../../../assets/img/direct.png" *ngIf="flight.stopsNum == 0"  />                    
+                                          <img src="../../../assets/img/oneS.png" *ngIf="flight.stopsNum == 1" />
+                                          <img src="../../../assets/img/twoS.png" *ngIf="flight.stopsNum > 1" />
+                                        <!-- <div class="point ml-auto firstPoint"></div>
+                                        <div class="point stopPoint"></div>
+                                        <hr style="
+                                                                      box-sizing: content-box;
+                                                                      height: 1px;
+                                                                      overflow: visible;
+                                                                      width: 90%;
+                                                                      border: 0.2px solid #00000042;
+                                                                      border-radius: 0px;
+                                                                      margin-left: 0px;
+                                                                      margin-right: 0px;">
+
+                                        <div class="point mr-auto"></div> -->
+                                      </div>
+                                    </div>
+                                    <div class="LandClass col-lg-2 col-sm-3 col-md-2 textalignr">
+                                      <p class="cityname">{{arrivalCity(term,f)}} <br>
+                                        <span class="airportcode textalignc">({{arrivalAircode(term,f)}})</span>
+                                      </p>
+                                    </div>
+                                  </div>
+                                  <div class="row Mstops ml-auto mr-auto" style="max-width:30vw;">
+                                    <div class="col Stops">
+                                      <p class="ml-auto mr-auto"> 
+                                        {{direct(flight.stopsNum)}}</p>
+                                    </div>
+                                  </div>
+                                  <div class="row ">
+                                    <hr style=" box-sizing: content-box;
+                                                                  height: 1px;
+                                                                  overflow: visible;
+                                                                  width: 96%;
+                                                                  border: 0.2px solid #0000001f;
+                                                                  border-radius: 0px;">
+                                  </div>
+                                  <!-- <div *ngIf="showStop(term,0)"> -->
+                                  <div class="row">
+                                    <ng-container *ngFor="let stop of showStopStation(term,f);let s =index  ">
+                                      <div class="col-sm-12 col-md-9">
+                                        <div class="row">
+                                          <div
+                                            class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                            <p class="marg cityname">
+                                              {{stop.departureTerminalAirport.cityName}}
+                                              ({{stop.departureTerminalAirport.airportCode}})
+                                            </p>
+                                            <span class="marg small">
+                                              <small class="marg infodate">
+                                                <!-- departure date  -->
+                                                {{stop.departureDate | date:'dd MMM'}}
+                                                <!-- 15 April -->
+
+                                              </small>
+                                              <small class="marg infotimeandHall">
+                                                {{stop.departureDate | date:'shortTime'}}
+                                                <!-- 6:50 -->
+                                              </small>
+
+                                              <small class="marg infotimeandHall bags">
+                                                <b> baggage = {{ term.baggageInformation[s]['baggage'] }}</b>
+                                                <br>
+                                                <!-- <b> {{"SearchResult.childBags"|translate}} =
+                                                  {{term.baggageInformation[s].childBaggage }}</b> -->
+                                                  <b *ngIf="term.baggageInformation[s].childBaggage != '' "> {{"SearchResult.childBags"|translate}} =
+                                                      {{ term.baggageInformation[s].childBaggage }}</b>
+                                                <!-- baggage=2 Piece(s) -->
+                                              </small>
+
+                                            </span>
+
+                                            <!-- <small class="marg hall infotimeandHall"> -->
+                                            <!-- notworked -->
+                                            <!-- {{flight.flightDTO[0].departureTerminalAirport.regionName}} -->
+                                            <!-- hall(2) -->
+                                            <!-- </small> -->
+                                          </div>
+                                          <div class=" col-sm-12 col-md-4 justify-content-center">
+                                            <div class="route smallsegmant">
+                                              <div class="point ml-auto firstPoint" style="left:0;"></div>
+                                              <hr
+                                                style="
+                                                                                                                                  box-sizing: content-box;
+                                                                                                                                  height: 1px;
+                                                                                                                                  overflow: visible;
+                                                                                                                                  width: 100%;
+                                                                                                                                  border: 0.2px solid #00000042;
+                                                                                                                                  border-radius: 0px;
+                                                                                                                                  margin-left: 0px;
+                                                                                                                                  margin-right: 0px;">
+
+                                              <div class="point mr-auto"></div>
+                                            </div>
+                                          </div>
+                                          <div
+                                            class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                            <p class="marg cityname">
+
+
+
+                                              {{stop.arrivalTerminalAirport.cityName}}
+                                              ({{stop.arrivalTerminalAirport.airportCode}})
+
+                                            </p>
+                                            <span class="marg small">
+                                              <small class="marg infodate">
+                                                {{stop.arrivalDate |date :'dd MMM'}}
+
+                                                <!-- {{arrivalStopDate(term,0) |date :'dd MMM' }}  -->
+
+                                                <!-- 15 April -->
+                                              </small>
+                                              <small class="marg infotimeandHall">
+                                                {{stop.arrivalDate | date:'shortTime'}}
+
+                                                <!-- {{arrivalStopDate(term,0) |date :'shortTime' }}  -->
+                                                <!-- 6:50 -->
+                                              </small>
+                                            </span>
+
+                                            <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                      <div class="col-sm-12 col-md-3 align-items-center" *ngIf="stop.isStopSegment">
+                                        <p class="segmentStop textalignc cityname">
+                                          {{stop.arrivalTerminalAirport.airportName}}
+                                          <!-- {{arrivalStopAirPort(term,0) }} -->
+
+                                        </p>
+                                        <p class="segmentstopTime textalignc">
+
+                                          ({{stop.transitTime }} )
+                                          <!-- (5h 50m) -->
+                                        </p>
+                                      </div>
+                                    </ng-container>
+
+                                  </div>
+                                  <!-- </div> -->
+
+
+                                </div>
+
+                              </ng-container>
+
+                            </div>
+
+                          </div>
+                          <div class="modal-footer fareLink">
+                            <a [href]="farerules(response.searchCriteria.searchId,item[0].sequenceNum)"
+                              class="  btn btn-outline-primary cancelationd" target="blank" style="    color: white;
+                              background: #ffc107;
+                              border: 3px solid #ffc107;
+                              border-radius: 0px;">
+                              {{"SearchResult.terms"|translate}}</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+
+
+
+
+
+                </ng-container>
+
+              </div>
+
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+      </div>
+
+    </ng-container>
+  </div>
+</ng-template>

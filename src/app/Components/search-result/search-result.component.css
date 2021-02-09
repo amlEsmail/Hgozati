@@ -1,0 +1,961 @@
+
+.resultPage{
+    /* background: url(../../../assets/img/shutterstock_775162108.jpg) no-repeat center center fixed;  */
+    background: url(../../../assets/img/shutterstock_775162108.jpg) ; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center; 
+}
+ng5-slider {
+direction: ltr !important;
+}
+.Title{
+    text-align: center;
+    color: #fff;
+    font-family:  'DIN_Regular';
+    padding-top: 15vh;
+    padding-bottom: 20vh;
+}
+
+.CardStyle{
+    background: #fff;
+    /* min-height: 300px; */
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+    margin-top: 10px;
+    /* min-height: 318px;
+    height: 318px; */
+}
+.scrollingitem
+{
+border: 1px solid red;
+height:600px;
+overflow: scroll;
+}
+.Card_FilterMar{
+    /* margin-top: 20px; */
+}
+.airlineLogo{
+    padding-top: 20px;
+}
+.DetLanDetails{
+    padding-top: 20px;
+}
+.DetLanDetails p{
+    display: inline-block;
+    font-family:  'DIN_Regular';
+    color: #000;
+    font-size: larger;
+    margin-bottom: 0;
+}
+.DetLanDetails span{
+    display: inline-block;
+    font-family:  'DIN_Regular';
+    color: #000;
+}
+.Price{
+    margin-top: 20px;
+    background: #ffc107;
+    border:1px solid #ffc107;
+    padding:2px;
+    border-radius: 5px;
+    font-family:  'DIN_Bold';
+    /* max-width: 200px; */
+    text-align: center;
+    color: #fff;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+.Price:hover {
+    
+    margin-top: 20px;
+    background: #f1f0ea;
+    border: 1px solid #1a1918;
+    cursor: pointer;
+}
+.Price:hover p {
+    font-family:  'DIN_Bold';
+    color: black;
+    margin-bottom: 0px;
+    cursor: pointer;
+}
+.Price:hover p.Taxes{
+    display: inline-block;
+    font-family:  'DIN_Regular';
+    color: black;
+    cursor: pointer;
+}
+.Price p{
+    font-family:  'DIN_Bold';
+    color: #fff;
+    margin-bottom: 0px;
+
+}
+.Price p.Taxes{
+    display: inline-block;
+    font-family:  'DIN_Regular';
+    color: #fff;
+}
+.FirstRowDet{
+    margin: auto;
+}
+.Duration {
+    margin: 0 auto;
+    font-family:  'DIN_Regular';
+    padding-top:5px;
+    padding-bottom: 10px;
+}
+.durationrow{
+    /* margin-top: -30px ; */
+    margin-top: -10px;
+}
+.ArtDetails{
+    margin: 10px;
+    margin-top: -20px;
+    margin-bottom: 0px;
+}
+.ArtDetails p{
+    font-size: large;
+    font-family:  'DIN_Regular';
+}
+.DateTrip{
+    margin: auto;
+}
+.Pright p{
+    text-align: right;
+}
+.Stops p{
+    color: #35b33a;
+    text-align: center;
+    font-family:  'DIN_Bold';
+}
+.MoreDetBtn{
+    margin-top:10px; 
+    display: flex; justify-content: center;
+    margin-bottom: 0px;
+}
+.MoreDetBtn button{
+    background: #fff;
+    border: 1px solid #000;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    /* width: 80%; */
+}
+.MoreDetBtn button:hover{
+    background: #ffc107;
+    border: 1px solid #ffc107;
+    border-bottom: 0px;
+    color: #fff;
+    padding: 10px;
+
+    font-family:  'DIN_Bold';
+}
+.MoreDetBtn .DeatilsBtn
+{
+    width: 80%;
+}
+.MoreDetBtn .DeatilsBtn
+{
+
+}
+.modal button{
+    background: #fff;
+    /* border: 0px solid #fff; */
+    color: #000;
+    /* padding: 0px; */
+    /* width: 30%; */
+}
+.modal button:hover{
+    background: #fff;
+    /* border: 1px solid #fff; */
+    color: #000;
+    /* padding: 0px; */
+    /* width: 30%; */
+}
+.modal-content{
+    border-radius: 0px !important;
+}
+.DetLand_Details p {
+    color: #ffc107;
+    font-family:  'DIN_Regular';
+    font-size: 25px;
+}
+.PriceDetails{
+    background: #ffc107;
+    text-align: center;
+    color: #fff;
+    border-radius:2px;
+    padding: 10px;
+    max-width:20%;
+}
+.MoreDetBtn .moreResult {
+    width: 50% !important;
+    float: right;
+    border-bottom: 0px !important;
+    border-radius: 0px;
+    border-right: 0px ;
+}
+
+.PriceDetails p{
+    font-family:  'DIN_Bold';
+    color: #fff;
+    margin-bottom: 0px;
+
+}
+.PriceDetails p.Taxes{
+    display: inline-block;
+    font-family:  'DIN_Regular';
+    color: #fff;
+}
+.DeptDate_Details{
+    color:#000;
+}
+.DeptDate_Details p{
+    font-family:  'DIN_Regular';
+    color: #313A44;
+    font-size: 18px;
+}
+.DeptDate_Details span{
+    font-weight: bold;
+    font-size: 18px;
+}
+.CardDet{
+    background: #fff;
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+    padding: 10px;
+    margin-bottom: 20px;
+}
+/* filter style */
+.filterCard {
+    background-color: white;
+    height: fit-content;
+    padding-top: 15px;
+    padding-bottom: 100px;
+}
+/* slider style */
+ .barClass {
+    width:80%;
+    height:5px;
+    background:lightgray;
+    border-radius:5px;
+    }
+
+.sliderClass
+{
+    width:14px;
+    height:14px;
+    background:white;
+    border-radius:50%;    
+    border:1px solid blue;
+    bottom:-72% !important;
+    }
+.highlightClass{
+    background:blue;
+    }
+
+/* modale classes */
+.Mstops {
+    text-align: center;
+}
+.modelDA {
+    /* font-size: 28px; */
+    font-size: 18px;
+    color: #ffc107;
+    margin-bottom: 0;
+    font-family: 'DIN_Regular';
+}
+.modelDAd {
+    margin-bottom: 20px;
+    margin-left: auto;
+    font-size: 15px;
+    font-family: 'DIN_Regular';
+    text-align: left;
+}
+.modelLogo {
+    float: right;
+    width: 44%;
+    height: auto;
+}
+.segmentDepart {
+    width: fit-content;
+    display: inline-block;
+}
+.segmentDepart p {
+    width: fit-content;
+    display: inline-block;
+    margin: 0;
+}
+.segmentDepart small {
+    width: fit-content;
+    display: inline-block;
+}
+.segmentDepartHr {
+    display: inline-flex;
+}
+.segmentStop {
+    font-size: 15px;
+    margin: 10px 0 0 0;
+    font-family: 'DIN_Regular';
+    color: red;
+    font-weight: bold;
+}
+.segmentstopTime {
+    font-size: x-small;
+    text-align: center;
+    color: red;
+}
+span.small
+{
+    display: block;
+}
+
+span.small small
+{
+display: inline-block;
+margin-left:5px;
+font-size: 12px;
+font-weight: 800;
+}
+.hall {
+    color: #35b33a
+}
+.airportcode{
+    font-size: medium;
+}
+.point {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #ffc107;
+    border-radius: 100%;
+    background-color:#fef9f917;
+    position: relative;
+    z-index: 3;
+    margin-top: 10px;
+}
+.stopPoint {
+    z-index: 7;
+    left: 45%;
+    background-color: #5ec074;
+    top: -1px;
+}
+.firstPoint {
+    left: 18px;
+}
+.route {
+    display: flex;
+}
+.leftpadding {
+    padding-left: 0px
+}
+.rightpadding {
+    padding-right: 0px
+}
+.marg {
+    margin: auto;
+}
+.textalignr {
+    text-align: right;
+}
+.textalignc {
+    text-align: center;
+}
+.cityname {
+        font-size: 15px;
+    }
+.infodate {
+        font-size: 11px;
+    }
+.infotimeandHall {
+        font-size: 11px;
+    }
+.loadingBar {
+        margin-left:-15px;
+        margin-right:-15px;
+  } 
+ .modal-backdrop {
+    display: none;
+    
+}
+
+
+
+/* scrollbar style */
+
+/* width */
+::-webkit-scrollbar{
+    width: 3px;
+    height: 50px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background:#d1c4e9 ; 
+    
+  }
+  ::-webkit-scrollbar-track:hover {
+    background:#d1c4e9 ;
+    cursor:url("http://i.imgur.com/2qleX.jpg"), auto;
+    
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffc107; 
+    cursor:url("http://i.imgur.com/2qleX.jpg"), auto;
+   
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e0a800;
+    cursor: pointer; 
+  }
+
+  /* scrollbar style */
+
+
+
+  /* modaltitle */
+
+  .modalTitle h3{
+    text-align: left ;
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #767676;
+  }
+  /* modaltitle */
+
+
+  /* filterCard toggle */
+  .filterCard .collapse:not(.show)
+  {
+      display: block;
+
+  }
+  .Card_FilterMar .navbar-toggler
+  {
+    display: none;
+    border-color: #ffc107; 
+    padding: 0.45rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    border-radius: 0;
+    margin: 20px auto;
+
+  }
+  .Card_FilterMar .filterBtn 
+  {
+      display: none;
+  }
+  
+.Card_FilterMar .navbar-toggler .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+    background-color: #ffc107;
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+  /* filterCard toggle */
+
+  /* ArtDetails */
+  .ArtDetails .col-4
+  {
+    text-align: center;
+  }
+  
+/*DateTrip  */
+  .DateTrip p
+  {
+text-align: center !important;
+margin-left: 0 !important;
+margin-right:0 !important;
+
+  }
+
+
+
+/* multidest */
+
+
+.multiDes
+{
+    margin: 10px auto;
+}
+.multiDes .CardStyle
+{
+ margin-top: 0;
+}
+.flight-side
+{
+    height: 100%;
+    background:#fff;
+    position: relative;
+    text-align:center;
+    min-height: 200px;
+
+
+}
+.flight-side .totalPrice{
+margin:10px auto;
+
+}
+
+.flight-side .MoreDetBtn
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+
+}
+
+
+.multiDes .morResultbtn .moreResult
+{
+width: 100% !important;
+border-right: 1px solid !important;
+border-left: 1px solid !important;
+
+}
+/* refundable style */
+.refundText 
+{
+    /* padding: 10px; */
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin: 5px 0;
+    text-align: center;
+}
+.refundText.refund
+{
+    background-color: white;
+    max-width: 216px;
+    margin-right: auto;
+    margin-left: auto;
+    color: #35b33a;
+    border-radius: 20px;
+}
+.refundText.refund span{
+    /* text-shadow: 0 2px 0 rgba(92, 210, 19, 0.56); */
+}
+.refundText.norefund {
+    /* background-color: white; */
+    /* max-width: 216px; */
+    /* margin-right: auto; */
+    /* margin-left: auto; */
+    color: rgba(255, 0, 0, 0.77);
+    border-radius: 20px;
+    }
+.refundText.norefund span {
+  /* text-shadow: 0 2px 0 rgba(247, 135, 135, 0.84); */
+}
+.PriceDetailsM
+{
+    margin-bottom: 10px;
+}
+
+.bags 
+{
+    display: block !important;
+    max-width: 150px;
+    min-width: 100px;
+    padding: 5px;
+    color: #050538;
+    background-color: #ffc107;
+   
+    margin: 0;
+    margin-top: 5px;
+}
+/* .bags b
+{
+padding: 5px ;
+color: #fff;
+background-color: #e0a800;
+} */
+
+.line {
+    background: linear-gradient(
+ to left, 
+ rgb(250, 248, 249) 0%,
+ rgb(180, 176, 178) 12%,
+ rgb(153, 152, 152) 47%,
+ rgb(245, 245, 245) 100%
+ )
+ center 
+ bottom
+ white 
+ no-repeat;
+    background-size: 87% 1.5px;
+}
+
+.filter-sort
+{
+    min-height: 80px;
+}
+.sortingButtons {
+    border-radius: 20px;
+    color:#2c2e3d;
+    max-width: 135px;
+    /* color: #000; */
+    width: 130px;
+    /* margin-bottom: 10px; */
+
+}
+
+.sortingButtons img
+{
+ 
+ padding-right: 10px;
+}
+
+.DeptClass.segmentDepart,
+.LandClass.segmentDepart
+{
+    padding: 0 10px 0px;
+    margin-bottom: 10px;
+
+ 
+
+}
+
+
+
+
+/* fairRules btn */
+.faireRules .btn
+{
+    background: #2c2e3d;
+    color: #ffff;
+    padding: 2px;
+    border-radius: 5px;
+    font-family: 'DIN_Bold';
+    text-align: center;
+    color: #fff;
+    /* max-width: 200px; */
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    padding: 10px;
+}
+
+
+
+
+
+/* NEW STYLE */
+
+.route img{
+    margin: auto;
+
+}
+/* start responsive style */
+
+
+
+
+
+
+
+
+@media (max-width: 1200px)
+{
+    
+  /*ArtDetails*/
+  .ArtDetails p{
+        
+    font-size: small;
+    font-weight: 600;
+
+   }
+}
+@media (min-width: 991px){
+    .Price{
+        max-height: 75px;
+        max-width: 200px;
+    }
+
+}
+
+
+@media (max-width: 768px){
+    .MoreDetBtn button{
+        background: #fff;
+        border: 1px solid #000;
+        color: #000;
+        padding: 10px;
+        width: 100% !important;
+    }
+    .MoreDetBtn .pr-0
+    {
+        padding-right: 15px !important;
+    }
+    .MoreDetBtn  button 
+    {
+        border-bottom: 0px;
+
+    }
+    .MoreDetBtn  button.moreResult
+    {
+     border-right:1px solid !important;
+    }
+
+    .modal button{
+        background: #fff;
+        border: 0px solid #fff;
+        color: #000;
+        /* padding: 0px; */
+        width: 30%;
+    }
+    .smallsegmant {
+        /* transform: translateX(123px)translatey(-37px)rotate(90deg);
+        width: 169px; */
+        -webkit-transform: translateX(240px)translatey(-7px)rotate(90deg);
+        transform: translateX(240px)translatey(-7px)rotate(90deg);
+        width: 130px;
+    }
+    .leftpadding {
+        padding-left: 15px
+    }
+    .rightpadding {
+        padding-right: 15px
+    }
+    .marg {
+        margin: 0px;
+    }
+    .textalignr {
+    text-align: left;
+    }
+    .cityname {
+        /* font-size: 30px; */
+        font-size:20px;
+    }
+    .infodate {
+        font-size: 21px;
+        margin-left: 25px;
+    }
+    .infotimeandHall {
+        font-size: 15px;
+        margin-left: 40px;
+    }
+
+    .modelDA
+    {
+        font-size: 20px;
+    }
+
+    .modelDAd b
+    {
+        font-size:12px;
+    }
+
+
+    .bags 
+    {
+        display: block;
+        margin-top: 10px;
+    }
+    span.small small
+    {
+        display: block;
+        width: 100%;
+    }
+
+
+    .sort-filter,.text-right.resNo
+    {
+        text-align: center !important;
+
+    }
+    .sortingButtons {
+     
+        margin-bottom: 10px;
+    
+    }
+
+    
+
+
+.DetLanDetails{
+    margin-bottom: 30px;
+}
+
+    
+}
+
+
+
+@media (max-width: 480px){
+    .smallsegmant {
+        /* transform: translateX(123px)translatey(-37px)rotate(90deg);
+        width: 169px; */
+        /* -webkit-transform: translateX(150px)translatey(-7px)rotate(90deg);
+        transform: translateX(150px)translatey(-7px)rotate(90deg); */
+        -webkit-transform: translateX(70px)translatey(0px)rotate(90deg);
+        transform: translateX(70px)translatey(0px)rotate(90deg);
+        width: 100px;
+        margin:auto;
+
+    }
+    .cityname {
+        /* font-size: 30px; */
+        font-size:16px;
+    }
+
+
+}
+@media (max-width: 570px){
+
+    .routeSegment
+    {
+        -webkit-transform: translateX(70px)translatey(0px)rotate(90deg);
+        transform: translateX(70px)translatey(0px)rotate(90deg);
+        width: 100px;
+        margin: auto;
+    }
+}
+.animationLoading{
+    /* background: rgb(172, 170, 170); */
+    border: 1px solid;
+    border-color: #e5e6e9;
+    border-radius: 3px; 
+    display: block;
+    /* height: 324px;
+    width: 494px;
+    padding: 12px; */
+  }
+
+  @keyframes animate {
+      from {transition:none;}
+      to {background-color:#f6f7f8;transition: all 0.3s ease-out;}
+  }
+  
+
+  #container{
+    width:100%;
+    height:30px;
+  }
+  .one 
+  {
+    position:relative;
+    background-color: #CCC;
+    height: 6px;
+    animation-name: animate; 
+    animation-duration: 2s; 
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+  .two {
+    position:relative;
+    background-color: rgb(163, 161, 161);
+    height: 6px;
+    animation-name: animate; 
+    animation-duration: 2s; 
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+  }
+/* virtual viewport scroll  */
+  .viewportResult .CardStyle
+  {
+    animation-duration: .5s;
+    animation-delay: .4s;
+  }
+
+.scrolling 
+    {
+        height:1244px;
+        overflow-y: scroll;
+    }
+
+@media (max-width: 990px){
+
+      /* filterCard toggle */
+
+  .filterCard {
+
+    padding-top: 0;
+    padding-bottom:0
+}
+.filterCard .collapse:not(.show)
+  {
+      display: none;
+
+  }
+  .Card_FilterMar .navbar-toggler
+  {
+    display: block;
+
+  }
+
+  .filterBtn
+  {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+
+  }
+  .Card_FilterMar .filterBtn 
+  {
+      display: flex;
+  }
+
+  .filterBtn .col-6
+  {
+      text-align: center;
+
+
+  }
+  .filterBtn h3
+  {
+      color:#ffc107;
+      /* font-weight: 600; */
+
+  }
+
+  /* filterCard toggle */
+  .cancelationd {
+    border-radius: 0px;
+    width: 100% !important;
+    float: left;
+    border: 0px !important;
+    border-radius: 0px;
+    border-left: 0px !important;
+    background: #ffc107!important;
+    border: 0px;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffc107;
+}
+.fareLink a{
+    background: #ffc107;
+    border: 0px;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffc107;
+}
+.fareLink a:hover{
+    background: #e0a800;
+    border: 1px solid #e0a800;
+    border-bottom: 0px;
+    color: #fff;
+    padding: 10px;
+    width:100%;
+    font-family:  'DIN_Bold';
+}
+}

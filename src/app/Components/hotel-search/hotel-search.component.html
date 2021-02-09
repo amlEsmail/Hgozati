@@ -1,0 +1,325 @@
+<!-- start hotelSearch -->
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="hotelSearch "  class="hotel-search">
+        <div class="row">
+          <!-- location -->
+            <mat-form-field class="example-full-width col-12 col-sm-6 col-lg-2   pr-lg-0" appearance="outline" color="main" id="location" color='accent'>
+            <input type="text" placeholder='{{"hotelSearch.location"|translate}}' aria-label="Number" matInput formControlName="location"
+              [matAutocomplete]="auto" #loca >
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+         
+              <mat-option *ngFor="let item of arrhotelcities|hotelecites:loca.value|limitTo:5" [value]="item">
+                {{item.City}},{{item.Country}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+         <!-- location -->
+         <!-- nationality -->
+         <mat-form-field class="example-full-width col-12 col-sm-6 col-lg-2 pr-lg-0" appearance="outline" color="accent" >
+            <input type="text" placeholder='{{"hotelSearch.nationality"|translate}}' aria-label="Number" matInput formControlName="nation"
+              [matAutocomplete]="auto1" #count id="national">
+            <mat-autocomplete #auto1="matAutocomplete">
+              <mat-option *ngFor="let country of countries|councode:count.value|limitTo:5"
+                [value]="country.countryName">
+                {{country.countryName}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+         <!-- nationality -->
+
+ 
+
+         <!-- checkIn + checkOut-->
+         <mat-form-field  class="example-full-width col-12 col-sm-6 col-lg-2 pr-lg-0 " appearance="outline" color='accent' >
+            <!-- value="{{value|date:'MMMM dd, y'}}" -->
+            <!-- [value]="formday|date" -->
+            <mat-label>{{"hotelSearch.checkIn" |translate}}</mat-label>
+            <input matInput [matDatepicker]="pickerin" placeholder="check In " [value]="formday"      formControlName='checkIn' 
+              [min]="todayDate()" (dateChange)="setMinDate($event)"   >
+          
+            <mat-datepicker-toggle matSuffix [for]="pickerin"></mat-datepicker-toggle>
+            <mat-datepicker #pickerin disabled="false"></mat-datepicker>
+         </mat-form-field> 
+
+
+         <mat-form-field class="example-full-width col-12 col-sm-6 col-lg-2 " appearance="outline"  color='accent'> 
+            <!-- value="{{value|date:'MMMM dd, y'}}"  -->
+            <mat-label>{{"hotelSearch.checkOut" |translate}}</mat-label>
+          <input matInput [matDatepicker]="pickerout" placeholder="check Out "  formControlName='checkOut' [value]="today"  
+             [min]="hotelSearch.get('checkIn').value "  >
+         
+          <mat-datepicker-toggle matSuffix [for]="pickerout"></mat-datepicker-toggle>
+          <mat-datepicker #pickerout disabled="false"></mat-datepicker>
+       </mat-form-field>
+         <!-- checkIn + checkOut-->
+
+         <!-- rooomNo+ adult-child-age -->
+         <div class="example-full-width col-12 col-sm-6 col-lg-2  p-sm-0 align-self-center ">
+            <div ngbDropdown class="d-inline-block menue ">
+                <!-- <div class="col-12 co-md-4 col padding0 mr-2 mar4 menue"> -->
+                  <div ngbDropdown class="d-inline-block" autoClose="outside">
+                    <button class="btn btn-lg btn-outline-warning  menueBTN" id="dropdownForm1" ngbDropdownToggle type="button"
+                      style="">
+                      <!-- *ngIf="searchFlight.get('passengers').valid && !searchFlight.get('passengers').dirty" -->
+                      <!-- <span>{{"searchFlight.tAndC"|translate}}</span> -->
+                      {{hotelSearch.get('roomN').value}}
+                       <span *ngIf="hotelSearch.get('roomN').value > 1">
+                        {{"hotelSearch.rooms"|translate}}</span>
+                          <span *ngIf="hotelSearch.get('roomN').value === 1"> {{"hotelSearch.room"|translate}} </span>
+                      <!-- *ngIf="searchFlight.get('passengers').valid && searchFlight.get('passengers').dirty" -->
+                      <span > | {{allGuest}} {{"hotelSearch.guestNo" |translate}}
+                        <!-- {{searchFlight.get('passengers.adults').value + searchFlight.get('passengers.child').value + searchFlight.get('passengers.infent').value}}|{{searchFlight.get('class').value}} -->
+                      </span>
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="dropdownForm1" class="guest-dropDown" >
+                      <!-- ROOM GUEST -->
+                      <div class="row roomrow " style="margin:0">
+                        <div class= "col-12 col-sm-4 roomT">
+                            <h4 >{{"hotelSearch.rooms"|translate}} </h4>
+                        </div>
+                        <div class="row" style="display: none">
+                            <mat-form-field class="col-2" appearance="outline" color="accent" placeholder="Rooms">
+                                <mat-label>{{"hotelSearch.roomNo"|translate}}</mat-label>
+                                <select #roomNum matNativeControl formControlName="roomN" placeholder="Rooms">
+                                  <option *ngFor="let num of RoomsA|slice:0:5" [value]="num">
+                                    {{num}}
+                                  </option>
+                                </select>
+                              </mat-form-field>
+                        </div>
+                        <div class="col-12 col-sm-8 roomBtn">
+                            <!-- [ngClass]="{showPlus: roomNum.value < 5}" -->
+                            <button  type="button" mat-fab color="accent" class="add-btn hidePlus"  [ngClass]="{showPlus: roomNum.value < 5}" (click)="addRome()" >
+                                <img src="../../../assets/img/plus-solid.svg" alt=""></button>
+                                <!-- [ngClass]="{showMinus: roomNum.value > 1}" -->
+                           <button type="button"  mat-fab   color="accent" class="add-btn hideMinus" [ngClass]="{showMinus: roomNum.value > 1}" (click)="removeRome()" >
+                                <img src="../../../assets/img/minus-solid.svg" alt=""></button>
+                        </div>
+                      </div>
+                       
+                          <!--adult-child-age  -->
+                      
+                             <!-- formArrayName="guestInfo" -->
+                              <div class="guestRow  align-self-center" formArrayName="guestInfo"  >
+                             
+                                <ng-container *ngFor="let guestN of hotelSearch.get('guestInfo')['controls'] ;let i=index; " >
+                                    <!--[formGroupName]="i"  -->
+                                  <div  class="row guest" [formGroupName]="i"  >
+                      
+                                    <div class="col-12 col-sm-12  col-md-4 align-self-center">
+                                      <h4 class="roomNo">
+                                        {{"hotelSearch.roomNo"|translate}}
+                                         {{i+1}}
+                                        </h4>
+                        
+                                    </div>
+                        
+                                        <mat-form-field class="col-12 col-sm-12 col-md-4 p-0 " appearance="outline" color="accent" >
+                                            <mat-label>{{"hotelSearch.adults"|translate}}</mat-label>
+                                            <!-- formControlName="adultN" -->
+                                            <select #adultNum matNativeControl formControlName="adultN" placeholder='{{"hotelSearch.adults"|translate}}'>
+                                              <option *ngFor="let num of RoomsA|slice:0:5" [value]="num">
+                                                {{num}}
+                                              </option>
+                                            </select>
+                                          </mat-form-field>
+                           
+                                      <mat-form-field class="col-12 col-sm-12 col-md-4 p-0 pl-1" appearance="outline" color="accent"  >
+                                          <mat-label>{{"hotelSearch.Children"|translate}}</mat-label>
+                                          <!-- formControlName="childN" -->
+                                          <select matNativeControl #ChildNum formControlName="childN" placeholder='{{"hotelSearch.Children"|translate}}' (change)="addChildAge(guestN)" >
+                                            <option *ngFor="let num of childrenA" [value]="num">
+                                              {{num}}
+                                            </option>
+                                          </select>
+                                        </mat-form-field>
+                       
+                        
+                                  
+                                    <div class="col-12 p-0">
+                                        <!-- formArrayName="childGroup" -->
+                                      <div class="row" style="margin: 10px 0;" formArrayName="childGroup" >
+                                        <div class="col-12 col-sm-12 col-md-4"></div>
+                                         
+                                        <div class="col-6 col-sm-6 col-md-4  p-0 formGroup" *ngFor="let childAge of guestN.get('childGroup')['controls'] ;let c=index; " [ngClass]="{'pl-1': c==1 }"   >
+                                         <!-- [formGroupName]="c" -->
+                                          <ng-container [formGroupName]="c" >
+                                              <mat-form-field  appearance="outline" color="accent"  style="width: 100%">
+                                                  <mat-label>{{"hotelSearch.age"|translate}}</mat-label>
+                                                  <!-- formControlName="age" -->
+                                                  <select  matNativeControl  formControlName="age" placeholder='{{"hotelSearch.age"|translate}}'>
+                                                    <option *ngFor="let Cage of RoomsA|slice:1" [value]="Cage">
+                                                      {{Cage}}
+                                                    </option>
+                                                  </select>
+                                              </mat-form-field>
+                                            <!-- <input type="number" class="form-control" formControlName="age" required placeholder="child Age"
+                                              [min]="2" [max]="11" /> -->
+                                          </ng-container>
+                        
+                                          <p *ngIf="childAge.get('age').value < 2   && childAge.get('age').touched ">
+                                            <ngb-alert type="warning" [dismissible]="false"> minimum child age is 2 </ngb-alert>
+                                          </p>
+                                          <p *ngIf="childAge.get('age').value > 11   && childAge.get('age').touched ">
+                                            <ngb-alert type="warning" [dismissible]="false"> maximum child age is 11 </ngb-alert>
+                                          </p>
+                                        </div>
+                        
+                                      </div>
+                                    </div>
+                                  </div>
+                        
+                        
+                                </ng-container>
+                        
+                        
+                        
+                        
+                              </div>
+                  
+                      
+                          <!--adult-child-age  -->
+    
+    
+                     
+    
+                      <!--ROOM GUEST  -->
+       
+                      <button ngbDropdownToggle class="btn btn-warning dropdown-toggle donebuttone"
+                        type="button">{{"searchFlight.done"|translate}}</button>
+                    </div>
+                  </div>
+                <!-- </div> -->
+              </div>
+         </div>
+    
+         <!-- rooomNo+ adult-child-age -->
+
+         <!-- submit Button -->
+         <div class="example-full-width col-12 col-sm-6 col-lg-2 align-self-center ">
+            <button color='accent' class=" btn-lg btn btn-warning  searchbutton " type="submit"
+            routerLinkActive="router-link-active">
+            <i class="fa fa-search"></i>
+            {{"hotelSearch.search"|translate}}
+           </button>
+         </div>
+
+        </div>
+
+
+
+
+
+      <!-- <mat-form-field class="example-full-width col-4 " appearance="outline" color="main" id="location"
+        (click)="mystepper('Step1')">
+
+        <input type="text" placeholder='{{"hotelSearch.location"|translate}}' aria-label="Number" matInput formControlName="location"
+          [matAutocomplete]="auto" #loca >
+        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+          <mat-option *ngFor="let item of arrhotelcities|hotelecites:loca.value|limitTo:5" [value]="item">
+            {{item.City}},{{item.Country}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width col-2" appearance="outline" color="accent" (click)="mystepper('Step2')">
+        <input type="text" placeholder='{{"hotelSearch.nationality"|translate}}' aria-label="Number" matInput formControlName="nation"
+          [matAutocomplete]="auto1" #count id="national">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let country of countries|councode:count.value|limitTo:5"
+            [value]="country.countryName">
+            {{country.countryName}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-form-field class="example-full-width col-2 pr-lg-0" appearance="outline" color="accent"
+        (click)="mystepper('Step3')">
+        <input type="text" placeholder="From" aria-label="Number" matInput readonly [value]='formday|date' id="Date">
+      </mat-form-field>
+      <mat-form-field class="example-full-width col-2 pl-lg-0" appearance="outline" color="accent"
+        (click)="mystepper('Step3')">
+        <input type="text" placeholder="To" aria-label="Number" matInput readonly [value]="today|date">
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width col-2" appearance="outline" color="accent" (click)="mystepper('Step4')">
+        <mat-label > {{hotelSearch.get('roomN').value}} <span *ngIf="hotelSearch.get('roomN').value > 1">{{"hotelSearch.rooms"|translate}}</span>
+          <span *ngIf="hotelSearch.get('roomN').value === 1"> {{"hotelSearch.room"|translate}} </span>
+        </mat-label> 
+        
+        <input type="text" placeholder="rooms" aria-label="Number" matInput readonly id="rooms">
+      </mat-form-field> -->
+
+    </form>
+   
+
+   
+  
+
+
+
+
+
+<ng-container *ngIf="hotelSearch.touched">
+    <ng-container *ngTemplateOutlet="alerts">
+
+    </ng-container>
+  </ng-container>
+
+
+
+
+
+<!-- validation alert start -->
+<ng-template #alerts>
+  <p *ngIf="!hotelSearch.get('checkOut').valid && hotelSearch.get('checkOut').touched ">
+    <ngb-alert type="warning" [dismissible]="false"> {{"hotelSearch.checoutAlert" |translate}} </ngb-alert>
+  </p>
+  <!-- <p *ngIf="hotelSearch.get('roomN').value==0 && hotelSearch.get('roomN').touched ">
+    <ngb-alert type="warning" [dismissible]="false"> rooms should be at least 1 room </ngb-alert>
+  </p>
+  <p *ngIf="hotelSearch.get('roomN').value > 5   && hotelSearch.get('roomN').touched ">
+    <ngb-alert type="warning" [dismissible]="false"> maximum rooms is 5 </ngb-alert>
+  </p> -->
+
+  <ng-container *ngIf="!hotelSearch.get('guestInfo').valid">
+    <p>
+      <ngb-alert type="warning" [dismissible]="false">{{"hotelSearch.GuestAlert" |translate}} </ngb-alert>
+    </p>
+  </ng-container>
+
+  <p *ngIf="!hotelSearch.get('nation').valid && hotelSearch.get('nation').touched">
+    <ngb-alert type="warning" [dismissible]="false">{{"hotelSearch.nationAlert" |translate}}</ngb-alert>
+  </p>
+  <p *ngIf="!hotelSearch.get('location').valid && hotelSearch.get('location').dirty">
+      <ngb-alert type="warning" [dismissible]="false">{{"hotelSearch.locationAlert" |translate}}</ngb-alert>
+    </p>
+
+  <!-- <p *ngIf="hotelSearch.get('roomN').value > 5   && hotelSearch.get('roomN').touched ">
+    <ngb-alert type="warning" [dismissible]="false"> maximum child in room  is 2  </ngb-alert>
+  </p> -->
+
+  <!-- <p *ngIf="!searchFlight.get('passengers.infent').valid && searchFlight.get('passengers.infent').touched ">
+    <ngb-alert type="warning" [dismissible]="false"></ngb-alert>
+  </p>
+  <ng-container *ngIf="!searchFlight.get('passengers').valid">
+    <p *ngIf="searchFlight.get('passengers').errors">
+    <ngb-alert type="warning" [dismissible]="false"></ngb-alert>
+  </p>
+  </ng-container>
+  <ng-container *ngFor="let flight of searchFlight.get('Flights')['controls']">
+  <p *ngIf="!flight.valid && flight.dirty && flight.errors">
+    <ngb-alert type="warning" [dismissible]="false"></ngb-alert>
+  </p>
+  <p *ngIf="!flight['controls']['departing'].valid && flight['controls']['departing'].dirty">
+    <ngb-alert type="warning" [dismissible]="false"></ngb-alert>
+  </p>
+  <p *ngIf="!flight['controls']['landing'].valid && flight['controls']['landing'].dirty">
+    <ngb-alert type="warning" [dismissible]="false"></ngb-alert>
+  </p>
+</ng-container> -->
+</ng-template>
+<!-- validation alert end -->
+<!-- calender -->
+
+
+<!-- end  hotelSearch -->

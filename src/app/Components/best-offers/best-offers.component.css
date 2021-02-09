@@ -1,0 +1,184 @@
+
+
+.BestOfferTitle{
+    text-align: center;
+    font-family: 'Cairo', sans-serif !important;
+    color:#ffc107;;
+    
+  
+  }
+  .BestTitle{
+      margin-top: 100px;
+      margin-bottom:50px;
+  }
+
+
+
+.img-container
+{
+position: relative;
+overflow: hidden;
+margin-bottom: 10px;
+
+}
+
+.img-container img
+{
+  /* width: 100%; */
+  height: 300px;
+}
+
+.price
+{
+    background-color: #ffc107;;
+    color: #fff;
+    position: absolute;
+    display: inline-block;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    font-weight: 600;
+    font-size: 14px;
+
+}
+
+
+.img-container:hover .img-overlay
+{
+ opacity: 1;
+}
+
+
+
+.img-overlay
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+background: rgba(88, 87, 87, 0.64);
+width: 100%;
+height: 100%;
+opacity: 0;
+transition: all .5s ease-in-out;
+
+}
+
+.img-overlay .overlay-content 
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+}
+ .img-overlay .overlay-content  .booking-button
+ {
+    color: #fff;
+  font-size: 20px;
+  background-color:#ffc107;;
+
+ }
+.overlay-content .overlay-title 
+{
+  color: #fff;
+      margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    left: 0;
+    top: 70%;
+    margin-top: -2px;
+    padding-left: 15px;
+    transform: translateX(80px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -o-transform: translateX(80px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -ms-transform: translateX(80px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -moz-transform: translateX(80px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -webkit-transform: translateX(80px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    -ms-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 0;
+    letter-spacing: 0px;
+}
+ .overlay-content .overlay-desc
+{
+  color: #fff;
+      margin: 0;
+    padding: 0;
+    position: absolute;
+    text-align: left;
+    width: 100%;
+    left: 0;
+    top: 80%;
+    padding-left: 15px;
+    transform: translateX(-70px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -o-transform: translateX(-70px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -ms-transform: translateX(-70px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -moz-transform: translateX(-70px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -webkit-transform: translateX(-70px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+    -webkit-transition: all 0.4s ease-out;
+    -moz-transition: all 0.4s ease-out;
+    -o-transition: all 0.4s ease-out;
+    -ms-transition: all 0.4s ease-out;
+    transition: all 0.4s ease-out;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    opacity: 0;
+    letter-spacing: 0px;
+}
+
+.img-overlay:hover .overlay-content .overlay-title{
+  transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -o-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -ms-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -moz-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -webkit-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -webkit-transition: all 0.4s ease-out;
+  -moz-transition: all 0.4s ease-out;
+  -o-transition: all 0.4s ease-out;
+  -ms-transition: all 0.4s ease-out;
+  transition: all 0.4s ease-out;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 1;
+}
+.img-overlay:hover  .overlay-content .overlay-desc {
+  transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -o-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -ms-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -moz-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -webkit-transform: translateX(0px) translateY(0) translateZ(0) rotate(0deg) scale(1);
+  -webkit-transition: all 0.6s ease-out;
+  -moz-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+  -ms-transition: all 0.6s ease-out;
+  transition: all 0.6s ease-out;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  opacity: 1;
+}
+.bookbutton {
+  color: white;
+  font-size: 40px;
+  border-radius: 0px;
+  text-align: center;
+}
+
+
+
+@media(max-width:768px)
+{
+    .img-container img
+    {
+        height: 100%;
+        width: 100%;
+        
+    }
+}

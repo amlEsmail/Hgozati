@@ -1,0 +1,489 @@
+
+
+<div class="Hcheckout">
+    <header [disable]='disabled'></header>
+    <h1 class="Title">
+      {{"SearchResult.adventure"|translate}}
+    </h1>
+  </div>
+
+  <div class="content">
+
+
+    <ng-container *ngIf="loading">
+      <ng-container *ngTemplateOutlet="loadingH"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+      <ng-container *ngTemplateOutlet="Hcheckout"></ng-container>
+    </ng-container>
+    
+   <app-footer></app-footer>
+    
+    
+    
+    
+    </div>
+
+
+
+
+  <ng-template #Hcheckout>
+
+
+      <div class="container">
+
+        <app-payment-erorr [paymentError]="paymentError" *ngIf="paymentErrorStatus"></app-payment-erorr>
+        <app-normalerror [normalError]='normalError' *ngIf="normalErrorStatus"></app-normalerror>
+  
+  
+        
+  
+    <mat-horizontal-stepper linear #stepper  >
+  <!-- hotel review -->
+        <mat-step>
+            <ng-template matStepLabel><span  class="Stepperlable">{{"hotelCheckOut.HotelReview"|translate}} </span></ng-template>
+            <!-- <ng-container *ngIf="flight">
+              <ng-container *ngTemplateOutlet="flightModel"></ng-container>
+            </ng-container> -->
+        <!-- loading until HOTEL is loaded -->
+            <ng-container *ngIf="loading">
+              <div class="container ">
+                  <div class="row justify-content-center loadingcard">
+                      <div class="col text-center">
+                              <h1 class="Title animated infinite bounce delay-3s" style="color:#ffc107;"> {{"hotelCheckOut.paymentloader"|translate}} </h1>
+                      </div>
+                      <div class="col-12 text-center">
+                          <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+                      </div>
+                  </div>
+          
+              </div>
+            </ng-container>
+   
+  <!-- loading until HOTEL is loaded -->
+
+
+            <ng-container *ngIf="!loading">
+              <ng-container *ngTemplateOutlet="hotelReview"></ng-container>
+            </ng-container>
+
+            
+            <button mat-button matStepperNext color="accent" class="NextButton">{{"checkout.Next"|translate}}</button>
+          </mat-step>
+        <!-- hotel review -->
+<!-- guest form -->
+             <mat-step [stepControl]='guestForm'>
+                      <ng-template matStepLabel>{{"hotelCheckOut.guestInfo" | translate}}</ng-template>
+                  <!-- loading until HOTEL is loaded -->
+                  <ng-container *ngIf="loading">
+                      <div class="container ">
+                          <div class="row justify-content-center loadingcard">
+                              <div class="col text-center">
+                                      <h1 class="Title animated infinite bounce delay-3s" style="color:#ffc107;"> {{"hotelCheckOut.paymentloader"|translate}} </h1>
+                              </div>
+                              <div class="col-12 text-center">
+                                  <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+                              </div>
+                          </div>
+                  
+                      </div>
+                    </ng-container>
+
+                <!-- loading until HOTEL is loaded -->
+
+
+                    <ng-container *ngIf="!loading">
+
+                        <div class="hotelGuest">
+                            <div class="row">
+                              <!-- price review -->
+                              <div class="FRcard priceCard col-12 col-lg-4">
+                               <!-- template for price -->
+                               <ng-container *ngTemplateOutlet="priceReview"></ng-container>
+                               <!-- template for price -->
+                              </div>
+                              <div class="col-12 col-lg-8">
+                                <!-- guestForm  reactive-->
+                                <form (ngSubmit)="onSubmit()" [formGroup]="guestForm">
+                                    <!-- <div *ngFor="let item of travellersData; let i = index"  > -->
+                                    <ng-container formArrayName="guestData">
+                                      <ng-container *ngFor="let guest of guestForm.get('guestData').controls;let i = index;">
+                                        <ng-container [formGroupName]="i">
+                                          <div class="room-form-field">
+                                            <h5 class="roomTitle">{{"hotelCheckOut.room" | translate}} #{{i+1}}</h5>
+                                            <div class="room-form">
+                                              <div class="form-row row">
+                                                <div class="col-12 col-md-6 col-lg-2">
+                                                  <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                                                    <!-- {{title.value}} -->
+                                                    <mat-select placeholder='Title' formControlName="title">
+                                                      <mat-option *ngFor="let title of titels" [value]="title.value">
+                                                        {{title.value}}
+                                                      </mat-option>
+                                                    </mat-select>
+                                                  </mat-form-field>
+                                                </div>
+                                                <!-- <div class="col-md-2 mb-3">
+                                                                        <label for="validationCustom01">Title</label>
+                                                                        <input type="text" class="form-control" id="titleId" placeholder="Title" value="{{item.salutation}}" [(ngModel)]="item.salutation" required>
+                                                                          
+                                                                      </div> -->
+                                                <div class="col-12 col-md-6 col-lg-5">
+                                                  <mat-form-field color="accent" appearance="outline" class="col padding0  ">
+                                                    <input matInput type="text" id="firstNameID" placeholder='First Name'
+                                                      formControlName="firstName" required>
+                                                  </mat-form-field>
+                        
+                                                </div>
+                                                <!--  <div class="col-md-4 mb-3">
+                                                                          <label for="validationCustom01">First name</label>
+                                                                          <input type="text"  class="form-control" id="firstNameID" placeholder="First name" value="{{item.firstName}}" [(ngModel)]="item.firstName" required>
+                                                                            
+                                                                        </div> -->
+                                                <div class="col-12 col-md-6 col-lg-5">
+                                                  <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                                                    <input matInput type="text" id="LastnameID" placeholder='Last Name'
+                                                      formControlName="lastName" required>
+                                                  </mat-form-field>
+                                                </div>
+                                                <!--  <div class="col-md-4 mb-3">
+                                                                        <label for="validationCustomUsername">Last name</label> 
+                                                                          <input type="text" class="form-control" id="LastnameID" placeholder="Last name" value="{{item.lastName}}" [(ngModel)]="item.lastName" required>
+                                                                          
+                                                                      </div> -->
+                                              </div>
+                                              <div class="form-row row" *ngIf="i==0">
+                                                <div class="col-12 col-md-6 col-lg-7 emailbox">
+                                                  <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                                                    <input matInput type="text" id="EMid" placeholder="aaa@aaa.aa" formControlName="email">
+                                                  </mat-form-field>
+                                                </div>
+                        
+                        
+                                                <!--  <div class="col-md-4 mb-3">
+                                                                        <label for="validationCustom03">Email</label>
+                                                                        <input type="email" class="form-control" id="EMid" placeholder="aaa@aaa.aa"  [(ngModel)]="mailData" required>
+                                                                        
+                                                                      </div>-->
+                        
+                                                <div class="col-12 col-md-6 col-lg-5 phonecol ">
+                                                  <style *ngIf="!guest.get('phonenum').valid && user.get('phonenum').dirty">
+                        
+                                                  </style>
+                                                  <ngx-intl-tel-input [cssClass]="phonenumber" [preferredCountries]="['us', 'gb', 'eg', 'sa']"
+                                                    [enableAutoCountrySelect]="true" [enablePlaceholder]="true" name="phone"
+                                                    formControlName='phonenum'></ngx-intl-tel-input>
+                                                </div>
+                        
+                                                <!-- 
+                                                                      <div class="col-md-2 mb-3">
+                                                                        <label for="validationCustom04">Phone Code </label>
+                                                                        <input type="text" class="form-control" id="phCodID" placeholder="Phone Code" [(ngModel)]="item.phoneCode" required>
+                                                                    
+                                                                      </div>
+                                                                      <div class="col-md-4 mb-3">
+                                                                        <label for="validationCustom05">Phone</label>
+                                                                        <input type="text" class="form-control" id="phoneID" placeholder="Phone" [(ngModel)]="item.phone" required>
+                                                                        
+                                                                      </div>-->
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </ng-container>
+                                      </ng-container>
+                                    </ng-container>
+                                    <!-- <ng-container  *ngFor="let item of travellersData; let i = index" >
+                                    
+                                    
+                                      </ng-container> -->
+                        
+                        
+                                    <!-- </div>  -->
+                                
+                                    <div class="booking-btn">
+                                      <button type="submit"   class="btn book-btn" mat-raised-button color="accent"
+                                      matStepperNext>
+                                      {{"hotelCheckOut.procedPayment" | translate}}
+                                      </button>
+                                      <!-- [disabled]="!guestForm.valid && guestForm.touched " -->
+                                    </div>
+                                    <!-- <p *ngIf="!guestForm.valid" style="color:red">form not valid </p> -->
+                        
+                                  </form>
+                                <!-- guestForm  reactive-->
+                    
+                              </div>
+                             </div>
+                          </div>
+                    
+                    </ng-container>
+
+               
+              </mat-step>
+
+   <!-- guest form -->
+              <mat-step >
+                  
+                  <ng-template matStepLabel>{{"hotelCheckOut.Payment" | translate}}</ng-template>
+                      <ng-container *ngIf="link !='' ">
+                          <iframe name="myframe" [src]="mysafeurl" frameborder="0"  width="100%" style="min-height:100vh;" allowfullscreen='true' (load)='iframeloaded()'></iframe>
+                      </ng-container>
+                      <ng-container *ngIf="loading">
+                          <ng-container *ngTemplateOutlet="loadingkst"></ng-container>
+                        </ng-container>
+              </mat-step>
+                 
+                </mat-horizontal-stepper>
+            
+  
+        
+      </div>
+  
+  
+    
+
+  
+
+    
+  </ng-template>
+
+
+
+
+<!-- loading  -->
+<ng-template #loadingH>
+    <div class="text-center loadingImg">
+    
+        <img src="../../../assets/img/loading3.gif" alt="loading">
+    </div>
+    
+ </ng-template>
+
+<!-- loading  -->
+
+<!-- hotelReview card -->
+
+<ng-template  #hotelReview>
+
+ <div class="hotelReview">
+   <div class="row">
+
+    <!-- hotel card -->
+     <div class="col-12 col-lg-8">
+
+        <div class="hotel-item" >
+            <div class="row">
+              <div class="col-12 col-md-4 p-0 align-self-center">
+                <!-- hotel-gallery  -->
+                <div class="hotelGallery ">                       
+                  <div class="single">
+                      <div class="galley-img">
+                          <img class="img-fluid" src="../../../../assets/img/Blank.svg" *ngIf="HotelData.hotelThumb == null " />
+                          <img class="img-fluid" [src]="HotelData.hotelThumb" *ngIf="HotelData.hotelThumb != null " />
+
+                          <!-- <img class="img-fluid" src="../../../../assets/img/Blank.svg"  /> -->
+                      </div>
+                  </div>
+      
+                </div> 
+
+                <!-- hotel-gallery  -->
+              </div>
+               <!-- main-details -->
+              <div class="col-12 col-md-8">
+            
+             <div class="row">
+                  <div class="col-12 ">
+                  <div class="Hotel-title">
+                    <!-- hotel name -->
+                     <h2> 
+                       <span class="hotelName">
+                
+                          {{HotelData.HotelName}}
+                       </span>
+                     <span class="rating">
+                            <!--looping-stars -->
+                          <ng-container *ngFor="let star of getRating()">
+                             <i class="fa fa-star"></i>
+                          </ng-container>
+                              <!--looping-stars -->
+           
+                      </span>
+                      <p class="hotel-loc"> 
+                        <!-- city && country  -->
+                       <!-- 1115 Corniche El Nile, Cairo 12334  -->
+                        <i class="fas fa-map-marker-alt"></i>  <span>
+                        
+                          {{HotelData.address}} 
+                        </span> </p>
+                     </h2>
+
+             
+
+                  </div>
+                  <div class="hotel-basic-info">
+                    <div class="row">
+                      <div class="col-12 col-lg-8 align-self-center p-0">
+                          <p class="hotel-dates">
+                              <span>{{"hotelCheckOut.checkIn" |translate}} : 
+                                <b>{{getDate(HotelData.CheckIn)}}</b>
+                              </span>
+                           </p>
+                           <p class="hotel-dates">
+                              <span> {{"hotelCheckOut.checkOut" |translate}} : 
+                                  <b>{{getDate(HotelData.Checkout)}}</b>
+                              </span>
+                           </p>
+
+                      </div>
+                      <div class="col-12 col-lg-4 align-self-center">
+                          <span class="allnights">
+                              {{getNights(HotelData.CheckIn,HotelData.Checkout)}} {{"hotelCheckOut.nights"| translate}} 
+
+                          </span>
+                        
+                        </div>
+                    </div>
+                   
+                
+                  
+
+                  </div>
+                  <!-- loop on hotel room  -->
+                  <div class="hotel-rooms">
+                    <ul class="room-list">
+                        <ng-container *ngFor="let room of HotelData.rooms; let m = index">
+                          <li>
+                            <p class="room-item">
+                              <!-- room-code -->
+                              <span><i class="fas fa-info "></i>  {{"hotelCheckOut.room" |translate }} # {{room.RoomCode}}  </span>
+                               <!-- room-type -->
+                               <span class="room-type"><i class="fas fa-bed"></i> {{room.roomType}}</span>
+                               <br>
+                              <!-- room-meal -->
+                              <span class="room-meal"><i class="fas fa-utensils"></i> {{room.meal}}</span>
+                              <!-- room-guest-no -->
+                              <span class="room-guest"><i class="fas fa-user-friends"></i> {{getGuesPerRoom(room.Adults,room.Childern)}} </span>
+                            </p>
+                            <a class="cancelLink" (click)="openrules(room.RoomCode)" >
+                                <i class="fa fa-info-circle info"> </i> {{"hotelRooms.cancelRules" | translate}} 
+                            </a>
+                          </li>
+                      
+
+                          </ng-container>
+                    </ul>
+              
+                  </div>
+                   <!-- loop on hotel room  -->
+
+                  </div>
+             
+                
+                </div>
+
+   
+              </div>
+                 <!-- main-details -->
+
+
+            </div>
+
+          </div>
+       
+      </div>
+   <!-- hotel card -->
+
+
+     <!-- price review -->
+     <div class="FRcard priceCard col-12 col-lg-4">
+      <!-- template for price -->
+      <ng-container *ngTemplateOutlet="priceReview"></ng-container>
+      <!-- template for price -->
+     </div>
+
+    <!-- price review -->
+   </div>
+ </div>
+
+</ng-template>
+<!-- hotelReview card -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <!-- template for priceReview -->
+<ng-template #priceReview>
+
+    <div class="card-title line">
+        <h4>{{"hotelCheckOut.hotelInfo" |translate}}</h4>
+      </div>
+      <!-- HOTEL - DETAILS -->
+      <div class="hotel-details ">
+        <h6 class="name">{{HotelData.HotelName}} </h6>
+        <!-- location -->
+        <p class="h-loc"> <i class="fas fa-map-marker-alt"></i>  <span>
+        
+          {{HotelData.address}}
+          </span> </p>
+
+        <div class="check-dates">
+          <span class="total-Night">{{getNights(HotelData.CheckIn,HotelData.Checkout)}} {{"hotelCheckOut.nights"| translate}} </span>
+          <span class="date">
+            <!-- checkin-checkout -->
+            <b>{{getDate(HotelData.CheckIn)}}</b>
+              -
+            <b>{{getDate(HotelData.Checkout)}}</b>
+           </span>
+        </div>
+
+      </div>
+      <!-- HOTEL - DETAILS -->
+
+      <!-- hotel -room -price -->
+      <div class="hotel-price ">
+         <ng-container *ngFor="let rm of HotelData.rooms; let j = index">
+                       
+             <p class="card-text">
+               <span class="label">  {{"hotelCheckOut.room" | translate}}  #{{rm.RoomCode}}  {{"hotelCheckOut.price" | translate}} </span>
+               <span class="rmprice">
+                   {{rm.SellPrice|exchange:'value' }}
+                   <span>{{rm.SellCurrency|exchange:'code'}} </span>
+               </span>
+             </p>
+             <hr class="price-line" >
+
+
+           </ng-container>
+
+           <!-- total -->
+           <p class="price-total">
+             <span class="label"> {{"hotelCheckOut.TotalCost" | translate}}</span>
+             <span class="total">{{TotalCost|exchange:'value' }} <span>{{HotelData.Currency|exchange:'code'}}</span> </span>
+            </p>
+
+      </div>
+      <!-- hotel-room-price -->
+</ng-template>
+
+
+ <!-- template for priceReview -->
+
+

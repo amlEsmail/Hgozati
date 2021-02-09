@@ -1,0 +1,313 @@
+
+    <div class="Hconfirm">
+        <header [disable]='disabled'></header>
+        <h1 class="Title">
+          {{"hotelConfirmation.confirmMsg"|translate}}
+        </h1>
+      </div>
+    
+    
+    
+    <div class="content">
+
+    
+        <ng-container *ngIf="Loading">
+          <ng-container *ngTemplateOutlet="loadingH"></ng-container>
+        </ng-container>
+        <ng-container *ngIf="Failed">
+          <ng-container *ngTemplateOutlet="failed"></ng-container>
+      </ng-container>
+  
+  
+        <ng-container *ngIf="sucsess">
+          <ng-container *ngTemplateOutlet="Sucsess"></ng-container>
+        </ng-container>
+   <app-footer></app-footer>
+      </div>
+
+
+
+
+
+
+
+      <ng-template #Sucsess>
+          <div class="container">
+  
+            <!-- confirmation - title  -->
+            <div class="page-header">
+              <div class="row">
+                  <div class="col-12 col-sm-12">
+                      <!-- <h2 class="page-header-title" >
+                        <div class="pg-hdr-title-txt"><span>
+                     
+                           {{bookingHotel.status}}
+                          </span></div>
+                        </h2> -->
+                   
+                  </div>
+     
+                </div>
+          </div>
+     <!-- confirmation - title  -->
+          <div class="confirmation-container">
+            <div class="row">
+                 <!-- hotel-info  -->
+                 <!-- name-rating-checkin-checkout-passengersNo-guest email -->
+                 <div class="col-12 col-md-8">
+                    <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"></ngx-gallery> -->
+                    <div class="row hotelthumbRow">
+                      <div class="col-12 col-md-4 p-0">
+                          <div class="hotel-thumb">
+                               <img class="img-fluid" src="../../../../assets/img/Blank.svg" *ngIf="bookingHotel.hotel.hotelThumb == null " />
+                             <img class="img-fluid" [src]="bookingHotel.hotel.hotelThumb" *ngIf="bookingHotel.hotel.hotelThumb != null " />
+                            <!-- <img  [src]="bookingHotel.hotel.hotelThumb" /> -->
+                        </div>
+                      </div>
+                      <div class="col-12 col-md-8 border-title-right">
+                        <div class="hotel-details">
+
+                            <div class="Hotel-title">
+                                <!-- hotel name -->
+                                 <h2> 
+                                   <span class="hotelName">
+                            
+                                      {{bookingHotel.hotel.hotelName}}
+                                   </span>
+                                 <span class="rating">
+                                        <!--looping-stars -->
+                                      <ng-container *ngFor="let star of getRating(bookingHotel.hotel.hotelStars)">
+                                         <i class="fa fa-star"></i>
+                                      </ng-container>
+                                          <!--looping-stars -->
+                       
+                                  </span>
+                                  <p class="hotel-loc"> 
+                                    <!-- city && country  -->
+                                   <!-- 1115 Corniche El Nile, Cairo 12334  -->
+                                    <i class="fas fa-map-marker-alt"></i>  <span>
+                                        {{bookingHotel.hotel.Location}},{{bookingHotel.hotel.City}},{{bookingHotel.hotel.Country}} 
+                                      <!-- {{HotelData.Address}}  -->
+                                    </span>
+                                   </p>
+                                 </h2>
+            
+                         
+            
+                              </div>
+
+                              <!-- hotel checkIn -checkOut  -all guest-->
+                              <div class="hotel-checkin">
+                                  <p class="hotel-dates">
+                                      <span><i class="fas fa-calendar-day"></i><span class="i-label">{{"hotelConfirmation.checkIn" |translate}}</span>:
+                                        <b>{{getDate(bookingHotel.hotel.CheckIn)}}</b>
+                                      </span>
+                                   </p>
+                                   <p class="hotel-dates">
+                                      <span> <i class="fas fa-calendar-day"></i> <span class="i-label">{{"hotelConfirmation.checkOut" |translate}}</span>:
+                                          <b>{{getDate(bookingHotel.hotel.CheckOut)}}</b>
+                                        </span>
+                                   </p>
+                                   <p class="hotel-dates">
+                                      <span> <i class="fas fa-user-friends"></i><span class="i-label">{{"hotelConfirmation.guests" |translate}}</span>:
+                                          <b>{{getGuestTotal()}}</b>
+                                        </span>
+                                   </p>
+
+                              </div>
+                  
+                             
+                        </div>
+                        
+                      </div>
+                    </div>
+                
+               
+
+        
+
+                     <!-- guest-info -->
+                  
+                   <div class="info-box guest-info">
+                     <h4>{{"hotelConfirmation.guestDetails" |translate}}</h4>
+                     
+                      <ul class="book-Info">
+                          <ng-container *ngFor="let guest of bookingHotel.travellers ">
+                          <li class="book-item">
+                              
+                             
+                                  <p> <span class="title">{{guest.Title}}</span>:<span class="book-item-info">{{guest.FirstName}} {{guest.LastName}} </span></p>
+                          
+                               
+                            </li>
+                   
+                          </ng-container>
+                          <li class="book-item">
+                            
+                              <p><span class="title">Email</span>:<span class="book-item-info">{{bookingHotel.mail}}</span></p>
+                          </li>
+  
+                       </ul>
+                 
+                </div>
+                     <!-- guest-info -->
+  
+                   
+  
+                 </div>
+                 <div class="col-12 col-md-4">
+  
+                  <!-- bookingNumber - confirmation number -->
+                    <div class="info-box">
+                        <ul class="list-unstyled">
+                          <!-- <li class="booking-number-item">
+                              <span class="label">ks number</span>
+                              <span class="number btn btn-primary bordered small ">KS22114566789</span>
+                          </li> -->
+                          <li class="booking-number-item">
+                              <span class="label">{{"hotelConfirmation.bookingNumber" |translate}} </span>
+                              <span class="btn btn-primary bordered small number">{{bookingHotel.bookingNum}}</span>
+                          </li>
+                        </ul>
+                  
+                
+                      </div>
+                
+                  
+                  <!-- bookingNumber - confirmation number -->
+
+           
+                   <!-- rooms-name-price total  -->
+                   <div class="info-box">
+                     
+                     
+                          <ul class="book-Info">
+                            <!-- loop room -->
+                            <ng-container *ngFor="let room of bookingHotel.rooms">
+                                <li class="book-item">
+                                    <span class="roomName">
+                                        <i class="fas fa-bed"></i>
+                                        <span class="">{{room.RoomType}}</span>
+                                    </span>
+                                    <!-- adult-child no -->
+                                    <p class="gust-no">
+                                        <span class="adultNo">
+                                            <b>{{room.Adult}} </b> {{"hotelConfirmation.Adults" |translate}}
+                                          </span>
+                                          <span class="childNo">
+                                              <b>{{room.Child}} </b>{{"hotelConfirmation.child" |translate}}
+                                            </span>
+                                    </p>
+                       
+                                  <!-- adult-child no -->
+                             
+                             
+                                   
+                                      <button mat-raised-button color="accent" class="price-btn">
+                              
+                                             <span *ngIf="room.IsRefundable" style="color: chartreuse">
+                                             <small>{{"hotelConfirmation.Refundable" |translate}}</small> 
+                                           </span>
+                                           <span *ngIf="!room.IsRefundable" style="color: tomato">
+                                             <small> {{"hotelConfirmation.nonRefundable" |translate}}</small> 
+                                           </span>                                             
+                                      </button>
+                               
+                                      
+                                  </li>
+
+                            </ng-container>
+         
+                          <!-- loop room -->
+                          </ul>           
+                           <!--total price -->
+                           <div class="total">
+                             <div class="row total-price">
+                               <div class="col">
+                                 <span class="">{{"hotelConfirmation.TotalPrice" |translate}} </span>
+                               </div>
+                               <div class="col">
+                                  <span class="total-cost"> {{bookingHotel.hotel.TotalSellPrice|exchange:'value'}}</span><span class="Curr">{{bookingHotel.hotel.sellCurrency|exchange:'code'}}</span>
+                               </div>
+                             </div>
+                          </div>
+                        
+                            <!--total price -->
+                    </div>
+                 <!-- rooms-name-price total  -->
+  
+       
+                  </div>
+  
+  
+  
+            </div>
+  
+            </div>
+  <!-- cost-summery  -->
+  <!-- bookingNumber  -->
+  <!-- hgNumber  -->
+  
+          </div>
+  
+  
+          
+          
+        
+        </ng-template>
+  
+  
+  <ng-template #failed>
+          <!-- <div class="container ">
+                  <div class="row justify-content-center loadingcard">
+                      <div class="col text-center">
+                              <h1 class="Title "> Sorry, Something went wrong please Try again </h1>
+                      </div>
+                      <div class="col-12 text-center MoreDetBtn">
+                         <button type="button" class="btn btn-outline-primary  moreResult " style="max-width:25%;" [routerLink]="['']">New search</button>
+                      </div>
+                  </div>
+          
+              </div> -->
+              <app-normalerror [normalError]='normalError' ></app-normalerror>
+  </ng-template>
+
+
+  
+  
+
+<!-- loading  -->
+<ng-template #loadingH>
+    <div class="text-center loadingImg">
+    
+        <img src="../../../assets/img/loading3.gif" alt="loading">
+    </div>
+    
+ </ng-template>
+
+<!-- loading  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

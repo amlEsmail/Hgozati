@@ -1,0 +1,252 @@
+.mat-form-field
+{
+  font-family: 'DIN_Regular';
+}
+
+.example-form {
+   margin-top: -7px;
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+  
+  .example-full-width {
+    width: 100%;
+  }
+  
+  .example-option-img {
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  
+  [dir='rtl'] .example-option-img {
+    margin-right: 0;
+    margin-left: 8px;
+  }
+  
+/* new Style */
+.logo{
+  float: left;
+}
+.navbar-nav{
+  float: right;
+}
+.bg-light {
+  background-color: rgba(189, 222, 254, 0.04) !important;
+}
+
+.bg-light {
+  background-color:#fff0!important;
+  
+}
+.nav {
+  float: right!important;
+  font-family: 'DIN_Regular';
+  font-weight: 400!important;
+  width: 100%;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.navbar-header {
+  height: 60px;
+  float: left!important;
+}
+.navbar-nav {
+  margin-top: 25px!important;
+}
+.nav-tabs {
+  border-bottom: 1px solid #ddd;
+}
+.nav>li {
+  display: block;
+}
+.nav-tabs>li {
+  float: left;
+  margin-bottom: -1px;
+}
+.navbar-nav li a{
+  color: #fff ;
+  font-family:'DIN_Bold';
+  font-size: large;
+}
+.dropdown-menu a.dropdown-item{
+  color: #000 ;
+  text-align: center;
+  font-family: 'DIN_Regular';
+}
+.dropdown-menu.Language{
+  background: #fff;
+  border: 1px solid #b3b3b3;
+  color: #fff !important;
+  font-family: 'DIN_Regular';
+  padding: 0;
+}
+.dropdown-item.active, .dropdown-item:active
+{
+  background: #ffc107;
+  color: #fff;
+}
+.dropdown-menu.Language a.dropdown-item {
+  color: #000 !important;
+  font-family: 'DIN_Regular';
+}
+.dropdown-menu a.dropdown-item.active{
+  color: #fff !important;
+  background: #ffc107;
+  text-align: center;
+  font-family: 'DIN_Regular';
+}
+.navbar-nav li.active a{
+  border-bottom:#ffc107 2px solid !important;
+  padding: 10px;
+  font-family: 'DIN_Bold';
+}
+
+
+
+  /* newmenu */
+  .navbar-toggler
+  {
+
+    border-color: #ffc107;
+    padding: 0.45rem .75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    border-radius: 0;
+    margin: 20px 0;
+    outline: 0;
+
+
+  }
+
+ .navbar-toggler .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #ffc107;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+/*newmenu  */
+
+
+
+/* start responsive style */
+@media (min-width: 768px){
+  .navbar-toggle {
+      display: none;
+  }
+  .navbar-collapse, .navbar-static-top .navbar-collapse {
+      padding-right: 0;
+      padding-left: 0;
+  }
+  navbar-collapse.in {
+      overflow-y: visible;
+  }
+  /* .navbar-collapse.collapse {
+      display: block!important;
+      height: auto!important;
+      padding-bottom: 0;
+      overflow: visible!important;
+  } */
+  
+  
+}
+@media (max-width: 768px){
+  .navbar-toggle {
+      border: 0;
+      float: right;
+      padding: 18px;
+      margin: 0;
+      border-radius: 0;
+  }
+  .navbar-header {
+      z-index: 3;
+      background-color: #f8f8f8;
+  }
+
+
+
+  
+}
+@media screen and (max-width: 767px){
+  .navbar-header {
+      height: 70px!important;
+      float: none!important;
+  }
+  .topright_nav li a {
+      float: right;
+      width: 100%;
+      padding: 10px;
+      font-size: 17px;
+  }
+  .topright_nav li {
+      float: left;
+      width: 100%;
+  }
+  .field_main, .foot_link, .foot_logo, .foot_social, .inField, .topright_nav{
+      text-align: center;
+  }
+}
+
+
+@media (min-width: 992px){
+  .navbar-expand-lg .navbar-nav .dropdown-menu.Currency {
+    position: absolute;
+    padding-top: 20px !important;
+    padding: 10px ;
+
+  }
+  .navbar-nav{
+    float: right;
+  }
+    .navbar-collapse.collapse {
+      display: block!important;
+      height: auto!important;
+      padding-bottom: 0;
+      overflow: visible!important;
+  }
+}
+
+
+@media(max-width:990px)
+{
+  ul.navbar-nav{
+    float: none;
+    padding: 5px 10px;
+  }
+  
+
+  header nav.navbar.bg-light
+  {
+    height: auto !important;
+  }
+  div#navbarSupportedContent {
+    background: #fff;
+}
+
+  .navbar-nav li a
+  {
+   color: #2c2e3d;
+  }
+
+  .navbar-nav .nav-link{
+    padding: 10px;
+    
+  }
+}
+
+
+
+
+/* new edits for bugs */
+
+/* currency header */
+
+:host::ng-deep .selectbutton .mat-select-value
+{
+display: none !important;
+}
+

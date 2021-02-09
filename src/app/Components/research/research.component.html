@@ -1,0 +1,244 @@
+<div class="bodySearch">
+
+  <!--Start Btns-->
+  <!--start search form-->
+
+
+
+  <form [formGroup]="searchFlight" class="SearchForm " (ngSubmit)="onSubmit()" *ngIf="datainput||storage">
+    <div class="row">
+      <mat-radio-group aria-label="Select an option" formControlName="flightType">
+        <mat-radio-button value="oneway" class="">{{"searchFlight.oneway"|translate}}</mat-radio-button>
+        <mat-radio-button value="RoundTrip">{{"searchFlight.RoundTrip"|translate}}</mat-radio-button>
+        <mat-radio-button value="Multicity">{{"searchFlight.multi"|translate}}</mat-radio-button>
+      </mat-radio-group>
+      <mat-checkbox class="" formControlName="Direct">{{"searchFlight.dirc"|translate}}</mat-checkbox>
+    </div>
+    <div class="row">
+      <ng-container formArrayName="Flights">
+        <ng-container *ngFor="let item of searchFlight.get('Flights')['controls']| slice:0:1; let i= index;">
+          <ng-container [formGroupName]='0'>
+            <mat-form-field class="col-12 co-md-4 col-lg-2 padding0 " color='accent' appearance="outline"
+              [ngClass]="{'col-lg-3': searchFlight.get('flightType').value != 'RoundTrip'}">
+              <input type="text" placeholder='{{"searchFlight.dpart"|translate}}' aria-label="City" matInput
+                formControlName="departing" [matAutocomplete]="autoa">
+              <mat-autocomplete #autoa="matAutocomplete">
+                <mat-option *ngFor="let city of cities|filterCity:item.get('departing').value" [value]="city.cityName +'-'+ city.airportName +'-'+ city.airportCode">
+                  {{city.airportCode}}-{{city.airportName}}-{{city.cityName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <button class="col-12 col-md-1 mar4 switch" type="button" (click)='switchDes(item)'>
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+            <mat-form-field class="col-12 co-md-4 col-lg-2 padding0 " color='accent' appearance="outline"
+              [ngClass]="{'col-lg-3': searchFlight.get('flightType').value != 'RoundTrip'}">
+              <input type="text" placeholder='{{"searchFlight.land"|translate}}' aria-label="City" matInput
+                formControlName="landing" [matAutocomplete]="autob">
+              <mat-autocomplete #autob="matAutocomplete">
+                <mat-option *ngFor="let city of cities|filterCity:item.get('landing').value" [value]="city.cityName +'-'+ city.airportName +'-'+ city.airportCode">
+                  {{city.airportCode}}-{{city.airportName}}-{{city.cityName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field class="col-12 co-md-4 col-lg-2 padding0 mr-2 datePointer " color='accent'
+              appearance="outline" (click)="picker1.open()">
+              <input matInput [matDatepicker]="picker1" placeholder='{{"searchFlight.dpartd"|translate}}'
+                formControlName='departingD' value="{{item.get('departingD').value|date:'MMM dd, y'}}"
+                [min]='todayDate()' style="display: none">
+              {{item.get('departingD').value|date:'MMM dd, y'}}
+              <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+              <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <mat-form-field class="col-12 co-md-4 col-lg-2 padding0 mr-2 datePointer" color='accent' appearance="outline"
+        *ngIf="searchFlight.get('flightType').value === 'RoundTrip' " (click)="picker.open()">
+        <input matInput [matDatepicker]="picker" placeholder='{{"searchFlight.retDate"|translate}}'
+          formControlName='returnDate' [min]="searchFlight.get('Flights')['controls'][0].value['departingD']"
+          style="display: none" #returndate [value]="setreturn()">
+        {{setreturn()|date:'MMM dd, y'}}
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div ngbDropdown class="d-inline-block menue ">
+        <div class="col-12 co-md-4 col padding0 mr-2 mar4 menue">
+          <div ngbDropdown class="d-inline-block" autoClose="outside">
+            <button class="btn btn-outline-warning mb-3 btn-lg " id="dropdownForm1" ngbDropdownToggle
+              type="button"><span
+                *ngIf="searchFlight.get('passengers').valid && !searchFlight.get('passengers').dirty">{{"searchFlight.tAndC"|translate}}</span>
+              <span
+                *ngIf="searchFlight.get('passengers').valid && searchFlight.get('passengers').dirty">{{searchFlight.get('passengers.adults').value + searchFlight.get('passengers.child').value + searchFlight.get('passengers.infent').value}}|{{searchFlight.get('class').value}}</span>
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownForm1" style="width:300px;">
+              <ng-container formGroupName="passengers">
+                <div class="px-4 py-4">
+                  <div class="form-group">
+                    <mat-form-field style="height:50px;" appearance="outline" color='accent'>
+                      <mat-label>{{"searchFlight.adults"|translate}}</mat-label>
+                      <input matInput placeholder='{{"searchFlight.adults"|translate}}' type="number" min="1"
+                        formControlName="adults">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group" appearance="outline">
+                    <mat-form-field style="height:50px;" appearance="outline" color='accent'>
+                      <mat-label>{{"searchFlight.child"|translate}}</mat-label>
+                      <input matInput placeholder='{{"searchFlight.child"|translate}}' type="number" min="0"
+                        formControlName="child">
+                    </mat-form-field>
+                  </div>
+                  <div class="form-group">
+                    <mat-form-field style="height:50px;" appearance="outline" color='accent'>
+                      <mat-label>{{"searchFlight.infent"|translate}}</mat-label>
+                      <input matInput placeholder='{{"searchFlight.infent"|translate}}' type="number" min="0"
+                        formControlName="infent">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </ng-container>
+              <div class="dropdown-divider"></div>
+              <div class="form-group px-4 py-4 ">
+                <mat-form-field appearance="outline" color='accent'>
+                  <mat-label>{{"searchFlight.class"|translate}}</mat-label>
+                  <select matNativeControl class="custom-select" formControlName="class">
+                    <option value="Economy">
+                      {{"searchFlight.economy"|translate}}
+                    </option>
+                    <option value="Business">
+                      {{"searchFlight.business"|translate}}
+                    </option>
+                    <option value="First">
+                      {{"searchFlight.first"|translate}}
+                    </option>
+                  </select>
+                </mat-form-field>
+              </div>
+              <button ngbDropdownToggle color="accent" class="btn btn-warning dropdown-toggle "
+                type="button">{{"searchFlight.done"|translate}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <button color='accent' class="col btn btn-warning btn-lg float-right mar4 searchbutton "
+            type="submit">
+            <i class="fa fa-search"></i>
+            {{"searchFlight.search"|translate}}
+          </button> -->
+          <div class="col" *ngIf="searchFlight.get('flightType').value != 'Multicity'">
+            <button color='accent' class="col btn btn-warning btn-lg float-right mar4 searchbutton " type="submit"
+              routerLinkActive="router-link-active">
+              <i class="fa fa-search"></i>
+              {{"searchFlight.search"|translate}}
+            </button>
+          </div>
+    </div>
+    <ng-container *ngIf="searchFlight.get('flightType').value === 'Multicity' ">
+      <ng-container formArrayName="Flights" class="col-12"
+        *ngIf="searchFlight.get('flightType').value === 'Multicity' ">
+        <ng-container class="form-group"
+          *ngFor="let item of searchFlight.get('Flights')['controls']| slice:1; let i= index;">
+
+          <div [formGroupName]='indexadd1(i)' class="row">
+            <mat-form-field class="col-lg-2 padding0" color='accent' appearance="outline"
+            [ngClass]="{'col-lg-3': searchFlight.get('flightType').value != 'RoundTrip'}">
+              <input type="text" placeholder='{{"searchFlight.dpart"|translate}}' aria-label="City" matInput
+                formControlName="departing" [matAutocomplete]="ii">
+              <mat-autocomplete #ii="matAutocomplete">
+                <mat-option *ngFor="let city of cities|filterCity:item.get('departing').value" [value]="city.cityName +'-'+ city.airportName +'-'+ city.airportCode">
+                  {{city.airportCode}}-{{city.airportName}}-{{city.cityName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <button class="col-12 col-md-1 mar4 switch" type="button" (click)='switchDes(item)'>
+              <i class="fas fa-exchange-alt"></i>
+            </button>
+
+            <mat-form-field class="col-lg-2 padding0" color='accent' appearance="outline"
+            [ngClass]="{'col-lg-3': searchFlight.get('flightType').value != 'RoundTrip'}">
+              <input type="text" placeholder='{{"searchFlight.land"|translate}}' aria-label="City" matInput
+                formControlName="landing" [matAutocomplete]="iii">
+              <mat-autocomplete #iii="matAutocomplete">
+                <mat-option *ngFor="let city of cities|filterCity:item.get('landing').value" [value]="city.cityName +'-'+ city.airportName +'-'+ city.airportCode">
+                  {{city.airportCode}}-{{city.airportName}}-{{city.cityName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field  class="col-lg-2 DateMulti padding0 datepicker datePointer" color='accent'
+            appearance="outline" (click)="iiii.open()">
+              <input matInput [matDatepicker]="iiii" placeholder='{{"searchFlight.dpartd"|translate}}'
+                formControlName='departingD' [min]="searchFlight.get('Flights')['controls'][i].value['departingD']"
+                [value]="searchFlight.get('Flights')['controls'][i].value['departingD']" style="display: none">
+              {{item.get('departingD').value|date:'MMM dd, y'}}
+              <mat-datepicker-toggle matSuffix [for]="iiii"></mat-datepicker-toggle>
+              <mat-datepicker #iiii></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </ng-container>
+
+      </ng-container>
+
+    </ng-container>
+
+    <div class="row" *ngIf=" searchFlight.get('flightType').value === 'Multicity' ">
+      <button type="button" class="btn btn-warning float-right" (click)='onAddFlight()' style="border-radius: 0px"
+        *ngIf="searchFlight.get('Flights').length <4">
+        <i class="fa fa-plus"></i>
+        {{"searchFlight.add"|translate}}
+      </button>
+      <button type="button" class="btn btn-warning float-right" (click)='removeflight()' style="border-radius: 0px"
+        *ngIf="searchFlight.get('Flights').length >2">
+        <i class="fa  fa-minus"></i>
+        {{"searchFlight.remove"|translate}}
+      </button>
+    </div>
+    <div class="row" *ngIf="searchFlight.get('flightType').value === 'Multicity'">
+      <button color='accent' class="col btn btn-warning btn-lg float-right mar4 searchbutton " type="submit"
+        routerLinkActive="router-link-active">
+        <i class="fa fa-search"></i>
+        {{"searchFlight.search"|translate}}
+      </button>
+    </div>
+
+  </form>
+
+
+  
+
+
+
+
+  <ng-container *ngIf="searchFlight.touched">
+    <ng-container *ngTemplateOutlet="alerts">
+
+    </ng-container>
+  </ng-container>
+
+  <ng-template #alerts>
+    <p *ngIf="!searchFlight.get('passengers.adults').valid && searchFlight.get('passengers.adults').touched ">
+      <ngb-alert type="warning" [dismissible]="false"> {{"searchFlight.alert1"|translate}}</ngb-alert>
+    </p>
+    <p *ngIf="!searchFlight.get('passengers.infent').valid && searchFlight.get('passengers.infent').touched ">
+      <ngb-alert type="warning" [dismissible]="false">{{"searchFlight.alert2"|translate}}</ngb-alert>
+    </p>
+    <ng-container *ngIf="!searchFlight.get('passengers').valid">
+      <p *ngIf="searchFlight.get('passengers').errors">
+        <ngb-alert type="warning" [dismissible]="false">{{"searchFlight.alert3"|translate}} </ngb-alert>
+      </p>
+    </ng-container>
+    <ng-container *ngFor="let flight of searchFlight.get('Flights')['controls']">
+      <p *ngIf="!flight.valid && flight.dirty && flight.errors">
+        <ngb-alert type="warning" [dismissible]="false">{{"searchFlight.alert4"|translate}}</ngb-alert>
+      </p>
+      <p *ngIf="!flight['controls']['departing'].valid && flight['controls']['departing'].dirty">
+        <ngb-alert type="warning" [dismissible]="false">{{"searchFlight.alert5"|translate}}</ngb-alert>
+      </p>
+      <p *ngIf="!flight['controls']['landing'].valid && flight['controls']['landing'].dirty">
+        <ngb-alert type="warning" [dismissible]="false">{{"searchFlight.alert6"|translate}}</ngb-alert>
+      </p>
+    </ng-container>
+  </ng-template>
+
+</div>

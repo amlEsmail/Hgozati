@@ -1,0 +1,56 @@
+.close
+{
+    color: #fff;
+    opacity: 1;
+}
+.close:hover
+{
+    background: #000;
+    color: #ffc107
+
+}
+
+.close:focus
+{
+    box-shadow: none;
+    outline: 0;
+}
+.modal-header {
+padding: 0px;
+background: #ffc107;
+color:#fff;
+}
+.roomfeat
+{
+    font-size: 15px;
+    font-weight: 800;
+    color: #2c2e3d;
+}
+.roomfeat span
+{
+    color: #ffc107;
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 10px;
+}
+.roomfeatTitle
+{
+color:#fff;
+font-size: 25px;
+font-weight: 400;
+text-transform: capitalize;
+position: relative;
+top: 10px;
+padding: 0 10px;
+
+}
+
+
+.loadingImg
+{
+min-height: 300px;
+text-align:center;
+display: flex;
+justify-content:center;
+align-items: center;
+}

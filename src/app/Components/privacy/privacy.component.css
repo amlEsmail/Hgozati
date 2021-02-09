@@ -1,0 +1,29 @@
+/* hide curr in inner pages+ checkout +confirmation */
+:host::ng-deep.currLink{
+    display: none;
+    }
+
+/* hide curr in inner pages+ checkout +confirmation */
+
+.header {
+    background: #2c2e3d;
+}
+.wraber{
+    width: 100%;
+    background: white;
+}
+.title{
+    font-weight: 600;
+    font-size: 44px;
+    position: relative;
+    left: 27px;
+    top: 0px;
+    padding: 3px 1px 6px 3px;
+}
+li a {
+    color: rgb(128, 128, 128);
+}
+li a:hover {
+    cursor: pointer;
+    color:black;
+}

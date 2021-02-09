@@ -1,0 +1,116 @@
+    /* .bodySearch{
+    background: url(../../../assets/img/cover.svg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  } */
+  .Search{
+    padding: 100px;
+  }
+  .SearchForm{
+    box-shadow: 4px 7px 28px rgba(0,0,0,0.09);
+    padding: 40px;
+    margin-top: 7px;
+    background: #ffffff;
+  }
+  .btn-outline-warning {
+    color: #6f767a;
+    border-color: #a8b2b8;
+    font-size: initial;
+  }
+  .mat-input-element {
+    caret-color: #ffc107;
+  }
+  .mat-radio-button ~ .mat-radio-button {
+      margin-left: 16px;
+      margin-top: 16px;
+  }
+  .mat-checkbox {
+    margin-left: auto;
+    margin-top:18px;
+  }
+  .mar4 {
+    margin-top: 4px !important;
+  }
+  /* .datepicker{
+    max-width:160px;
+  } */
+  .searchbutton {
+    max-height: 48px;
+    max-width: 150px;
+    margin-left: auto;
+    color: #fff;
+    font-family: 'DIN_Regular';
+  }
+  .btn-warning{
+    color: #fff;
+    font-family: 'DIN_Regular';
+  }
+  .menue{
+    max-height: 48px;
+  }
+  .formf {
+    max-width: 200px;
+  }
+  .switch {
+    max-width: 30px;
+    background: none;
+    border: none;
+    margin-left: -14px;
+    margin-right: 3px;
+    margin-top: 10px;
+  
+  }
+  .datePointer{
+    cursor: pointer
+  }
+  .datePointer:hover{
+      cursor: pointer;
+  }
+  li.searchBTN {
+    list-style: none;
+    margin-left: 2px;
+  }
+  li.searchBTN.active button{
+    background: #ffc107;
+    border: 1px solid #ffc107;
+    color: #fff;
+    font-family: 'DIN_Regular';
+    border-radius: 2px;
+    padding: 10px;
+  }
+  li.searchBTN button{
+    background: #b3b3b3;
+    border: 1px solid #b3b3b3;
+    color: #fff;
+    font-family: 'DIN_Regular';
+    border-radius: 2px;
+    padding: 10px;
+  }
+  .searchBTN button img{
+    width: 20px;
+  }
+  img.Cars{
+    
+    width: 17px !important;
+  }
+  img.Holy{
+    width: 41px !important;
+  }
+  .searchBTN button span{
+    padding-left: 5px;
+  }
+  ul.Btns{
+    margin-left: -42px;
+  }
+  @media (max-width: 768px){
+    .Search{
+      padding: 0px;
+    }
+    .mat-checkbox {
+      margin-left: 2px;
+    }
+   
+  }
+  

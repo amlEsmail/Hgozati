@@ -1,0 +1,520 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@font-face{
+    font-family: 'DIN_Regular';
+    src: url(./assets/fonts/DIN-reg.ttf);
+}
+@font-face{
+    font-family: 'DIN_Bold';
+    src: url(./assets/fonts/DIN0bold.ttf);
+}
+/* a:hover{
+    cursor: pointer !important;
+} */
+html, body { height: 100%;}
+body {
+    margin: 0;
+    font-family: 'DIN_Regular';
+    background: rgba(103, 103, 103, 0.12);
+}
+/* eadge mode */
+@supports (-ms-ime-align: auto) {
+.mat-icon-button{
+    position: relative;
+    top: -24px;
+}
+#dropdownForm1 {
+    max-width: 188px;
+}
+}
+
+.container-fluid {
+    max-width: 1400px;
+}
+
+.mat-select-value {
+    /* color: transparent; */
+    color: #2c2e3d;
+}
+
+
+/* // home page select button// */
+.selectbutton .mat-select-arrow {
+    width: 0;
+    height: 0;
+   border: 0px;
+    margin: 0 4px;
+}
+mat-form-field * {
+    max-height: 50px !important;
+    max-width: 250px;
+}
+.phonenumber {
+    position: relative;
+    align-self: center;
+    width: 100%;
+    max-width: 500px;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #dbd2d2ab;
+    border-width: 1px;
+    margin-top: 4px !important;
+}
+.alertPhone{
+    outline: none;
+    align-self: center;
+    width: 100%;
+    max-width: 500px;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: red;
+    border-width: 2px;
+    margin-top: 4px !important;
+}
+.phonenumber:hover{
+    align-self: center;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    margin-top: 4px !important;
+    overflow: hidden;
+}
+.phonenumber:focus{
+    outline: none;
+    align-self: center;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #ffc107;
+    border-width: 2px;
+    margin-top: 4px !important;
+    overflow: hidden
+}
+
+.mat-form-field {
+font-family: 'DIN_Regular';
+}
+.mat-form-field-infix {
+    border : .84375em;
+}
+.padding0 {
+    padding:0px;
+}
+.HeaderSearch_Class{
+    background: url(../src/assets/img/cover.jpg) no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+.mat-form-field.DateMulti {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    margin-left: 6px;
+    margin-right: 6px;
+}
+.cdk-overlay-pane {
+    position: absolute;
+    pointer-events: auto;
+    box-sizing: border-box;
+    z-index: 2000;
+    display: flex;
+    max-width: 100%;
+    max-height: 100%;
+}
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 970;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+}
+#exampleModaloffer.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 989;
+    display: none;
+    width: 100%;
+    height: fit-content;
+    overflow: hidden;
+    outline: 0;
+}
+
+.custom-select:focus
+{
+    box-shadow: none;
+}
+button.mat-icon-button:focus {
+    box-shadow: none;
+    outline: 0;
+}
+.switch:focus {
+    outline: 0;
+}
+
+.modal-header .close
+{
+    margin: 0;
+    
+}
+
+
+/* slider */
+  
+.custom-slider .ng5-slider .ng5-slider-pointer:after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 7px;
+    left: 7px;
+    border-radius: 4px;
+    background: #fff;
+}
+.custom-slider .ng5-slider .ng5-slider-pointer {
+    cursor: pointer;
+    width: 20px !important;
+    height: 20px !important;
+    top: -10px !important;
+    background-color: #ffc107 !important;
+    z-index: 3;
+    border-radius: 16px;
+}
+.custom-slider .ng5-slider .ng5-slider-selection {
+    z-index: 2;
+    background: #ffc107;
+    border-radius: 2px;
+}
+.custom-slider .ng5-slider .ng5-slider-pointer.ng5-slider-active:after {
+    background-color: #ffc107;
+}
+.titleselecto:hover {
+    background-color: #ffc107
+}
+.titleselecto:focus {
+    background-color: #ffc107
+}
+
+/* search result filter style  */
+.catagor .btn-link {
+    color: #00000099;
+    font-size: 15px;
+    font-family: 'DIN_Regular';
+    width: 100%;
+    text-align: -webkit-left;
+    text-transform: capitalize;
+    font-weight: 600;
+    
+}
+.catagor .btn-link span {
+    float: right;
+    font-size: small;
+    margin-top: 5px;
+}
+.accordion>.card .card-header {
+    margin-bottom: 0px;
+}
+
+@media (max-width: 991.98px) {  
+    .phonenumber {
+        align-self: center;
+        width: calc(100% + 12px);
+    } 
+    .alertPhone{
+        align-self: center;
+        width: calc(100% + 12px);
+    }
+}
+.catagor .card-header {
+    margin-bottom: 0px;
+    padding-left: 0px;
+    border: 0px;
+    /* border-bottom-style:  linear-gradient(to right,#ff8a00,#da1b60); */
+    background: /* gradient can be an image */
+    linear-gradient(
+      to left, 
+      rgb(250, 248, 249) 0%,
+      rgb(180, 176, 178) 12%,
+      rgb(153, 152, 152) 47%,
+      rgb(245, 245, 245) 100%
+    )
+    center 
+    bottom
+    rgb(255, 255, 255)    
+    no-repeat;
+    background-size:80% 1.5px ; 
+}
+.catagor .card {
+    border: none;
+    margin-bottom: 0px;
+}
+/* stepper */
+.mat-step-header .mat-step-icon-selected {
+    background-color: #ffc107; 
+ }
+ .mat-step-header .mat-step-icon-state-edit {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+/* progress bar */
+.mat-progress-bar-fill::after {
+    background-color: #ffc107 !important;
+}
+
+.intl-tel-input .country-list {
+    position: absolute;
+    z-index: 2;
+    list-style: none;
+    text-align: left;
+    padding: 0;
+    margin: 0 0 0 -1px;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    border: 1px solid #CCC;
+    white-space: nowrap;
+    max-height: 300px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+}
+#InsuranceMorebinifets.mat-chip-list-wrapper{
+    justify-content: center;
+}
+.mat-chip-list-wrapper{
+    justify-content: center;
+}
+.mat-radio-button.mat-radio-container {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    width: 25px;
+    height: 31px;
+    flex-shrink: 0;
+}
+:host::ng-deep svg {
+    position: relative;
+    top:-24px;
+}
+.mat-icon-button{
+    position: relative;
+    top:-24;
+}
+.mat-radio-button.mat-radio-outer-circle {
+    box-sizing: border-box;
+    height: 25px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: border-color ease 280ms;
+    width: 25px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+}
+.mat-radio-button.mat-radio-inner-circle {
+    border-radius: 50%;
+    box-sizing: border-box;
+    height: 25px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: transform ease 280ms,background-color ease 280ms;
+    width: 25px;
+    transform: scale(.001);
+}
+hr {
+    box-sizing: content-box;
+    height: 1px;
+    overflow: visible;
+    max-width: 70%;
+    min-width: 50%;
+    border: 0.2px solid #00000042;
+    border-radius: 0px;
+}
+
+#OffersBookingButton {
+    color: white;
+        font-size: 30px;
+        border-radius: 0px;
+        text-align: center;
+        min-height: 79px;
+        position: fixed;
+        top: 50vh;
+        left: 0;
+        z-index: 40;
+        width: 168.89px;
+}
+
+
+/* hotel-filter */
+ul mat-checkbox label
+{
+
+margin-bottom: 0;
+margin-left: 3px;
+margin-right: 3px;
+
+
+}
+/* hotel-filter */
+
+/* scrollbar style */
+
+/* width */
+::-webkit-scrollbar{
+    width: 3px;
+    height: 50px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background:#d1c4e9 ; 
+    
+  }
+  ::-webkit-scrollbar-track:hover {
+    background:#d1c4e9 ;
+    cursor:url("http://i.imgur.com/2qleX.jpg"), auto;
+    
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffc107; 
+    cursor:url("http://i.imgur.com/2qleX.jpg"), auto;
+   
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e0a800;
+    cursor: pointer; 
+  }
+
+  /* scrollbar style */
+  
+@media (max-width: 768px){
+    .mat-form-field {
+      max-width:100%;
+  }
+  mat-form-field * {
+    max-width: 100%;
+  }
+  .mat-form-field.DateMulti {
+    display: inline-block;
+    position: relative;
+    text-align: left;
+    margin-left:0px;
+  }
+  .cancelationd {
+    border-radius: 0px;
+    width: 100% !important;
+    float: left;
+    border: 0px !important;
+    border-radius: 0px;
+    border-left: 0px !important;
+    background: #ffc107!important;
+    border: 0px;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffc107;
+}
+  #OffersBookingButton {
+    color: white;
+        font-size: 30px;
+        border-radius: 0px;
+        text-align: center;
+        min-height: 15vh;
+        position: fixed;
+        top: 85vh;
+        left: 0;
+        z-index: 40;
+        width: 168.89px;
+}
+
+
+
+
+/* // Extra small devices (portrait phones, less than 576px) */
+
+
+
+
+
+
+
+/* // Large devices (desktops, less than 1200px) */
+
+/* // Medium devices (tablets, less than 992px) */
+
+/* // Small devices (landscape phones, less than 768px) */
+
+
+
+}
+
+@media (max-width: 575.98px) { 
+    .phonenumber {
+        align-self: center;
+        width: calc(100vw - 83px);
+    } 
+    .alertPhone{
+        align-self: center;
+        width: calc(100vw - 83px);
+    }
+
+
+.palertPhoner {
+    align-self: center;
+    max-width: 500px;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: red;
+    border-width: 2px;
+    margin-top: 4px !important;
+}
+}
+@media (max-width: 450px) { 
+    .mopFix {
+        position: relative;
+        left: -15px;
+    }
+    .mopFix2 {
+        position: relative;
+        left: -15px;
+    }
+}
+
+
+
+/* new edits for bugs */
+
+
+/* edit placeholder */
+.list-filter-item b
+{
+ padding: 0 2px;
+}
+
+
+/* edit phonenum dropdown */
+.intl-tel-input .country-list
+{
+    max-height: 120px;
+}
+@media(max-width:480px){
+    .intl-tel-input .country-list
+    {
+        font-size: 12px;
+     
+        max-width: 240px;
+        overflow-x: hidden;
+    }
+}

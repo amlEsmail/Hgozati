@@ -1,0 +1,74 @@
+<div class="container">
+  <!-- title and logo -->
+  <div class="row titleandlogo justify-content-around">
+    <div class="col-12 col-md-12 log text-left mt-4">
+      <a href=""><img src="../../../assets/img/hogzatiLogoen.svg" width="300px" alt="logo"></a>
+    </div>
+    <div class=" col-21 col-md-12 text-center pt-4" *ngIf="fare">
+      <h1 class="Title"> Terms And condtions</h1>
+    </div>
+  </div>
+  <!-- loader -->
+  <ng-container *ngIf="!fare">
+      <div class="container ">
+          <div class="row justify-content-center loadingcard">
+              <div class="col text-center">
+                      <h1 class="Title animated infinite bounce delay-3s" style="color:#ffc107;"> Loading</h1>
+              </div>
+              <div class="col-12 text-center">
+                  <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+              </div>
+          </div>
+  
+      </div>
+    </ng-container>
+  <!-- fares array  -->
+  <ng-container *ngIf="fare">
+    <ng-container *ngFor="let item of fare.fares">
+    <!-- segment fare rules -->
+    <div class="row sigment mt-4">
+     <h3>{{item.departureCountry}} -- {{item.arrivalCountry}}</h3>
+    </div>
+    <!-- adult fare rules -->
+    
+    <div class="row adult rules mt-2">
+      <div class="col-12">
+          <h5>Adults fare rules</h5>
+      </div>
+     
+     <ng-container *ngFor="let adultRule of item.adtRules">
+       <div class="col-12">
+         <h6>{{adultRule.title}} </h6>
+       </div>
+      <div class="col-12">
+        <p>
+        {{adultRule.fareRule}}
+        </p>
+      </div>
+      
+     </ng-container>
+    </div>
+    <!-- child rules -->
+    <div class="row child rules " *ngIf="item.cnnRules.lenght > 0">
+        <h5>Child Rules</h5>
+        <ng-container *ngFor="let childRule of item.cnnRules">
+         <h6>{{childRule.title}} </h6>
+         <p>
+           {{childRule.fareRule}}
+         </p>
+        </ng-container>
+    </div>
+    <!-- infRules -->
+    <div class="row child rules" *ngIf="item.infRules.lenght > 0">
+        <h5>AInfentRules</h5>
+        <ng-container *ngFor="let infRules of item.infRules">
+         <h6>{{infRules.title}} </h6>
+         <p>
+           {{infRules.fareRule}}
+         </p>
+        </ng-container>
+    </div>
+  </ng-container>
+  </ng-container>
+  
+</div>

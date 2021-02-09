@@ -1,0 +1,272 @@
+<div class="container-fluid coursercont" style="max-width: 100%" *ngIf="innerWidth > 768">
+  <div class="container-fluid ">
+    <div class="row BestTitle">
+      <div class="col-12 BestOfferTitle">
+        <h2 class=" BestOfferTitle"> {{"topDestination.topDestHeader"|translate}}</h2>
+            
+      </div>
+    </div>
+    <div class="row">
+      <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class=" row">
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Istanbul-Ataturk-IST')">
+                      <img src="/assets/img/slide1.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Istanbul-Ataturk-IST')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Istanbul"|translate}} </small>
+                        <h5>{{"topDestination.Turkey"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('London-London City Airport-LCY')">
+                      <img src="/assets/img/slide2.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('London-London City Airport-LCY')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.london"|translate}} </small>
+                        <h5>{{"topDestination.UK"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">
+                      <img src="/assets/img/slide3.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Parise"|translate}} </small>
+                        <h5>{{"topDestination.France"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Dubai-Dubai International Airport-DXB')">
+                      <img src="/assets/img/slide4.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Dubai-Dubai International Airport-DXB')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Dubai"|translate}} </small>
+                        <h5>{{"topDestination.UAE"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class=" row">
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('London-London City Airport-LCY')">
+                      <img src="/assets/img/slide2.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('London-London City Airport-LCY')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.london"|translate}} </small>
+                        <h5>{{"topDestination.UK"|translate}}</h5>
+                      </div>
+                    </a>
+        
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">
+                      <img src="/assets/img/slide3.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Parise"|translate}}</small>
+                        <h5>{{"topDestination.France"|translate}}</h5>
+                      </div>
+                    </a>
+        
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Dubai-Dubai International Airport-DXB')">
+                      <img src="/assets/img/slide4.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Dubai-Dubai International Airport-DXB')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Dubai"|translate}} </small>
+                        <h5>{{"topDestination.UAE"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">
+                      <img src="/assets/img/slide5.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.sumatra"|translate}}  </small>
+                        <h5>{{"topDestination.indonesia"|translate}}</h5>
+                      </div>
+                    </a>
+        
+                  </div>
+                </div>
+        
+              </div>
+              <div class="carousel-item">
+                <div class=" row">
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Paris-Ch. De Gaulle-CDG')">
+                      <img src="/assets/img/slide3.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Parise"|translate}}</small>
+                        <h5>{{"topDestination.France"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Dubai-Dubai International Airport-DXB')">
+                      <img src="/assets/img/slide4.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Dubai-Dubai International Airport-DXB')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Dubai"|translate}} </small>
+                        <h5>{{"topDestination.UAE"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">
+                      <img src="/assets/img/slide5.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.sumatra"|translate}}  </small>
+                        <h5>{{"topDestination.indonesia"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="col-3 cont">
+                    <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Istanbul-Ataturk-IST')">
+                      <img src="/assets/img/slide1.jpg" class="d-block w-100" alt="...">
+                      <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Istanbul-Ataturk-IST')">{{"topDestination.Book"|translate}}</button>
+                      <div class="carousel-caption d-none d-md-block">
+                        <small>{{"topDestination.Istanbul"|translate}} </small>
+                        <h5>{{"topDestination.Turkey"|translate}}</h5>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+        
+              </div>
+            </div>
+            <a class="carousel-control-prev sliderside" href="#carouselExampleCaptions" role="button" data-slide="prev" >
+              <span class="carousel-control-prev-icon mr-auto ml-4" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next sliderside" href="#carouselExampleCaptions" role="button" data-slide="next">
+              <span class="carousel-control-next-icon ml-auto mr-4" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+    </div>
+      
+   
+  </div>
+    
+</div>
+<div class="container-fluid coursercont" style="max-width: 100%" *ngIf="innerWidth < 768">
+    <div class="container-fluid ">
+      <div class="row BestTitle">
+        <div class="col-12 BestOfferTitle">
+          <h2 class=" BestOfferTitle">Our Top Destinations </h2>
+              
+        </div>
+      </div>
+      <div class="row">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class=" row justify-content-center">
+                    <div class="col-12 cont">
+                      <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('Istanbul-Ataturk-IST')">
+                        <img src="/assets/img/slide1.jpg" class="d-block w-100" alt="...">
+                        <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Istanbul-Ataturk-IST')">{{"topDestination.Book"|translate}}</button>
+                        <div class="carousel-caption d-none d-md-block">
+                          <small>{{"topDestination.Istanbul"|translate}} </small>
+                          <h5>{{"topDestination.Turkey"|translate}}</h5>
+                        </div>
+                      </a>
+                    </div>
+                   
+                   
+                  </div>
+                </div>
+                <div class="carousel-item">
+                  <div class=" row justify-content-center">
+                    <div class="col-12 cont">
+                      <a href="#" class="image-grid-clickbox" role="img"(click)="selectcity('London-London City Airport-LCY')" >
+                        <img src="/assets/img/slide2.jpg" class="d-block w-100" alt="...">
+                        <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('London-London City Airport-LCY')">{{"topDestination.Book"|translate}}</button>
+                        <div class="carousel-caption d-none d-md-block">
+                          <small>{{"topDestination.london"|translate}} </small>
+                        <h5>{{"topDestination.UK"|translate}}</h5>
+                        </div>
+                      </a>
+          
+                    </div>
+                    
+                  </div>
+          
+                </div>
+                <div class="carousel-item">
+                  <div class=" row justify-content-center">
+                    <div class="col-12 cont">
+                      <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Paris-Ch. De Gaulle-CDG')">
+                        <img src="/assets/img/slide3.jpg" class="d-block w-100" alt="...">
+                        <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Paris-Ch. De Gaulle-CDG')">{{"topDestination.Book"|translate}}</button>
+                        <div class="carousel-caption d-none d-md-block">
+                          <small>{{"topDestination.Parise"|translate}} </small>
+                          <h5>{{"topDestination.France"|translate}}</h5>
+                        </div>
+                      </a>
+                    </div>
+                  
+                  </div>
+          
+                </div>
+                <div class="carousel-item">
+                    <div class=" row justify-content-center">
+                      <div class="col-12 cont">
+                        <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Dubai-Dubai International Airport-DXB')">
+                          <img src="/assets/img/slide4.jpg" class="d-block w-100" alt="...">
+                          <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Dubai-Dubai International Airport-DXB')">{{"topDestination.Book"|translate}}</button>
+                          <div class="carousel-caption d-none d-md-block">
+                            <small>{{"topDestination.Dubai"|translate}} </small>
+                            <h5>{{"topDestination.UAE"|translate}}</h5>
+                          </div>
+                        </a>
+                      </div>
+                    
+                    </div>
+            
+                </div>
+                <div class="carousel-item">
+                    <div class=" row justify-content-center">
+                      <div class="col-12 cont">
+                        <a href="#" class="image-grid-clickbox" role="img" (click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">
+                          <img src="/assets/img/slide5.jpg" class="d-block w-100" alt="...">
+                          <button type="button" class="btn btn-warning booking-button animated zoomIn"(click)="selectcity('Jakarta-Soekarno-Hatta Intl-CGK')">{{"topDestination.Book"|translate}}</button>
+                          <div class="carousel-caption d-none d-md-block">
+                            <small>{{"topDestination.sumatra"|translate}}  </small>
+                            <h5>{{"topDestination.indonesia"|translate}}</h5>
+                          </div>
+                        </a>
+                      </div>
+                    
+                    </div>
+            
+                  </div>
+              </div>
+              <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon mr-auto ml-4" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                <span class="carousel-control-next-icon ml-auto mr-4" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div>
+      </div>
+        
+     
+    </div>
+      
+  </div>

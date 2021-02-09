@@ -1,0 +1,66 @@
+img {
+    border-radius: 0px;
+    cursor: pointer;
+    min-height: inherit;
+    min-width: 100%;
+    object-fit: cover;
+    /* width: 50px; */
+    /* height: 100px; */
+   /* size: cover; */
+}
+
+.coursercont{
+    /* margin-top:100px; */
+    padding: 20px;
+    background-color:#ffffff;
+}
+.right {
+    right: -50px;
+}
+
+
+a {
+    min-height: 400px;
+    overflow: hidden;
+}
+.cont {
+    /* height: 100%; */
+    overflow: hidden;
+    /* position:absolute;
+    z-index: 20; */
+}
+.booking-button {
+    font-size: 18px;
+    text-align: end;  
+    text-shadow: rgba(0,0,0,.8) 0 1px 0;
+    z-index: 20;
+    position: absolute;
+    top: 40%;
+    left:35%;
+}
+.image-grid-clickbox button{
+  display: none;
+}
+.image-grid-clickbox:hover img {
+    transition: all 1s ease;
+    transform: scale(1.5);
+    /* opacity: 0.5; */
+  -webkit-filter: grayscale(3);
+  filter: grayscale(3);
+}
+.image-grid-clickbox:hover button {
+ display: block;
+}
+.BestOfferTitle{
+    text-align: center;
+    font-family: 'DIN_Regular';
+    color:#ffc107;
+  
+}
+.BestTitle{
+    margin-top: 100px;
+    margin-bottom:50px;
+}
+.sliderside {
+    max-width: 5%;
+}

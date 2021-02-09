@@ -1,0 +1,37 @@
+<div class="row justify-content-center align-items-center " >
+<div class="card  col-12 col-12 col-md-4 " style="margin-top: 15vh ;padding: 20px;">
+  <div class="col-12 text-center" >
+    <img src="../../../../assets/img/hogzatiLogoen.svg" class="logo" alt="logo">
+  </div>
+  <div class="col-12 text-center">
+     <h4>Login to your Hogozati account</h4>
+  </div>
+  <div style="min-height: fit-content card-body">
+    <form [formGroup]="loginform" class="row justify-content-center card-body" (ngSubmit)="onSubmit()">
+      <div class="col-12 col-md-7">
+        <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-envelope feildicon" matPrefix></i>
+          <input matInput placeholder="email Address" required formControlName='email' type="email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-7">
+        <mat-form-field color="accent" appearance="outline">
+            <i class="fas fa-lock feildicon" matPrefix></i>
+          <input matInput placeholder="passWord" required formControlName='passWord' type="password" >
+        </mat-form-field>
+        
+      </div>
+      <div class=" col-12 col-md-7 text-right">
+          <a href=""> Forget PassWord ?</a>
+      </div>
+      <div class=" col-12 col-md-7 text-center">
+        <button class="SingInButton" mat-raised-button color="accent" click ='onSubmit'>Sign In</button>
+      </div>
+      <div class="col-12 col-md-7 text-center">
+        <a href="/signup"> Sign Up</a>
+      </div>
+      
+    </form>
+  </div>
+</div>
+</div>

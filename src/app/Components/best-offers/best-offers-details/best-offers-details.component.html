@@ -1,0 +1,207 @@
+<div class="bodySearch">
+  <div>
+    <header></header>
+    <h1 class="Title">
+      {{offer.offerName}}
+    
+    </h1>
+  </div>
+  <app-normalerror [normalError]='normalError' *ngIf="normalErrorStatus"></app-normalerror>
+  <div class="container mycontainer">
+    <!-- first row title price and date -->
+      <div>
+        <button mat-raised-button color="accent" class="col "
+        type="link"    data-toggle="modal" data-target="#exampleModaloffer" id="OffersBookingButton">
+       {{"BestOffer.Book"|translate}} 
+      </button>
+      </div>
+    <!-- booking modal -->
+    <div  class=" Offer modal fade " id="exampleModaloffer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class=" Offer modal-dialog modal-dialog-centered" role="document">
+        <div class=" Offer modal-content" style="height: fit-content;">
+          <div class="modal-header line" style="border: 0px;">
+            <h5 class="modal-title " id="exampleModalCenterTitle" style="font-size: 33px;
+            color: #ffc107;"> {{"BestOffer.booking"|translate}}  </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class=" Offer modal-body">
+              <ng-container *ngTemplateOutlet="userInfo"></ng-container>
+            <ng-template #userInfo>
+              <div style="min-height: fit-content">
+                <form [formGroup]="user" class="row justify-content-center" (ngSubmit)="onSubmit()">
+                  <div class=" col-12 col-md-6">
+                      <mat-form-field color="accent" appearance="outline">
+                          <input matInput placeholder="Full Name" required formControlName='name' type="text">
+                      </mat-form-field>
+                  </div>
+                  <div class="col-12 col-md-6">
+                      <mat-form-field color="accent" appearance="outline">
+                          <input matInput placeholder="Email Address" required formControlName='email' type="email">
+                      </mat-form-field>
+                  </div>
+                  <div class="col-12 col-md-6" style="margin: .25em 0;">
+                     <ngx-intl-tel-input [cssClass]="'phonenumber'" 
+                    [preferredCountries]="['us', 'gb', 'eg', 'sa']" [enableAutoCountrySelect]="true"
+                    [enablePlaceholder]="true" name="phone"
+                    formControlName='phone'
+                    ></ngx-intl-tel-input>
+                  </div>
+                  <div class=" col-12 col-md-6">
+                      <mat-form-field color="accent" appearance="outline" class="menu">
+                          <input type="text" placeholder="Choose Your Country" aria-label="Number" matInput formControlName='nationality' [matAutocomplete]="auto" #country >
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let option of countriescode|councode:country.value" [value]="option.countryName">
+                                {{option.countryName}}
+                            </mat-option>
+                          </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                 
+                </form>
+              </div>
+            </ng-template>
+          </div>
+          <div class="modal-footer" style="border: 0px;">
+            <button type="button" class="btn btn-secondary closeModal " data-dismiss="modal">{{"BestOffer.Close"|translate}} </button>
+            <button type="button" class="btn btn-primary bookModal" type="submit" (click)='onSubmit()'>{{"BestOffer.Book"|translate}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- booking modal end -->
+    <!-- main description row -->
+    <div class="row maindisc justify-content-between rowBack pb-4" >
+      <div class="col-7 text-left ">
+        <!-- description title  -->
+        <h2 class="line pb-2"> {{"BestOffer.desc"|translate}} </h2>
+        <p>{{offer.offerDescription}}</p>
+      </div>
+      <div class="col-12 col-sm-4">
+        <!-- price Card -->
+        <div class="row FRcard priceCArd">
+          <div class="col-12 text-center line">
+            <h5>{{"BestOffer.price"|translate}}</h5>
+          </div>
+          <div class="col-12 col-md-6 text-left">
+            <h6 style=" font-weight: bolder;">{{"BestOffer.total"|translate}}</h6>
+          </div>
+          <div class="col-12 col-md-6 text-right"  style="color:#ffc107;">
+            {{offer.currency}} {{offer.totalSellPrice}} 
+          </div>
+        </div>
+         <!-- Date Card -->
+        <div class="row FRcard priceCArd">
+          <div class="col-12 text-center line" >
+            <h5>Dates</h5>
+          </div>
+          <div class="col-12 col-md-6 text-left" style=" font-weight: bolder;">
+            From:
+          </div>
+          <div class="col-12 col-md-6 text-right" style="color:#ffc107;">
+            {{offer.startDate|date:'MMMM dd, y'}}
+          </div>
+          <div class="col-12 col-md-6 text-left" style=" font-weight: bolder;">
+            to:
+          </div>
+          <div class="col-12 col-md-6 text-right" style="color:#ffc107;">
+            {{offer.endDate|date:'MMMM dd, y'}}
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12 text-center">
+          <h2 class="Titlesm">{{"BestOffer.program"|translate}}</h2>
+        </div>
+    </div>
+    
+    <ng-container *ngTemplateOutlet="day"></ng-container>
+ 
+  </div>
+  <ng-template #day>
+    <ng-container *ngFor="let day of offer.offerDays;let i =index">
+        <div class="row maindisc justify-content-center rowBack">
+            <!-- days card start -->
+              <!-- name and description -->
+              <div class=" col-12 col-md-6 align-self-center">
+                  <div class=" row">
+                   <div class="col-12 text-left">
+                      <h2>Day {{i+1}}</h2>
+                   </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 text-left line">
+                      <h5>  {{"BestOffer.desc"|translate}}</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-12">
+                   <p> {{day.dayDescription}}</p>
+                  </div>
+                  </div>
+              </div>   
+              <div class="col-12 col-md-4">
+                  <div class="dayslider" >
+                    <ng-container *ngFor="let image of day.offerServices">
+                      <div><img src="{{image.serviceImage[0]['url']}}" alt="" class="img-fluid"></div>
+                    </ng-container>
+                      
+                  </div>
+              </div>
+              <div class="col-12">
+                  <div class="row MoreDetBtn">
+                      <!-- <div class="col-4">
+    
+                      </div> -->
+                      <div class="col-6">
+                          <button type="button" class="DeatilsBtn" (click)='toggle(i)'
+                              >
+                              {{"BestOffer.services"|translate}}
+                          </button>
+                      </div>
+    
+                  </div>
+              </div>
+              
+          </div>
+          <ng-container *ngIf="!trueT[i]">
+           <ng-container *ngFor="let service of day.offerServices">
+            <div class=" row justify-content-center">
+              <div class="col-10 col-sm-8">
+                 <div class="row serviceItem">
+                   <div class="col-12 col-sm-8">
+                    <h3> {{service.serviceType}}</h3>
+                    <div>
+                      <p>{{service.serviceDescription}}</p>
+                    </div>
+                    
+                    <mat-chip-list>
+                      <p class="m-0">City:</p>
+                      <ng-container *ngFor="let city of service.includedCities">
+                                    <mat-chip color="primary" selected>{{city.cityName}}</mat-chip>
+                      </ng-container>
+                     </mat-chip-list>
+                   </div>
+                   <div class="col-12 col-sm-4 align-self-center">
+                       <div class=" Price">
+                       <p>{{offer.currency}} {{service.servicePrice}}</p>
+                       <p class="Taxes">Include Taxes</p>
+                   </div>
+                   </div>
+     
+                 </div>
+              </div>
+          </div>
+          </ng-container> 
+          </ng-container>
+          
+        
+    </ng-container>
+      
+      
+  </ng-template>

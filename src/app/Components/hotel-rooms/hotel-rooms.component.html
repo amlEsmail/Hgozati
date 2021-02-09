@@ -1,0 +1,285 @@
+
+
+<div class="resultPage">
+    <header></header>
+    <h1 class="Title">
+      {{"SearchResult.adventure"|translate}}
+    </h1>
+  </div>
+  
+<div class="content">
+
+
+    <ng-container *ngIf="loading">
+      <ng-container *ngTemplateOutlet="loadingH"></ng-container>
+    </ng-container>
+    <ng-container *ngIf="ResultFound">
+      <ng-container *ngTemplateOutlet="hotelContent"></ng-container>
+    </ng-container>
+  
+    <app-footer></app-footer>
+  
+  
+  
+  
+  </div>
+
+
+  <ng-template #hotelContent>
+      <div class="roomsPage" >
+
+     <div class="container">
+         
+      <!-- hotel-name-location -->
+            <h5 class="Hotel-title " >
+                <span class="hotelName">
+                    {{hotelData?.hotelName}}
+                 </span>
+               <span class="rating">
+                      <!--looping-stars -->
+                      <ng-container >
+                          <ng-container *ngFor="let star of getRating()">
+                              <i class="fa fa-star"></i>
+                           </ng-container>
+                      </ng-container>
+                    
+                        <!--looping-stars -->
+      
+                </span>
+                <p class="hotel-loc"> 
+                  <!-- city && country  -->
+                 <!-- 1115 Corniche El Nile, Cairo 12334  -->
+                  <i class="fas fa-map-marker-alt"></i>  <span>{{hotelData.Address}} </span> </p>
+         
+            
+            </h5>
+            <!-- hotel-name-location -->
+
+
+            <!-- hotel images silder -->
+        <div class="row hotel-slider">
+            <!-- col-md-10 offset-md-1 -->
+           <div class="col-12">
+                    <ng-container *ngIf="hotelData.hotelImages.length==0">
+                        <img src="../../../assets/img/Blank.svg"  style=" max-height: 300px;margin-bottom: 10px"/>
+
+                    </ng-container>   
+                    <ng-container *ngIf="hotelData.hotelImages.length>0">
+                        <div id="carouselExampleControls" class="carousel slide " data-ride="carousel">
+                            <div class="carousel-inner">
+                                <ng-container *ngFor="let img of hotelData.hotelImages;let i=index">
+                                        <div class="carousel-item hotel-img " [ngClass]="{'active':i==0}">
+                                                <img class="img-fluid " src={{img}}  alt="hotel image">
+                                       </div>
+                                </ng-container>
+              
+                            </div>
+                            <a class="carousel-control-prev arrow" href='#carouselExampleControls' role="button" data-slide="prev">
+                                <!-- <span class="carousel-control-prev-icon" aria-hidden="true"></span> -->
+                                <i class="fa fa-angle-left"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next arrow"  href='#carouselExampleControls' role="button" data-slide="next">
+                                <!-- <span class="carousel-control-next-icon" aria-hidden="true"></span> -->
+                                <i class="fa fa-angle-right"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+
+                    </ng-container>   
+       
+
+              </div>
+
+            </div>
+  
+            <!-- hotel images silder -->
+
+            <!-- hotel overview-->
+            <div class="hotel-overview">
+                <h4 class="overviewTitle"> {{"hotelResult.Overview" |translate}} </h4>
+                <div class="hotelDes">
+                  <P>{{hotelData.hotelDescription}}</P>
+                </div>
+            </div>
+            <!-- hotel overview-->
+
+            <!-- show rooms + price  for rooms + go to checkout -->
+            <div class="hotel-selected">
+              <div class="row">
+                <div class="col-12 col-lg-9">
+              <!-- loop of booking room -->
+              <ng-container  *ngFor="let roomBook of hotelData.rooms;let r =index" >
+                <!-- button to open rooms available -->
+                <a class=" buttonLink " data-toggle="collapse" [href]='"#roomCollapse"+r' role="button" aria-expanded="false" aria-controls="roomCollapse" (click)="isShow[r]=!isShow[r]">
+                    <span> {{"hotelRooms.room" | translate}}{{r+1}} </span> <span class="romenumb"><small> {{"hotelRooms.selectfrom" | translate}} {{roomBook.RoomResults.length}} {{"hotelRooms.room" | translate}}</small>
+                      <i class="fa " [ngClass]="{'fa-plus': isShow[r] , 'fa-minus': !isShow[r]}"></i>
+                    </span>
+                    <!-- <span class="plusicon">
+                            <i class="fa " [ngClass]="{'fa-plus': isShow[i] , 'fa-minus': !isShow[i]}"></i>
+                    </span> -->
+                </a>
+
+                <!-- button to open rooms available -->
+                <!-- rooms collapse -->
+                <div class="collapse multi-collapse" [id]='"roomCollapse"+r'>
+                    <!-- loop of avaialble room in booked room -->
+                    <div class="row" style="margin: 0">
+                        <ng-container *ngFor="let selectedRoom of roomBook.RoomResults ;let i=index">
+                    
+                            <div class="col-12 col-md-6 p-1">
+                              <div class="row selected">
+                                <div class="col-12 col-lg-7 ">
+                                  <h5 class="roomtype">
+                                    {{selectedRoom.RoomType}}
+                                  </h5>
+                                  <div class="book-details">
+                                    <span class="details-item">
+                                      <!-- guest no -->
+                                      <span><b> {{getGuesPerRoom(selectedRoom.Adult,selectedRoom.Child)}}</b>  {{"hotelSearch.guestNo"|translate}}, </span>
+                                      <!-- no of night -->
+                                      <span *ngIf="allNight !=0 "><b> {{allNight}}</b>  {{"hotelResult.nights"|translate}}, </span>
+                                      <!-- refundable or norefundable -->
+                                      <ng-container *ngIf="selectedRoom.IsRefundable">
+                                          <span  ><b class="refund"> {{"hotelRooms.Refundable" | translate}} </b></span>             
+                                        </ng-container>
+                                        <ng-container *ngIf="!selectedRoom.IsRefundable">
+                                            <span ><b class="norefund">{{"hotelRooms.NotRefundable" | translate}} </b> </span>
+                                        </ng-container>
+                                    </span>
+
+                                  </div>
+
+                                </div>
+                                <div class="col-12 col-lg-5 ">
+                                  <!--room price-->
+                                    <div class="Price"  (click)='selectedRoombutton(r,i,selectedRoom)'>
+                                        <p>  {{base|exchange:'code'}} {{selectedRoom.TotalSellPrice|exchange:'value'}}</p>
+                                          <p class="Taxes">{{"SearchResult.IncludeTaxes"|translate}}</p>
+                                     </div>
+                                 <!--room price-->
+                                </div>
+                                <!-- mealType -->
+                                <div class="col-12 col-lg-6">
+                                  <div class="book-details">
+                                    <span class="book-meal">
+                                        <i class="fas fa-utensils"></i>
+                                      <b>{{selectedRoom.RoomMeal}}</b>
+                                    </span>
+                                  </div>
+
+                                </div>
+                               <!-- mealType -->
+                               <!-- cancel rules -->
+                                <div class="col-12 col-lg-6">
+                                  <a class="cancelLink" (click)="openrules(selectedRoom.RoomIndex)" >
+                                      <i class="fa fa-info-circle info"> </i> {{"hotelRooms.cancelRules" | translate}} 
+                                  </a>
+                                  
+                               </div>
+                              <!-- cancel rules -->
+
+                              </div>
+
+                            </div>
+                       
+
+                        </ng-container>
+                      </div>
+                     <!-- loop of avaialble room in booked room -->
+                </div>
+
+              </ng-container>
+               <!-- loop of booking room -->
+                  
+
+                </div>
+                <div class="col-12 col-lg-3 pr-0">
+                  <!-- checkout-btn + selected room price  -->
+                  <div class="selectedPrice">
+                      <div class="card main-txt">
+                          <h5 class="card-subtitle  card-title">{{"hotelRooms.SelectedRooms" | translate}}  </h5>
+                          <div class="card-body">
+                           
+                            <ng-container *ngFor="let room of SelectedRoomsArray;let m = index">
+                              <h6 class="priceRoom"> {{"hotelRooms.room" | translate}} {{m+1}}</h6>
+                              <div *ngIf="room ==='Not Selected yet'|| !room" class="row">
+                                <div class="col-12 text-center">
+                                  {{"hotelRooms.NotSelected" | translate}}
+                                </div>
+        
+                              </div>
+                              <div *ngIf="room !='Not Selected yet' && room" class="row mt-1">
+                                <!-- <p class="col-12 col-lg-5 priceRoomT">{{room.RoomType}}</p> -->
+                                <div class="col-12 text-center">
+                                  <button mat-raised-button color="accent" style="cursor: auto"> 
+                                    
+                                      <small>{{base|exchange:'code'}}</small> {{room.TotalSellPrice|exchange:'value'}}
+                                      <!-- <span *ngIf="room.IsRefundable" style="color: chartreuse">
+                                        <small>  {{"hotelRooms.Refundable" | translate}}</small> 
+                                      </span>
+                                      <span *ngIf="!room.IsRefundable" style="color: tomato">
+                                        <small>{{"hotelRooms.NotRefundable" | translate}}</small> 
+                                      </span> -->
+                                    
+                                  </button>
+        
+                                </div>
+        
+                              </div>
+                              <div></div>
+                            </ng-container>
+                            <div class="container-fluid Total">
+                             <div class="row mt-2">
+                              <!-- <div class="col priceRoom">
+                                {{"hotelRooms.TotalPrice" | translate}}
+                              </div> -->
+                              <div class="col priceRoom total m-2">
+                                <small class="priceRoom ">{{base|exchange:'code'}} </small> {{calculatetotal()|exchange:'value'}}
+                              </div>
+                            </div> 
+                            <div class="row justify-content-center mt-1">
+                              <button mat-raised-button color="accent" class=" col-6 priceRoom" style="height: 50px;" (click)='tocheckOut()'>
+                                {{"hotelRooms.book" | translate}}
+                              </button>
+                            </div>
+                            <!-- message of true validation -->
+                            <!-- <p *ngIf="!aprove">
+                                <ngb-alert type="warning" [dismissible]="false"> please select your  rooms </ngb-alert>
+                              </p> -->
+                           <!-- message of true validation -->
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                  </div>
+                </div>
+
+              </div>
+          </div>
+            <!-- show rooms + price  for rooms + go to checkout -->
+
+          </div>
+      
+        </div>
+   </ng-template>
+
+
+
+
+
+
+
+
+
+
+
+<!-- loading  -->
+<ng-template #loadingH>
+<div class="text-center loadingImg">
+
+    <img src="../../../assets/img/loading3.gif" alt="loading">
+</div>
+
+</ng-template>

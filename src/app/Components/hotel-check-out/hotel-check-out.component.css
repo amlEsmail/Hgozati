@@ -1,0 +1,574 @@
+/* hide curr in inner pages+ checkout +confirmation */
+:host::ng-deep.currLink{
+    display: none;
+    }
+
+/* hide curr in inner pages+ checkout +confirmation */
+
+.Hcheckout{
+    /* background: url(../../../assets/img/shutterstock_775162108.jpg) no-repeat center center fixed;  */
+    background: url(../../../assets/img/hotelSearch.jpg) ; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center; 
+    font-family: 'DIN_Regular';
+}
+
+.Hcheckout .Title{
+    text-align: center;
+    color: #fff;
+    font-family:  'DIN_Regular';
+    padding-top: 15vh;
+    padding-bottom: 20vh;
+}
+
+.loadingImg
+{
+min-height: 500px;
+text-align:center;
+display: flex;
+justify-content:center;
+align-items: center;
+}
+
+/* hogozati checkout design */
+.NextButton {
+    min-width: 100px;
+    background-color: #ffd740;
+    max-width: 75px;
+    font-size: 22px;
+    border-radius: 0px;
+    color: white;
+    min-height: 44px;
+    margin-top: 10px;
+    float: right;
+    
+}
+
+.FRcard {
+    padding-top: 10px;
+    border-top: 1px solid #2e2b2b0d;
+    background: #fff;
+    /* min-height: 300px; */
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+    margin-top: 10px;
+    font-family:  'DIN_Regular';
+}
+.line
+{
+    background: linear-gradient( to left, rgb(250, 248, 249) 0%, rgb(180, 176, 178) 12%, rgb(153, 152, 152) 47%, rgb(245, 245, 245) 100% ) center bottom rgb(255, 255, 255) no-repeat;
+    background-size: 87% 1.5px;
+}
+
+.card-title h4
+{
+    font-size: 20px;
+    padding: 5px 0 15px;
+    color: #4D5866;
+}
+
+
+.hotelReview .name,
+.hotelGuest .name{
+    color:#F8AD00;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+.h-loc
+{
+    font-size: 12px;
+    color:#929497;
+    margin-bottom: 5px;
+}
+.hotel-details
+{
+    padding-bottom: 15px;
+}
+
+.check-dates .total-Night
+{
+    color: #00A298;
+    padding:0px;
+
+}
+.date
+{
+color: #919396;
+font-size: 12px;
+}
+
+.hotel-price
+{
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.card-text,.price-total 
+{
+    overflow: hidden;
+    padding: 5px 0px;
+    margin-bottom:0px;
+}
+.card-text .label,
+.price-total .label{
+    float: left;
+    font-weight: 600;
+    font-size: 13px;
+
+}
+.card-text .rmprice,
+.price-total .total{
+float: right;
+color: #F8AD00;
+}
+
+.price-total .total{
+    color: #4D5866;
+}
+
+/* hotelcard  */
+.border-title-right
+{
+    position: relative;
+}
+
+.border-title-right:before {
+    position: absolute;
+    content: "";
+    height: 39px;
+    left: 0px;
+    right: auto;
+    border: 3px solid #ffd740;
+    top: 16px;
+}
+
+.Hotel-title span.hotelName
+{
+    color: #4D5866;
+    font-size: 15px;
+    font-weight: 600;
+}
+.Hotel-title .hotel-loc
+{
+    color:#929497;
+    font-size: 14px;
+}
+
+.Hotel-title .hotel-loc i{
+    display: inline-block;
+    margin: 5px;
+}
+.row{
+    margin: 0;
+}
+.hotel-item
+{
+    margin-top: 10px;
+    /* overflow: hidden; */
+    background: #fff;
+    max-height: none;
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    min-height: 245px;
+
+   
+}
+
+.hotel-dates
+{
+    margin-bottom: 0;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.hotel-dates span,.allnights
+{
+    color:#00A298
+}
+.hotel-dates span b
+{
+color: #919396;
+font-weight: 500;
+}
+
+.room-list
+{
+list-style: none;
+padding: 10px 0px;
+font-size: 14px;
+}
+.room-list li
+{
+    overflow: hidden;
+    border-bottom: 1px solid #929497;
+    padding: 4px 0px;
+}
+.room-list p
+{
+margin-bottom: 5px;
+/* display: inline-block;
+float: left; */
+
+}
+.room-list i
+{
+    color: #febe10;
+    display: inline-block;
+    margin: 0 2px;
+}
+.cancelLink
+{
+    color: #1f39ff !important;
+    cursor: pointer;
+    font-family: 'DIN_Regular';
+
+}
+.cancelLink i
+{
+    color: #1f39ff;
+}
+
+.room-item span {
+    font-size: 13px;
+    /* width: 100px; */
+    /* background: #ddd; */
+    margin: 2px 0px;
+    display: inline-block;
+}
+
+
+:host::ng-deep.mat-horizontal-stepper-header-container
+{
+    background: #fff;
+    margin-bottom: 10px;
+}
+.mat-stepper-horizontal, .mat-stepper-vertical
+{
+    background-color: #ececec;
+    font-family: 'DIN_Regular';
+}
+
+.hotelGallery * {
+    height: 100%;
+}
+.hotelGallery img {
+    width: 100%;
+}
+
+
+/* guest-form */
+
+.hotelGuest form{
+    background: #fff;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+.room-form-field{
+    padding: 10px;
+    border: 1px solid #ececec;
+    margin-bottom: 10px;
+}
+
+@media(min-width:1200px)
+{
+    .room-list li p
+    {
+       float: left;
+       display: inline-block;
+    }
+    .cancelLink{
+        float: right;
+        color: #1f39ff !important;
+        position: relative;
+        top: 15px;
+        cursor: pointer;
+    }
+}
+/* hogozati checkout design */
+
+
+.check-container{
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px -1px rgba(37,75,152,0.45);
+    margin-bottom: 30px;
+    min-height: 400px;
+    padding: 20px;
+    margin-top: 50px;
+
+}
+
+.Title{
+    text-align: center;
+    color: #fff;
+    /* font-family: 'Markazi Text', serif !important; */
+    font-family: 'Lato', sans-serif;
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+.checkout-title
+{
+    text-transform: capitalize;
+    margin-bottom: 14px;
+    /* text-shadow: 2px 1px 3px #74b3b0; */
+    color: #428d96;
+    font-weight: 600;
+}
+.main-txt
+{
+    box-shadow:0px 3px 4px 0px #b1bbc7;
+    min-height: 300px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    color: #314354;
+    font-weight: 800;
+}
+.hotel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #00838f;
+    margin: 5px 0;
+
+}
+
+h5.card-title{
+   color: #00838f;
+   text-align:left;
+}
+.rating
+{ 
+    font-size: 14px;
+    color: #FEBE10;
+    text-align: right;
+    
+
+}
+
+.rating i
+{
+    margin-left: 2px;
+
+}
+
+.roomPrice
+{
+    /* border-bottom: 1px solid #00838f; */
+    padding-top: 10px;
+    text-align: center;
+
+
+}
+
+.roomPrice span
+{
+color: #00838f ;
+font-weight: 600;
+}
+.roomPrice  .card-text
+{
+margin-bottom: 0;
+text-align: center;
+
+}
+
+.roomPrice  .card-text .label
+{
+display: inline-block;
+margin-left: 5px;
+margin-right: 5px;
+}
+.price-line
+{
+ 
+    width: 80%;
+    margin: 3px auto;
+    background: #b4beca;
+    border: 0;
+    max-width: 80%;
+    min-width: 0;
+
+}
+hr.line
+{
+    height: 4px;
+    overflow: visible;
+    background: #74b3b0;
+    border-radius: 30px;
+    width: 80%;
+    margin: 10px auto;
+}
+
+/* .price-total
+{
+    text-align: center;
+
+}
+
+.price-total span{
+    color: #00838f;
+    font-weight: 800;
+
+} */
+
+
+
+.roomTitle{
+    color: #ffd740;
+    font-weight: 100;
+    /* font-weight: 600; */
+}
+.booking-btn 
+{
+    text-align: center;
+    max-width: 300px;
+    margin: 20px auto;
+}
+
+.booking-btn .btn
+{
+    text-transform: capitalize;
+    border-radius: 0;
+    width: 100%;
+    padding: 2px;
+}
+:host ::ng-deep .mat-raised-button[disabled]:not([class*='mat-elevation-z'])
+{
+    color: #ffd9d9;
+    background: #ffd740;
+}
+.phonenumber ngx-intl-tel-input{
+    align-self: center;
+    width: inherit;
+    max-width: 100%;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #ffd740;
+    border-width: 1px;
+    margin-top: 4px !important;
+    overflow: hidden;
+}
+.phonenumber ngx-intl-tel-input :hover{
+    align-self: center;
+    width: inherit;
+    max-width: 100%;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #ffd740;
+    border-width: 3px;
+    margin-top: 4px !important;
+    overflow: hidden;
+}
+.phonenumber{
+    width: 100% !important;
+}
+.phonecol .phonenumber
+{
+    width: 100%;
+
+}
+
+.phonecol
+{
+    text-align: center
+}
+
+:host ::ng-deep .intl-tel-input input,
+:host ::ng-deep .intl-tel-input input[type=text],
+:host ::ng-deep .intl-tel-input input[type=tel]
+{    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: 0;
+}
+:host ::ng-deep .intl-tel-input input:focus,
+:host ::ng-deep .intl-tel-input input[type=text]:focus,
+:host ::ng-deep .intl-tel-input input[type=tel]:focus
+{
+    outline: 0;
+    border-color: #ffd740;
+    border-width: 2px;
+}
+:host ::ng-deep .phonecol .ng-touched.ng-invalid  .intl-tel-input input,
+:host ::ng-deep  .phonecol .ng-touched.ng-invalid .intl-tel-input input[type=text], 
+:host ::ng-deep .phonecol .ng-touched.ng-invalid.intl-tel-input input[type=tel]
+{
+border: 2px solid red;
+}
+@media(max-width:768px)
+{
+    :host ::ng-deep .intl-tel-input
+    {
+       width: 100%;
+
+    }
+    :host ::ng-deep .intl-tel-input input,
+    :host ::ng-deep .intl-tel-input input[type=text],
+    :host ::ng-deep .intl-tel-input input[type=tel]
+    {
+        width: 100%;
+
+    }  
+}
+
+@media(min-width:768px) and (max-width:990px)
+{
+    .hotel-title{
+        font-size: 14px;
+    }
+    .roomPrice span{
+        font-size: 12px;
+    }
+    .main-txt{
+        font-size: 15px;
+    }
+}
+
+
+@media(max-width:480px){
+    :host ::ng-deep .mat-step-header .mat-step-label,
+    :host ::ng-deep .mat-step-header .mat-step-optional
+    {
+        display: none;
+    }
+
+    .Hotel-title h2
+    {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+    .Hotel-title h2 .hotelName
+    {
+        display: block;
+       margin: 5px 0;
+    }
+    .Hotel-title .rating, 
+     .Hotel-title .hotel-loc
+    {
+        font-size: 12px
+    }
+   
+}
+
+
+/* edit email  */
+
+ .emailbox *,
+ :host ::ng-deep .emailbox .mat-form-field-wrapper,
+ :host ::ng-deep .emailbox .mat-form-field *
+ {
+     max-width: 100% !important;
+ }
+
+:host ::ng-deep.phonecol .intl-tel-input
+ {
+     width: 100%;
+ }

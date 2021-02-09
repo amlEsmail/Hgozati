@@ -1,0 +1,645 @@
+/* hide curr in inner pages+ checkout +confirmation */
+:host::ng-deep.currLink{
+    display: none;
+    }
+
+/* hide curr in inner pages+ checkout +confirmation */
+
+.resultPage{
+    background: url(../../../assets/img/shutterstock_775162108.jpg); 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-position: center; 
+}
+.Title{
+    text-align: center;
+    color: #fff;
+    font-family:  'DIN_Regular';
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+}
+.FRcard {
+    padding-top: 10px;
+    border-top: 1px solid #2e2b2b0d;
+    background: #fff;
+    /* min-height: 300px; */
+    box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+    margin-top: 10px;
+    font-family:  'DIN_Regular';
+}
+.leftpic {
+    padding-left: 0px;
+    padding-top: 10px;
+}
+.rightpic {
+    padding-right: 0px;
+    padding-top: 10px;
+}
+.FRcard img {
+    vertical-align: middle;
+    border-style: none;
+    max-height: 195.2px;
+}
+.Departingin {
+  font-family:  'DIN_Regular';
+  padding-top: 10px;
+}
+.Departingin h6 {
+    font-size: .8rem;
+    
+}
+.info {
+    margin: 10px;
+    /* background: linear-gradient(
+ to left, 
+ rgb(250, 248, 249) 0%,
+ rgb(180, 176, 178) 12%,
+ rgb(153, 152, 152) 47%,
+ rgb(245, 245, 245) 100%
+ )
+ center 
+ top
+ rgb(255, 255, 255) 
+ no-repeat;
+    background-size: 97% 1.5px; */
+  border-width: 2px;
+  border-style: solid;
+  border-image: 
+    linear-gradient(
+      to bottom, 
+      rgb(250, 248, 249) 0%,
+    rgb(180, 176, 178) 12%,
+    rgb(153, 152, 152) 47%,
+    rgb(245, 245, 245) 100%
+    ) 1 97%;
+}
+.route {
+    display: flex;
+}
+.firstPoint {
+    left: 18px;
+}
+.mylogin {
+    color: #ffc107 ;
+}
+.mylogin a:hover {
+    color: white;
+    cursor: pointer; 
+    
+}
+
+.point {
+    width: 15px;
+    height: 15px;
+    border: 2px solid #ffc107;
+    border-radius: 100%;
+    background-color: #fef9f917;
+    position: relative;
+    z-index: 3;
+    margin-top: 10px;
+}
+.stopPoint {
+    z-index: 7;
+    left: 40%;
+    background-color: #5ec074;
+    top: -1px;
+}
+.rightdis {
+    text-align: right;
+    padding-right: 0;
+    font-size: .7rem;
+}
+.leftdis {
+    padding-left:0px;
+    font-size: .7rem;
+}
+.duration {
+    margin: 10px 0 0;
+}
+.stopStation {
+    margin-top: -20px;
+    font-size: .8rem;
+    color: red;
+}
+.moreResult {
+    width: 100% !important;
+    float: right;
+    border-bottom: 0px !important;
+    border-radius: 0px;
+    border-right: 0px !important;
+    text-align: right;
+}
+.moreDetails {
+    padding-top: 10px;
+    background: linear-gradient(
+ to left, 
+ rgb(250, 248, 249) 0%,
+ rgb(180, 176, 178) 12%,
+ rgb(153, 152, 152) 47%,
+ rgb(245, 245, 245) 100%
+ )
+ center 
+ top
+ rgb(255, 255, 255) 
+ no-repeat;
+    background-size: 100% 1.5px;
+  
+}
+.MoreDetBtn button{
+    background: #ffc107;
+    border: 0px;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffc107;
+}
+.MoreDetBtn button:hover{
+    background: #e0a800;
+    border: 1px solid #e0a800;
+    border-bottom: 0px;
+    color: #fff;
+    padding: 10px;
+    width:100%;
+    font-family:  'DIN_Bold';
+}
+.MoreDetBtn a{
+    background: #ffc107;
+    border: 0px;
+    border-bottom: 0px;
+    color: #000;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ffc107;
+}
+.MoreDetBtn a:hover{
+    background: #e0a800;
+    border: 1px solid #e0a800;
+    border-bottom: 0px;
+    color: #fff;
+    padding: 10px;
+    width:100%;
+    font-family:  'DIN_Bold';
+}
+.cancelation {
+    width: 100% !important;
+    float: left;
+    border: 0px !important;
+    border-radius: 0px;
+    border-left: 0px !important;
+}
+.phonenumber ngx-intl-tel-input{
+    align-self: center;
+    width: inherit;
+    max-width: 100%;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #ffd740;
+    border-width: 1px;
+    margin-top: 4px !important;
+    overflow: hidden;
+}
+.phonenumber ngx-intl-tel-input :hover{
+    align-self: center;
+    width: inherit;
+    max-width: 100%;
+    height: 46.6px;
+    border-radius: 4px;
+    border-style: solid;
+    border-color: #ffd740;
+    border-width: 3px;
+    margin-top: 4px !important;
+    overflow: hidden;
+}
+.phonenumber{
+    width: 100% !important;
+}
+.NextButton {
+    min-width: 100px;
+    background-color: #ffd740;
+    max-width: 75px;
+    font-size: 22px;
+    border-radius: 0px;
+    color: white;
+    min-height: 44px;
+    margin-top: 10px;
+    
+}
+.phonecol {
+    padding-top: 3px;
+}
+.hideme{
+    display: none;
+}
+.infocard {
+    border-width: 2px;
+    /* border-style: solid; */
+    /* border-image: 
+    linear-gradient(
+      to bottom, 
+      rgb(250, 248, 249) 0%,
+    rgb(180, 176, 178) 12%,
+    rgb(153, 152, 152) 47%,
+    rgb(245, 245, 245) 100%
+    ) 1 97%; */
+}
+.modelDA p {
+    font-size: 28px;
+    color: #ffc107;
+    margin-bottom: 0;
+    font-family: 'DIN_Regular';
+}
+.priceCArd {
+    max-height: fit-content;
+    
+}
+
+.line {
+    background: linear-gradient(
+        to left, 
+        rgb(250, 248, 249) 0%,
+        rgb(180, 176, 178) 12%,
+        rgb(153, 152, 152) 47%,
+        rgb(245, 245, 245) 100%
+        )
+        center 
+        bottom
+        rgb(255, 255, 255) 
+        no-repeat;
+    background-size: 87% 1.5px;
+}
+.line1 {
+    background: linear-gradient(
+        to left, 
+        rgb(250, 248, 249) 0%,
+        rgb(180, 176, 178) 12%,
+        rgb(153, 152, 152) 47%,
+        rgb(245, 245, 245) 100%
+        )
+        left 
+        bottom
+        rgb(255, 255, 255) 
+        no-repeat;
+    background-size: 87% 1.5px;
+}
+.total {
+    font-family: 'DIN_Bold';
+    font-size: large;
+}
+.modaleT{
+    border: 0;
+    padding-bottom: 0px;
+}
+.modalheadder {
+    font-size: 30px;
+    color: #ffc107;
+}
+.modalebody{
+    padding-bottom: 0px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.modalfooter {
+    border: 0;
+    padding-bottom: 0px;
+    padding-right: 0px
+}
+
+.titleselecto:hover {
+    background-color: #ffc107
+}
+.titleselecto:focus {
+    background-color: #ffc107
+}
+.Mstops {
+    text-align: center;
+}
+.modelDA {
+    font-size: 28px;
+    color: #ffc107;
+    margin-bottom: 0;
+    font-family: 'DIN_Regular';
+}
+.modelDAd {
+    margin-bottom: 20px;
+    margin-left: auto;
+    font-size: 15px;
+    font-family: 'DIN_Regular';
+    text-align: center;
+}
+.modelLogo {
+    float: right;
+    width: 44%;
+    height: auto;
+}
+.segmentDepart {
+    width: fit-content;
+    display: inline-block;
+}
+.segmentDepart p {
+    width: fit-content;
+    display: inline-block;
+    margin: 0;
+}
+.segmentDepart small {
+    width: fit-content;
+    display: inline-block;
+}
+.segmentDepartHr {
+    display: inline-flex;
+}
+.segmentStop {
+    font-size: 15px;
+    margin: 10px 0 0 0;
+    font-family: 'DIN_Regular';
+    color: red;
+    font-weight: bold;
+}
+.segmentstopTime {
+    font-size: x-small;
+    text-align: center;
+    color: red;
+}
+span.small
+{
+    display: block;
+}
+
+span.small small
+{
+display: inline-block;
+margin-left:5px;
+font-size: 12px;
+font-weight: 800;
+}
+.hall {
+    color: #35b33a
+}
+.airportcode{
+    font-size: medium;
+}
+.point {
+    width: 15px;
+    height: 15px;
+    border: 3px solid #ffc107;
+    border-radius: 100%;
+    background-color:#fef9f917;
+    position: relative;
+    z-index: 3;
+    margin-top: 10px;
+}
+.stopPoint {
+    z-index: 7;
+    left: 45%;
+    background-color: #5ec074;
+    top: -1px;
+}
+.firstPoint {
+    left: 18px;
+}
+.route {
+    display: flex;
+}
+.leftpadding {
+    padding-left: 0px
+}
+.rightpadding {
+    padding-right: 0px
+}
+.marg {
+    margin: auto;
+}
+.textalignr {
+    text-align: right;
+}
+.textalignc {
+    text-align: center;
+}
+.cityname {
+        font-size: 15px;
+    }
+.infodate {
+        font-size: 11px;
+    }
+.infotimeandHall {
+        font-size: 11px;
+    }
+.loadingBar {
+        margin-left:-15px;
+        margin-right:-15px;
+  } 
+ .modal-backdrop {
+    display: none;
+    
+}
+
+
+
+/* scrollbar style */
+
+/* width */
+::-webkit-scrollbar{
+    width: 3px;
+    height: 50px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background:#d1c4e9 ; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #ffc107; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e0a800; 
+  }
+
+  /* scrollbar style */
+
+
+  /* modal-view-port */
+  .view-port-container,
+  .view-port-container2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      
+  }
+  .modal-view-port {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+
+  }
+  :host ::ng-deep .mat-form-field{
+   text-align: left;
+  }
+  :host ::ng-deep .mat-horizontal-content-container {
+    /* overflow: unset; */
+    padding: 0 24px 24px 24px;
+    
+}
+  /* modal-view-port */
+
+/* start responsive style */
+/* @media (min-width: 768px){
+
+} */
+
+
+
+/* .phonecol .phonenumber  */
+.intl-tel-input,
+.intl-tel-input.allow-dropdown
+{
+width: 100%;
+
+}
+.phonecol .phonenumber
+{
+    width: 100%;
+
+}
+
+
+.route img
+{
+width: 100%;
+}
+@media (max-width: 768px){
+    .MoreDetBtn button{
+        /* background: #fff; */
+        border: 1px solid #000;
+        color: #000;
+        padding: 10px;
+        width: 100%;
+        height: 100%;
+    }
+    .modal button{
+        background: #fff;
+        border: 0px solid #fff;
+        color: #000;
+        /* padding: 0px; */
+        width: 30%;
+    }
+    .smallsegmant {
+        /* transform: translateX(123px)translatey(-37px)rotate(90deg);
+        width: 169px; */
+        -webkit-transform: translateX(240px)translatey(-7px)rotate(90deg);
+        transform: translateX(240px)translatey(-7px)rotate(90deg);
+        width: 130px;
+    }
+    .leftpadding {
+        padding-left: 15px
+    }
+    .rightpadding {
+        padding-right: 15px
+    }
+    .marg {
+        margin: 0px;
+    }
+    .textalignr {
+    text-align: left;
+    }
+    .cityname {
+        /* font-size: 30px; */
+        font-size:20px;
+    }
+    .infodate {
+        font-size: 21px;
+        margin-left: 25px;
+    }
+    .infotimeandHall {
+        font-size: 15px;
+        margin-left: 40px;
+    }
+
+    .modelDA
+    {
+        font-size: 20px;
+    }
+
+    .modelDAd b
+    {
+        font-size:12px;
+    }
+    
+}
+
+/* edits after hotel */
+.mat-stepper-horizontal, .mat-stepper-vertical
+{
+    background-color: #ececec;
+    font-family: 'DIN_Regular';
+}
+
+:host::ng-deep.mat-horizontal-stepper-header-container
+{
+    background: #fff;
+    margin-bottom: 10px;
+}
+form
+{
+background: #fff;
+}
+
+/* edits after hotel */
+@media (max-width: 480px){
+    .smallsegmant {
+        /* transform: translateX(123px)translatey(-37px)rotate(90deg);
+        width: 169px; */
+        /* -webkit-transform: translateX(150px)translatey(-7px)rotate(90deg);
+        transform: translateX(150px)translatey(-7px)rotate(90deg); */
+        -webkit-transform: translateX(70px)translatey(0px)rotate(90deg);
+        transform: translateX(70px)translatey(0px)rotate(90deg);
+        width: 100px;
+        margin:auto;
+
+    }
+    .cityname {
+        /* font-size: 30px; */
+        font-size:16px;
+    }
+
+    
+
+    :host ::ng-deep .mat-step-header .mat-step-label,
+    :host ::ng-deep .mat-step-header .mat-step-optional
+    {
+        display: none;
+    }
+
+
+
+}
+@media (max-width: 570px){
+
+    .routeSegment
+    {
+        -webkit-transform: translateX(70px)translatey(0px)rotate(90deg);
+        transform: translateX(70px)translatey(0px)rotate(90deg);
+        width: 100px;
+        margin: auto;
+    }
+}
+.moreinfo{
+    /* max-width: 80%; */
+    margin-top: 20px;
+    margin-left: auto;
+}

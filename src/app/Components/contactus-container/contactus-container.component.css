@@ -1,0 +1,6 @@
+/* hide curr in inner pages+ checkout +confirmation */
+:host::ng-deep.currLink{
+    display: none;
+    }
+
+/* hide curr in inner pages+ checkout +confirmation */

@@ -1,0 +1,105 @@
+  <nav class="navbar navbar-expand-lg navbar-light bg-light"  style=" background: transparent !important;" >
+    <div class="container">
+      <a href="" *ngIf="!engisActive()"><img class="logo" src="../../../assets/img/hogzatiLogo.svg" width="135px" height="50px" ></a>
+      <a href="" *ngIf="engisActive()"><img class="logo" src="../../../assets/img/hogzatiLogoen.svg" width="135px" height="50px" ></a>
+      
+      
+      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button> -->
+      <button type="button" class="navbar-toggler "  data-toggle="collapse"
+      data-target="#navbarSupportedContent" aria-expanded="false" aria-controls="navbarSupportedContent"> 
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+        <ul class="navbar-nav">
+                 <!-- <li class="nav-item active">
+            <a class="nav-link" routerLink="ResultPage">{{"header.flight"|translate}} <span class="sr-only">(current)</span></a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/aboutUs">{{"header.aboutUs"|translate}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" routerLink="/Contact">{{"header.contact"|translate}}</a>
+          </li>
+        
+          
+          <!-- <li class="nav-item active">
+            <a class="nav-link" routerLink="ResultPage">{{"header.flight"|translate}} <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link">{{"header.hotels"|translate}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link">{{"header.cars"|translate}}</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link">{{"header.holidays"|translate}}</a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-globe"></i> {{"header.lang"|translate}}
+            </a>
+            <div class="dropdown-menu Language" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item "  (click)='switchtoEn()'
+              [ngClass]="{'active': engisActive()}">
+               <img src="../../../assets/img/English_language_-_United_States,_Canada_and_the_United_Kingdom.svg"width="20px">
+                English
+              </a>
+              <a class="dropdown-item"  (click)='switchtoAr()'
+              [ngClass]="{'active': !engisActive()}">
+                <img src="../../../assets/img/Flag_of_the_Arabic_language.svg" width="20px">
+                Arabic
+              </a>
+            </div>
+          </li>
+          <li class="nav-item dropdown currLink" (click)="hideOther()">
+              <!-- <a class="nav-link dropdown-toggle" id="CurrencyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  
+                 <img class="example-option-img" aria-hidden [src]="curruncey.value.Image_Url" height="25" width="25">
+                 <span> {{curruncey.value['Currency_Code']}}</span>
+              </a>
+              <div class="dropdown-menu Currency" aria-labelledby="CurrencyDropdown">
+                  <form class="example-form">
+                      <mat-form-field class="example-full-width" color="accent">
+                        <mat-select [formControl]="curruncey" placeholder="Enter Your Currency">
+                          <mat-option *ngFor="let item of flags " [value]="item" >
+                            <img class="example-option-img" aria-hidden [src]="item.Image_Url" height="25" width="25">
+                            <span>{{item.Currency_Code}}</span> |
+                            <small>{{item.Currency_Name}}</small>
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </form>
+              </div> -->
+              <form class="example-form">
+                <a>
+                  <mat-form-field class="example-full-width" color="accent" appearance="outline"> 
+                    <span>{{"header.currency"|translate}} | </span>
+                    <ng-container *ngIf="curruncey.value">
+                      <img class="example-option-img" aria-hidden [src]="curruncey.value.Image_Url" height="25" width="25" >
+                      <span > {{curruncey.value['Currency_Code']}}  </span>
+                    </ng-container>
+                    <mat-select [formControl]="curruncey"  class="selectbutton" [disabled]="disable" >
+                        
+                      <mat-option *ngFor="let item of flags " [value]="item" >
+                        <img class="example-option-img" aria-hidden [src]="item.Image_Url" height="25" width="25">
+                        <span *ngIf="!disable">{{item.Currency_Code}} |</span> 
+                        <small *ngIf="!disable">{{item.Currency_Name}}</small>
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>  
+                </a>
+                  
+              </form>
+            </li>
+        </ul>
+      </div>
+   </div>
+  </nav>
+<router-outlet></router-outlet>

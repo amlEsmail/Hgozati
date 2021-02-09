@@ -1,0 +1,594 @@
+
+<div class="resultPage">
+  <header [disable]='disabled'></header>
+  <h1 class="Title">
+      {{"SearchResult.adventure"|translate}}
+  </h1>
+</div>
+<div class="container">
+  <app-payment-erorr [paymentError]="paymentError" *ngIf="paymentErrorStatus"></app-payment-erorr>
+  <app-normalerror [normalError]='normalError' *ngIf="normalErrorStatus"></app-normalerror>
+  <div class="row">
+    <div class="col">
+      <mat-horizontal-stepper linear #stepper>
+        <mat-step>
+          <ng-template matStepLabel><span  class="Stepperlable">{{"checkout.FlightReview"|translate}} </span></ng-template>
+          <!-- <ng-container *ngIf="flight">
+            <ng-container *ngTemplateOutlet="flightModel"></ng-container>
+          </ng-container> -->
+          <!-- loading until selectedflight is loaded -->
+          <ng-container *ngIf="flightLoader">
+            <div class="container ">
+                <div class="row justify-content-center loadingcard">
+                    <div class="col text-center">
+                            <h1 class="Title animated infinite bounce delay-3s" style="color:#ffc107;"> {{"checkout.paymentloader"|translate}} </h1>
+                    </div>
+                    <div class="col-12 text-center">
+                        <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+                    </div>
+                </div>
+        
+            </div>
+          </ng-container>
+ 
+<!-- loading until selectedflight is loaded -->
+          <ng-container *ngIf="!flightLoader">
+            <ng-container *ngTemplateOutlet="flightModel"></ng-container>
+          </ng-container>
+          
+          <button mat-button matStepperNext color="accent" class="NextButton">{{"checkout.Next"|translate}}</button>
+        </mat-step>
+        <!-- [stepControl]='users' -->
+        <mat-step [stepControl]='users'>
+          <div>
+            <ng-template matStepLabel  > <span class="Stepperlable">{{"checkout.PassengersInformations"|translate}}</span> </ng-template>
+          </div>
+          
+          <!-- <ng-container *ngTemplateOutlet="userInfo"></ng-container> -->
+          <div class="row">
+              <div class="col">
+      
+                <!-- <h4 class=" modelDA" style="font-family: 'DIN_Regular';
+                font-size: xx-large;
+                color: #ffc107;
+                margin-bottom: 20px;
+                text-align: center;"> <a href="#" class="mylogin"> 
+                  {{"checkout.Login"|translate}}  </a>  Hogozati
+                {{"checkout.Using"|translate}}
+               
+                  <a href="#" class="mylogin">Facebook</a> {{"checkout.FasterBooking"|translate}}  </h4> -->
+                  <h4 class=" modelDA" style="font-family: 'DIN_Regular';
+                font-size: xx-large;
+                color: #ffc107;
+                margin-bottom: 20px;
+                text-align: center;">{{"checkout.passport"|translate}} </h4>
+              </div>
+          
+            </div>
+            <div class="row justify-content-center" style="min-height: 300px; direction: ltr; text-align: left!important">
+              <form [formGroup]="users" class="col-12 justify-content-center"  (ngSubmit)="onSubmit()">
+                <ng-container formArrayName="usersarray">
+                  <ng-container *ngFor="let user of users.get('usersarray')['controls'];let i = index;">
+                    <ng-container [formGroupName]="i"> 
+                        <div class="row justify-content-center">
+                      <div class="FRcard col-12 col-md-10 infocard info">
+                  
+          
+                        <div class="row">
+                          <div class="col">
+                            <h4 style="margin-bottom: 20px;" class=" modelDA"> {{"checkout.Travellernumber"|translate}} {{i+1}} <small>({{pasengertype(i)|translate}})</small>
+                              
+                            </h4>
+                          </div>
+          
+                        </div>
+                        <div class="row">
+                          <!-- name and titlle -->
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                                {{title.value}}
+                              <mat-select formControlName='title' placeholder="Title" #title [errorStateMatcher]="matcher">
+                                <ng-container *ngIf="pasengertype(i) == 'Adult'">
+                                  <mat-option *ngFor="let title of titels" [value]="title.value">
+                                  {{title.value}}
+                                  </mat-option>
+                                </ng-container>
+                                <ng-container *ngIf="pasengertype(i) == 'Child'">
+                                  <mat-option *ngFor="let title of titelsC" [value]="title.value">
+                                  {{title.value}}
+                                  </mat-option>
+                                </ng-container>
+                                <ng-container *ngIf="pasengertype(i) == 'Infant on lap'">
+                                  <mat-option *ngFor="let title of titleInf" [value]="title.value">
+                                  {{title.value}}
+                                  </mat-option>
+                                </ng-container>
+                                
+                                
+                                
+                              </mat-select>
+                            </mat-form-field>
+                            <!-- <mat-form-field color="accent" appearance="outline">
+                              <mat-label>Title</mat-label>
+                              <select class="custom-select titleselect" formControlName='title'>
+                                <option *ngFor="let title of titels" [value]="title.value" class="titleselecto">
+                                  {{title.value}}
+                                </option>
+                              </select>
+                            </mat-form-field> -->
+                          </div>
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                              <input matInput placeholder="First name" required formControlName='firstName' type="text" [errorStateMatcher]="matcher">
+                            </mat-form-field>
+                          </div>
+                          <!-- <div class="col-12 col-md-6 col-lg-3">
+                            <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                              <input matInput placeholder="Middel Name" required formControlName='middleName' type="text">
+                            </mat-form-field>
+                          </div> -->
+                          <div class="col-12 col-md-6 col-lg-3">
+                            <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                              <input matInput placeholder="Last name" required formControlName='lastName' type="text" [errorStateMatcher]="matcher">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-12  col-md-6 col-lg-3">
+                            
+                            
+                            <ng-container *ngIf="pasengertype(i) == 'Adult'">
+                                <mat-form-field class="col padding0  datepicker " color='accent' appearance="outline">
+                                    <input matInput [matDatepicker]="ii" placeholder='Date of birth' value="{{value|date:'MMMM dd, y'}}"
+                                    formControlName='dateOfBirth' >
+                                    <mat-datepicker-toggle matSuffix [for]="ii"></mat-datepicker-toggle>
+                                    <mat-datepicker #ii [startAt]="startDate"></mat-datepicker>
+                                  </mat-form-field>
+                            </ng-container>
+                              <ng-container *ngIf="pasengertype(i) == 'Child'">
+                                  <mat-form-field class="col padding0  datepicker " color='accent' appearance="outline">
+                                      <input matInput [matDatepicker]="ii" placeholder='Date of birth' value="{{value|date:'MMMM dd, y'}}"
+                                      formControlName='dateOfBirth' [min]=" childmin" >
+                                      <mat-datepicker-toggle matSuffix [for]="ii"></mat-datepicker-toggle>
+                                      <mat-datepicker #ii [startAt]="startDate"></mat-datepicker>
+                                    </mat-form-field>
+                              </ng-container>
+                              <ng-container *ngIf="pasengertype(i) == 'Infant on lap'">
+                                  <mat-form-field class="col padding0  datepicker " color='accent' appearance="outline">
+                                      <input matInput [matDatepicker]="ii" placeholder='Date of birth' value="{{value|date:'MMMM dd, y'}}"
+                                      formControlName='dateOfBirth' [min]=" infantmin">
+                                      <mat-datepicker-toggle matSuffix [for]="ii"></mat-datepicker-toggle>
+                                      <mat-datepicker #ii [startAt]="startDate"></mat-datepicker>
+                                    </mat-form-field>
+                              </ng-container>
+                          </div>
+                          <!-- email and phone number -->
+          
+                        </div>
+                        <!-- email and phone number -->
+                        <div class="row"  >
+                          <div class="col-12  col-md-6 col-lg-3"*ngIf="i==0" >
+                            <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                              <input matInput placeholder="Email" required formControlName='email'[errorStateMatcher]="matcher">
+                              <mat-error *ngIf="user.get('email').hasError('email') && !user.get('email').hasError('required')">
+                                Please enter a valid email
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <!-- <div class="col-3">
+                            <mat-form-field color="accent" appearance="outline">
+                              <input matInput placeholder="Confirm your email" required formControlName='emailconf'> 
+                            </mat-form-field>
+                          </div> -->
+                          <div class="col-12 col-sm-6 col-md-6 col-lg-3 phonecol " (click)="invalidPhone()"*ngIf="i==0" >
+                              <style *ngIf="!user.get('phonenum').valid && user.get('phonenum').dirty">
+                                  
+                              </style>
+                            <ngx-intl-tel-input [cssClass]="phonenumber" 
+                              [preferredCountries]="['us', 'gb', 'eg', 'sa']" [enableAutoCountrySelect]="true"
+                              [enablePlaceholder]="true" name="phone"
+                              formControlName='phonenum'
+                              (change)="invalidPhone()"></ngx-intl-tel-input>
+                          </div>
+                          <div class="col-12 col-sm-6  col-md-6 col-lg-3">
+                            <mat-form-field class="col padding0 " color='accent' appearance="outline">
+                              <input type="text" placeholder='nationality' aria-label="country" matInput formControlName="national"
+                                [matAutocomplete]="iii" #iiii>
+                              <mat-autocomplete #iii="matAutocomplete">
+                                <mat-option *ngFor="let country of countriescode|councode:iiii.value" [value]="country.countryName">
+                                  {{country.countryName}}
+                                </mat-option>
+                              </mat-autocomplete>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-12  col-md-6 col-lg-3">
+                              <mat-form-field class="col padding0 " color='accent' appearance="outline">
+                                  <input type="text" placeholder='Country of residence' aria-label="country" matInput formControlName="countryofresident"
+                                    [matAutocomplete]="iiiii" #iiiiii>
+                                  <mat-autocomplete #iiiii="matAutocomplete">
+                                    <mat-option *ngFor="let country of countriescode|councode:iiiiii.value" [value]="country.countryName">
+                                      {{country.countryName}}
+                                    </mat-option>
+                                  </mat-autocomplete>
+                                </mat-form-field>
+                          </div>
+                        </div>
+                        <!-- passport informion -->
+                        <div class="row" *ngIf="flight.passportDetailsRequired">
+                          <!-- passportnumber -->
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <mat-form-field color="accent" appearance="outline" class="col padding0 ">
+                                  <input matInput placeholder="Passport number" required formControlName='passportnumber' type="text" [errorStateMatcher]="matcher">
+                                </mat-form-field>
+                            </div>
+                            <!-- exp date -->
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <mat-form-field class="col padding0  datepicker " color='accent' appearance="outline">
+                                    <input matInput [matDatepicker]="iiiiiiiii" placeholder='Exp date' value="{{value|date:'MMMM dd, y'}}"
+                                    formControlName='expdate' [min]=" passportmin" >
+                                    <mat-datepicker-toggle matSuffix [for]="iiiiiiiii"></mat-datepicker-toggle>
+                                    <mat-datepicker #iiiiiiiii [startAt]="passportmin"></mat-datepicker>
+                                  </mat-form-field>
+                            </div>
+                            <!-- issued country -->
+                            <div class="col-12 col-md-6 col-lg-3">
+                                <mat-form-field class="col padding0 " color='accent' appearance="outline">
+                                    <input type="text" placeholder='issued country' aria-label="country" matInput formControlName="issuedcountry"
+                                      [matAutocomplete]="iiiiiii" #iiiiiiii>
+                                    <mat-autocomplete #iiiiiii="matAutocomplete">
+                                      <mat-option *ngFor="let country of countriescode|councode:iiiiiiii.value" [value]="country.countryName">
+                                        {{country.countryName}}
+                                      </mat-option>
+                                    </mat-autocomplete>
+                                  </mat-form-field>
+                            </div>
+                        </div>
+          
+                      </div>
+                        </div> 
+                   </ng-container> 
+                    
+                  </ng-container>
+                </ng-container>
+                <div>
+                    <button mat-button matStepperPrevious color="accent" class="NextButton" >{{"checkout.Back"|translate}}</button>
+                    
+                    <button mat-button matStepperNext  color="accent" class="NextButton" type="submit">{{"checkout.Next"|translate}} </button>
+                </div>
+              </form>
+            </div>
+         
+        </mat-step>
+        <mat-step *ngIf="insuranceStatus" [completed]='insurraceChoosed'>
+          <ng-template matStepLabel> <span class="Stepperlable">{{"checkout.Extras"|translate}} </span> </ng-template>
+          <app-insurance [insurance]='insurance' (insuranceUpdate)='insuranceUpdate($event)'></app-insurance>
+          <div>
+            <button mat-button matStepperPrevious color="accent" class="NextButton">{{"checkout.Back"|translate}}</button>
+            <button mat-button matStepperNext color="accent" class="NextButton" [disabled]="!insurraceChoosed" (click)="getPayment()">{{"checkout.Next"|translate}}</button>
+          </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel><span class="Stepperlable">{{"checkout.Payment"|translate}}</span> </ng-template>
+          <ng-container *ngIf="iframeLoader">
+              <div class="container ">
+                  <div class="row justify-content-center loadingcard">
+                      <div class="col text-center">
+                              <h1 class="Title animated infinite bounce delay-3s" style="color:#ffc107;"> {{"checkout.paymentloader"|translate}} </h1>
+                      </div>
+                      <div class="col-12 text-center">
+                          <img src="../../../assets/img/loading3.gif" alt="loading" height="128" width="128">
+                      </div>
+                  </div>
+              </div>
+            </ng-container>
+          <ng-container *ngIf="link != '' ">
+            <iframe name="myframe" [src]="mysafeurl" frameborder="0"  width="100%" style="min-height:100vh;" allowfullscreen='true' (load)='iframeloaded()' [ngClass]="{hideme:iframeLoader}">if</iframe>
+          </ng-container>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </div>
+</div>
+<ng-template #flightModel>
+  <div class="container">
+
+    <div class="row justify-content-around" style="min-height: fit-content">
+      <!-- prica sammuarry -->
+      <div class="FRcard priceCArd col-12 col-md-3 ">
+        <div class="row">
+          <div class="col-12 line">
+           <h5>{{"checkout.TripCostSummarry"|translate}}</h5>  
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-5">
+            <p> {{"checkout.Fare"|translate}} </p>
+          </div>
+          <div class="col-7" style="color:#ffc107;">
+           {{fare|exchange:'value'}} {{flight.airItineraryDTO.itinTotalFare.currencyCode|exchange:'code'}}
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-5">
+              <p> {{"checkout.Taxes"|translate}}</p>
+            </div>
+            <div class="col-7" style="color:#ffc107;">
+                {{taxes|exchange:'value'}} {{flight.airItineraryDTO.itinTotalFare.currencyCode|exchange:'code'}}
+            </div>
+        </div>
+        <div class="row total pb-3">
+            <div class="col-5 total">
+              <p>{{"checkout.Total"|translate}} </p> 
+            </div>
+            <div class="col-7 total " style="color:#ffc107;font-size: 15px;">
+            {{flight.airItineraryDTO.itinTotalFare.amount|exchange:'value'}} {{flight.airItineraryDTO.itinTotalFare.currencyCode|exchange:'code'}}
+            </div>
+        </div>
+           
+      </div>
+      <!-- start of flight review card -->
+      <div class="FRcard col-12 col-md-8">
+        <ng-container *ngFor="let flightitem of flight?.airItineraryDTO.allJourney.flights ;let c=index ">
+
+               <!-- flight distenations and logo -->
+              <div class="row justify-content-between">
+                  <div class="col-3">
+                      <img src="{{flightitem.flightDTO[0].flightAirline.airlineLogo}}" alt=" air line logo">
+                  </div>
+                  <div class="col-8 text-right modelDA">
+                      <p>{{flightitem .flightDTO[0].departureTerminalAirport.cityName}}
+                          ({{flightitem .flightDTO[0].departureTerminalAirport.airportCode}}) -
+                          {{ arrivalCity(flight.airItineraryDTO,c)}}
+                          ({{arrivalAircode(flight?.airItineraryDTO,c)}})
+                          </p>
+                  </div>
+               </div>
+
+               <div class="row">
+                  <!-- images of capins and planes -->
+                  <div class=" p-0 col-12 col-sm-6 rightpic">
+                    <img src="../../../assets/img/capin.jpg" alt=" capin" style="padding: 0px 15px 0 15px;width: 100%;">
+                  </div>
+                  <div class=" p-0 col-12 col-sm-6 leftpic">
+                    <img src="../../../assets/img/flight.jpg" alt="air plane" style="padding: 0px 15px 0 15px;
+                    width: 100%;
+                    max-height: 215.66px;">
+                  </div>
+                </div>
+
+      <!-- flights details -->
+
+      <div class="row info">
+          <div class=" col-md-6 col-lg-3 Departingin">
+            <h5> {{"SearchResult.Departing"|translate}}</h5>
+            <h6> {{flightitem .flightDTO[0].departureDate | date:'EEEE'}}<span> 
+                {{flightitem .flightDTO[0].departureDate | date:'d LLLL yyyy'}}</span></h6>
+          </div>
+          <div class=" col-md-12 col-lg-6">
+            <div class="row justify-content-center">
+              <h6 class="duration"> {{flightitem .elapsedTime| hourminute}}</h6>
+            </div>
+            <div class="row">
+              <div class="col-3 rightdis">
+                <p>{{flightitem .flightDTO[0].departureTerminalAirport.cityName}}<br>
+                  {{flightitem .flightDTO[0].departureDate | date:'shortTime'}}
+              </div>
+              <div class="col-6 ">
+                <div class="route">
+                    <img src="../../../assets/img/direct.png" *ngIf="flightitem.stopsNum == 0"  />                    
+                    <img src="../../../assets/img/oneS.png" *ngIf="flightitem.stopsNum == 1" />
+                    <img src="../../../assets/img/twoS.png" *ngIf="flightitem.stopsNum > 1" />
+                  <!-- <div class="point ml-auto firstPoint"></div>
+                  <div class="point stopPoint"></div>
+                  <hr style="
+                                    box-sizing: content-box;
+                                    height: 1px;
+                                    overflow: visible;
+                                    width: 90%;
+                                    border: 0.2px solid #00000042;
+                                    border-radius: 0px;
+                                    margin-left: 0px;
+                                    margin-right: 0px;">
+
+                  <div class="point mr-auto"></div> -->
+                </div>
+              </div>
+              <div class="col-3 leftdis">
+                <p>{{arrivalCity(flight.airItineraryDTO,c)}}<br>
+                  {{arrivalDate(flight.airItineraryDTO,c) | date:'shortTime'}}
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <h6 class="stopStation"> {{flightitem.stopsNum }} stop ({{stopsairport(c)}})</h6>
+            </div>
+          </div>
+          <div class=" col-md-6 col-lg-3 Departingin text-lg-right text-md-left">
+            <h5> Class: {{flight.airItineraryDTO.cabinClass}}</h5>
+            <h6> {{flightitem .flightDTO[0].flightInfo.equipmentNumber}}</h6>
+          </div>
+        </div>
+
+
+      <!-- more details -->
+      <div class="row moreDetails MoreDetBtn justify-content-between" *ngIf="c ==  flight?.airItineraryDTO.allJourney.flights.length -1 ">
+        <div class=" col-6 col-lg-5 " style="padding-right: 0px; padding-left: 0px">
+          <a [href]="farerules()" target="blank" type="button" class="btn btn-outline-primary cancelation">
+           {{"SearchResult.terms"|translate}}
+          </a>
+        </div>
+        <div class="col-5 col-lg-5 " style="padding-right: 0px; padding-left: 0px">
+          <button type="button" class="btn btn-outline-primary moreResult" (click)="isCollapsed = !isCollapsed"
+          [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+          <b *ngIf="isCollapsed"> {{"SearchResult.MoreDetails"|translate}}  <i class="fa fa-chevron-down fa-x"></i> </b>
+          <b *ngIf="!isCollapsed">  {{"checkout.LessDetails"|translate}} <i class="fa fa-chevron-up fa-x"></i> </b>
+            
+          </button>
+        </div>
+      </div>
+
+
+
+      
+
+        </ng-container>
+        <ng-container   *ngFor="let flightitem of flight?.airItineraryDTO.allJourney.flights ;let m=index">
+
+
+      <!-- show details -->
+
+
+      <div id="collapseExample" [ngbCollapse]="isCollapsed" class="moreinfo "  >
+          <div class="container">
+            <!--Start Row for Dept and price details-->
+            <!--second Row-->
+            <div class="row">
+                <div class="col">
+      
+                </div>
+            </div>
+            <!--Card Details-->
+            <div class="CardDet container p-0">
+                <div class="row ">
+                    
+                </div>
+                <div >
+                    <div class="row info m-0 p-2 mb-2">
+                        <ng-container
+                            *ngFor="let stop of showStopStation(flight.airItineraryDTO,m);let s =index  ">
+                            <div class="col-sm-12 col-md-9">
+                                <div class="row">
+                                    <div
+                                        class="DeptClass segmentDepart col-sm-12 col-md-4 justify-content-center rightpadding">
+                                        <p class="marg cityname">
+                                            {{stop.departureTerminalAirport.cityName}}
+                                            ({{stop.departureTerminalAirport.airportCode}})
+                                        </p>
+                                        <span class="marg small">
+                                            <small class="marg infodate">
+                                                <!-- departure date  -->
+                                                {{stop.departureDate | date:'dd MMM'}}
+                                                <!-- 15 April -->
+      
+                                            </small>
+                                            <small class="marg infotimeandHall">
+                                                {{stop.departureDate | date:'shortTime'}}
+                                                <!-- 6:50 -->
+                                            </small>
+      
+                                        </span>
+      
+                                        <!-- <small class="marg hall infotimeandHall"> -->
+                                        <!-- notworked -->
+                                        <!-- {{item[0].allJourney.flights[0].flightDTO[0].departureTerminalAirport.regionName}} -->
+                                        <!-- hall(2) -->
+                                        <!-- </small> -->
+                                    </div>
+                                    <div
+                                        class=" col-sm-12 col-md-4 justify-content-center">
+                                        <div class="route smallsegmant">
+                                            <div class="point ml-auto firstPoint"
+                                                style="left:0;"></div>
+                                            <hr
+                                                style="
+                                                                                    box-sizing: content-box;
+                                                                                    height: 1px;
+                                                                                    overflow: visible;
+                                                                                    width: 100%;
+                                                                                    border: 0.2px solid #00000042;
+                                                                                    border-radius: 0px;
+                                                                                    margin-left: 0px;
+                                                                                    margin-right: 0px;">
+      
+                                            <div class="point mr-auto"></div>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="LandClass segmentDepart col-md-4  justify-content-center leftpadding">
+                                        <p class="marg cityname">
+                                            <!-- notworked -->
+      
+                                            <!-- {{arrivalStopCity(item[0],0)}}  
+                                                                                     ({{arrivalStopAircode(item[0],0)}})   -->
+                                            {{stop.arrivalTerminalAirport.cityName}}
+                                            ({{stop.arrivalTerminalAirport.airportCode}})
+      
+                                            <!-- Jeddah (JED) -->
+                                        </p>
+                                        <span class="marg small">
+                                            <small class="marg infodate">
+                                                {{stop.arrivalDate |date :'dd MMM'}}
+      
+                                                <!-- {{arrivalStopDate(item[0],0) |date :'dd MMM' }}  -->
+      
+                                                <!-- 15 April -->
+                                            </small>
+                                            <small class="marg infotimeandHall">
+                                                {{stop.arrivalDate | date:'shortTime'}}
+      
+                                                <!-- {{arrivalStopDate(item[0],0) |date :'shortTime' }}  -->
+                                                <!-- 6:50 -->
+                                            </small>
+                                        </span>
+      
+                                        <!-- <small class="marg hall infotimeandHall">hall(2)</small> -->
+                                    </div>
+                                </div>
+      
+                            </div>
+                            <div class="col-sm-12 col-md-3 align-items-center"
+                                *ngIf="stop.isStopSegment">
+                                <p class="segmentStop textalignc cityname">
+                                    {{stop.arrivalTerminalAirport.airportName}}
+                                    <!-- {{arrivalStopAirPort(item[0],0) }} -->
+      
+                                </p>
+                                <p class="segmentstopTime textalignc">
+      
+                                    ({{stop.transitTime }} )
+                                    <!-- (5h 50m) -->
+                                </p>
+                            </div>
+                        </ng-container>
+      
+                    </div>
+               
+                 
+                </div>
+      
+      
+            </div>
+        </div>
+      
+        </div>
+        <!-- show details -->
+
+        </ng-container>
+
+        
+
+
+ 
+
+
+     
+      </div>
+    </div>
+
+  </div>
+
+
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header modaleT ">
+    <h4 class="modal-title modalheadder" id="modal-basic-title">Sorry ;(</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body modalebody">
+      your selected Flight is no longer exists
+  </div>
+  <div class="modal-footer modalfooter MoreDetBtn">
+    <button type="button" class="btn btn-outline-primary  moreResult " style="max-width:25%;" [routerLink]="['']">New search</button>
+  </div>
+</ng-template>
+<app-footer></app-footer>
