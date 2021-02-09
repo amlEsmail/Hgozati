@@ -1,0 +1,647 @@
+html
+{
+    direction: rtl;
+    
+}
+
+
+ul.navbar-nav{
+    text-align: right;
+     
+     }
+
+.mat-radio-label-content {
+
+    padding-left:0px !important;
+    padding-right: 8px !important;
+}
+.mat-radio-button ~ .mat-radio-button {
+ 
+    margin-right: 16px;
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 5px 5px 5px 5px;
+    border-left-style: solid;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start
+{
+    display: none;
+}
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap
+{
+    display: none;
+
+}
+
+.mat-checkbox-inner-container {
+    margin-left: 16px !important;
+    margin-right: 0 !important;
+}
+
+.SearchForm .mat-checkbox{
+    margin-left: 0 !important;
+    margin-top: 18px;
+    float: left;
+    margin-right: auto;
+}
+.SearchForm  .switch
+{
+   padding: 0;
+   margin-left: 0 !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label, .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label
+{
+    text-align: right;
+
+}
+.mat-form-field
+{
+    text-align: right;
+
+}
+
+.form-group
+{
+    text-align: right;
+}
+
+.searchbutton {
+ 
+    margin-left: 0  !important;
+    margin-right: auto ;
+}
+
+.SearchForm .dropdown-menu.show
+{
+    left: auto;
+    right: 0;
+
+}
+
+ul.Btns {
+    margin-left: 0;
+    margin-right: -42px;
+}
+
+
+.single_item .price
+{
+left: auto;
+right: 0;
+
+}
+.overlay-content .overlay-title,
+.overlay-content .overlay-desc
+{
+ text-align: right !important;
+padding-left: 0  !important;
+padding-right: 15px  !important;
+
+}
+
+
+
+
+/* search-result */
+.modelDAd {
+  
+    text-align: right !important;
+} 
+.resNo
+{
+
+}
+.sort-filter {
+    text-align: right;
+}
+
+.sort-filter .mat-button-wrapper img 
+{
+    padding-right: 0px !important;
+    padding-left:10px;
+}
+.text-right
+
+{
+text-align: left !important;
+
+}
+.ml-2
+{
+    margin-left: 0 !important;
+    margin-right: 8px !important;
+}
+
+.MoreDetBtn .moreResult {
+    float: left !important;
+    border-right: 1px solid !important;
+    border-left: 0px !important;
+}
+.multiDes .morResultbtn.moreResult{
+    width: 100% !important;
+    border-right: 1px solid !important;
+    border-left: 1px solid !important;
+}
+.MoreDetBtn .pr-0
+{
+padding-left: 0px;
+}
+
+.DetLanDetails
+{
+text-align: right;
+}
+.catagor .btn-link
+{
+    text-align:right;
+
+}
+.catagor .btn-link span
+{
+    float:left
+}
+
+.stopsForm
+{
+    text-align: right;
+}
+
+.card-body p
+{
+text-align: right;
+}
+
+/* modal */
+.modal-footer>:not(:last-child)
+{
+    margin-left: .25rem;
+}
+.modelDA
+
+{
+text-align: right;
+
+}
+
+.point.mr-auto,
+.point.ml-auto
+{
+margin-right: 0 !important;
+
+
+}
+.point.ml-auto.firstPoint
+{
+    left: 0;
+    right: 18px;
+    margin-left: 0 !important;
+}
+.stopPoint
+{
+    right: 45%;
+    left: 0;
+}
+.modalTitle h3
+{
+text-align: right !important;
+}
+
+.modal .smallsegmant hr{
+    margin-right: auto !important;
+}
+span.small small.bags
+{
+/* display: block !important; */
+}
+
+.mat-horizontal-stepper-header .mat-step-icon
+{
+    margin-left: 10px !important;
+    margin-right: 0 !important;
+}
+
+.DeptClass.segmentDepart,
+.LandClass.segmentDepart
+{
+   text-align:right;
+
+
+} 
+.priceCArd h5
+{
+    text-align: right;
+
+}
+
+/* checkout */
+.moreinfo .CardDet  .smallsegmant .point.ml-auto.firstPoint
+{
+   
+    right: 3px !important;
+ 
+}
+/* slider */
+.carousel
+{
+    direction :ltr;
+}
+.carousel .card
+{
+    direction:rtl;
+}
+.carousel .card .cardInfo
+{
+    text-align: right;
+}
+.carousel .card-footer
+{
+    text-align: right;
+}
+.noinsur
+{
+    padding-left: 0;
+    padding-right: 25px;
+    text-align: right;
+}
+
+
+/* round */
+.modalTitle h3.text-center {
+    text-align: right !important;
+}
+#footer h5
+{
+    border-right: 3px solid #eeeeee;
+    border-left: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 10px;
+}
+#footer {
+
+    text-align: right !important;
+}
+#footer ul.quick-links li:hover{
+	
+    margin-left:0px;
+    margin-right: 5px;
+
+
+}
+ul.quick-links
+{
+    padding-right: 0 !important;
+}
+
+
+/* confirmationPage */
+.priceCArd
+{
+    direction: rtl;
+    text-align: right;
+
+}
+
+.confirm-direction
+{
+direction: rtl !important;
+text-align: right  !important;
+
+}
+.ml-auto{
+    margin-left: 0 !important;
+    margin-right: auto;
+}
+.confirm-direction .moreinfo{
+    margin-left: 0 !important;
+    margin-right: auto;  
+}
+
+/* hotel styles-ar  */
+.Search ul.Btns
+{
+    padding: 0;
+}
+
+.pl-1 {
+    padding-right: .25rem!important;
+    padding-left:0!important;
+}
+.filter-sort
+{
+text-align: right;
+}
+.hotel-search .mat-form-field-appearance-outline .mat-form-field-flex
+{
+    padding: 0 5px;
+}
+
+.hotel-search .mat-form-field
+{
+    text-align: right;
+}
+
+.pr-0{
+    padding-left: 0!important;
+    padding-right:15px !important;
+}
+.filterCard
+{
+    text-align: right;
+}
+
+ul.stars-filter .yellow, ul.stars-filter .grey
+{
+    float: left;
+}
+.border-title-right:before
+{
+    left: auto !important;
+    right: 0 !important;
+}
+.Hotel-title
+{
+    text-align: right;
+}
+.mat-accent .mat-input-element
+{
+    /* padding: 5px; */
+}
+.detailsLink
+{
+    display: block;
+    text-align: right;
+}
+.hotelcontent,
+.features-title,
+.hotel-features li,
+.hotel-overview,
+.hotel-selected a.buttonLink,
+.hotel-selected,
+.hotel-basic-info
+{
+    text-align: right;
+}
+a.buttonLink i
+{
+    float: left !important;
+}
+a.cancelLink
+{
+    text-align: left !important;
+    font-family: 'DIN_Regular';
+}
+.closeBtn
+{
+    right: auto !important;
+    left:0;
+}
+.hotel-search .mat-form-field-appearance-outline .mat-form-field-prefix,
+.hotel-search .mat-form-field-appearance-outline .mat-form-field-suffix
+{
+/* top: 0; */
+}
+
+.hotelReview .FRcard,
+.hotelGuest .FRcard,
+.room-form-field .roomTitle,
+.room-list,
+.hotelthumbRow
+{
+    text-align: right;
+
+}
+
+.room-form-field{
+    direction: ltr;
+
+}
+.room-form-field .mat-form-field
+{
+text-align: left;
+}
+.card-text .label, .price-total .label
+{
+    float: right !important;
+
+}
+.card-text .rmprice, .price-total .total
+{
+    float: left !important;
+}
+.NextButton {
+    float: left !important;
+}
+.info-box ul
+{
+padding-right: 0;
+}
+.booking-number-item span.label
+{
+    float: right !important;
+}
+.booking-number-item span.label
+{
+    float: right !important;
+}
+.booking-number-item .number
+{
+    float: left !important;
+}
+.book-item .roomName
+{
+    float: right;
+
+}
+.book-item .gust-no
+{
+    float: left;
+}
+.guest-info
+{
+text-align: right;
+}
+.alert-warning
+{
+    text-align: right;
+}
+
+
+@media (min-width: 1200px)
+{
+    .room-list li p{
+        float: right !important;
+    }
+    .room-list .cancelLink
+    {
+        float: left !important;
+
+    }
+}
+
+@media (min-width: 992px)
+{
+    .offset-lg-3 {
+        margin-right: 25%;
+        margin-left: 0;
+    }
+}
+
+
+
+
+
+/* responsive media  */
+@media(max-width:480px)
+{
+    .smallsegmant  .point.ml-auto.firstPoint
+    {
+        right: 4px;
+    }
+}
+
+
+@media(max-width:767px)
+{
+    .col-md-4.leftpadding,
+    .col-md-4.rightpadding,
+    .segmentDepart
+    {
+        width: 100%;
+    }
+    .smallsegmant
+    {
+        -webkit-transform: translateX(0px)translatey(-7px)rotate(90deg) !important;
+        transform: translateX(0px)translatey(-7px)rotate(90deg) !important;
+        width: 130px;
+        float: left;
+    }
+
+    .ArtDetails .DeptClass,
+    .ArtDetails .LandClass
+    {
+     text-align: right !important;
+
+    }
+
+ .alignmetar{
+     position: relative;
+     left: 50px;
+ }
+ .araligment {
+    text-align: right;
+}
+
+}
+@media (min-width: 992px)
+{
+.navbar-nav {
+    float: left !important;
+}
+.text-lg-right {
+    text-align: left!important;
+}
+.Departingin
+{
+    text-align: right;
+}
+.araligment {
+    text-align: right;
+}
+}
+
+
+@media (max-width: 570px)
+{
+    .araligment {
+        text-align: left;
+    }
+    .routeSegment {
+        -webkit-transform: translateX(0px)translatey(0px)rotate(90deg) !important;
+        transform: translateX(0)translatey(0px)rotate(90deg) !important;
+        float: left;
+    }
+
+}
+/* responsive media  */
+@media(max-width:480px)
+{
+    .smallsegmant  .point.ml-auto.firstPoint
+    {
+        right: 4px;
+    }
+
+    .smallsegmant
+    {
+        -webkit-transform: translateX(12px)translatey(-7px)rotate(90deg) !important;
+        transform: translateX(12px)translatey(-7px)rotate(90deg) !important;
+        float: left;
+        width: 130px;
+    }
+    .alignmetar{
+        position: relative;
+        left: 60px;
+    }
+   
+}
+
+
+/* new edits for bugs */
+
+
+/* edit placeholder */
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+ .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label
+ {
+
+    transform:translateY(-1.19375em) translateX(1.00625em) scale(0.75);
+    width: 100%;
+ }
+
+ mat-label.ng-star-inserted {
+    background: #fff;
+    padding: 0 6px;
+ }
+
+.guestRow h4.roomNo{
+     text-align:right;
+ }
+
+
+ .mat-form-field-type-mat-native-select .mat-form-field-infix::after
+ {
+   left: 0;
+   right: auto !important;
+
+     
+ }
+
+ /* edit input */
+ .mat-accent .mat-input-element
+ {
+     min-height: 20px;
+ }
+
+
+ /* placeholder of select sort hotels */
+
+ .mat-select-placeholder
+ {
+     /* font-size: 14px;; */
+ }
+
+ .list-filter-item b
+ {
+     font-family: 'DIN_Regular';
+ }
+
+
+ /* edit arabic confirm hotels */
+ .confirmation-container .info-box.guest-info{
+    direction: ltr;
+    text-align: left;
+    }
